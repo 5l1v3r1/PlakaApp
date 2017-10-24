@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">PlakaApp</string>
+    <string name="user_name">Kullanıcı Adı</string>
+    <string name="e_mail">E - Mail</string>
+    <string name="parola">Parola</string>
+    <string name="giris_yap">Giriş Yap</string>
+    <string name="sifremi_unuttum">Şifremi Unuttum</string>
+    <string name="misafir_girisi">Misafir Girişi</string>
+    <string name="kayit_ol">Kayıt Ol</string>
 </resources>

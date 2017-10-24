@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bigbackground"
+    android:paddingLeft="30dp"
+    android:paddingRight="30dp"
+    tools:context="plakaapp.plakaapp.MainActivity">
+
+
+    <LinearLayout
+        android:layout_width="308dp"
+        android:layout_height="551dp"
+        android:paddingTop="150dp"
+        android:orientation="vertical"
+        tools:layout_editor_absoluteY="8dp"
+        tools:layout_editor_absoluteX="8dp">
+
+
+        <TextView
+            android:id="@+id/Logo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:textColor="#003748"
+            android:text="@string/app_name"
+            android:layout_marginBottom="30dp"
+            android:textSize="50sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/email"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:ems="10"
+            android:drawablePadding="10dp"
+            android:drawableLeft="@drawable/ic_mail_outline_black_24dp"
+            android:background="@drawable/et_rounded_corner"
+            android:inputType="textEmailAddress"
+            android:paddingLeft="20dp"
+            android:layout_marginBottom="5dp"
+            android:hint="@string/e_mail"
+            tools:ignore="RtlHardcoded,RtlSymmetry,TextFields" />
+
+        <EditText
+            android:id="@+id/password"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:ems="10"
+            android:drawablePadding="10dp"
+            android:drawableLeft="@drawable/ic_lock_outline_black_24dp"
+            android:background="@drawable/et_rounded_corner"
+            android:paddingLeft="20dp"
+            android:inputType="textPassword"
+            android:layout_marginBottom="15dp"
+            android:hint="@string/parola"
+            tools:ignore="RtlHardcoded,RtlSymmetry,TextFields" />
+
+        <Button
+            android:id="@+id/giris_yap"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/btn_rounded_corner"
+            android:textColor="#ffffff"
+            android:text="@string/giris_yap" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="5dp"
+            android:paddingLeft="20dp"
+            android:orientation="horizontal"
+            tools:ignore="RtlHardcoded,RtlSymmetry">
+
+
+            <Button
+                android:id="@+id/sifremi_unuttum"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:background="@android:color/transparent"
+                android:textColor="#ffffff"
+                android:text="@string/sifremi_unuttum" />
+
+            <TextView
+                android:id="@+id/dik_cizgi"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:textAlignment="center"
+                android:textSize="20sp"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:textColor="#ffffff"
+                android:text="|"
+                tools:ignore="HardcodedText" />
+
+            <Button
+                android:id="@+id/misafir_girisi"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:background="@android:color/transparent"
+                android:textColor="#ffffff"
+                android:text="@string/misafir_girisi" />
+
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/kayit_ol"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:background="@android:color/transparent"
+            android:textColor="#ffffff"
+            android:paddingLeft="30dp"
+            android:text="@string/kayit_ol" />
+
+
+    </LinearLayout>
+</android.support.constraint.ConstraintLayout>

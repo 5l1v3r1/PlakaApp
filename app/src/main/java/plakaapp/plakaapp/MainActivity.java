@@ -16,6 +16,9 @@ public class MainActivity extends AppCompatActivity {
         TextView Logo = (TextView) findViewById(R.id.Logo);
         Typeface typeface = Typeface.createFromAsset(getAssets(), "fonts/daysoneregular.ttf");
         Logo.setTypeface(typeface);
+
+
+
         //Logoya yazı fontu eklendi
     }
 }

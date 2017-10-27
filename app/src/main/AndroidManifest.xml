@@ -24,6 +24,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".tab_uyeler"></activity>
+        <activity android:name=".tab_sorular"></activity>
     </application>
 
 </manifest>

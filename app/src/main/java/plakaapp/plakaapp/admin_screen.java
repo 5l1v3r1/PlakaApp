@@ -24,10 +24,10 @@ public class admin_screen extends TabActivity{
         TabSpec tab1 = tabh.newTabSpec("tab menü 1. seçenek");
         TabSpec tab2 = tabh.newTabSpec("tab menü 2. seçenek");
 
-        tab1.setIndicator("1.sekme");
+        tab1.setIndicator("Üyeler");
         tab1.setContent(new Intent(this,tab_uyeler.class));
-        tab2.setIndicator("2.sekme");
-        tab2.setContent(new Intent(this,tab_uyeler.class));
+        tab2.setIndicator("Sorular");
+        tab2.setContent(new Intent(this,tab_sorular.class));
         tabh.addTab(tab1); tabh.addTab(tab2);
     }
 }

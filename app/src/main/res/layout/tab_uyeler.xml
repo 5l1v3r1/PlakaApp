@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:weightSum="1">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="155dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_weight="0.97">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -13,21 +15,37 @@
             android:layout_weight=".50"
             android:orientation="vertical">
 
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Kullanıcı Adı:" />
+
             <EditText
                 android:id="@+id/editText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:inputType="textPersonName"
-                android:text="Kullanıcı Adı" />
+                android:inputType="textPersonName" />
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="E-Posta:" />
 
             <EditText
                 android:id="@+id/editText2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:inputType="textPersonName"
-                android:text="Mail" />
+                android:inputType="textPersonName" />
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Güvenlik Sorusu:" />
 
             <Spinner
                 android:id="@+id/spinner"
@@ -42,12 +60,24 @@
             android:layout_weight=".50"
             android:orientation="vertical">
 
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Şifre:" />
+
             <EditText
                 android:id="@+id/editText3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:inputType="textPassword" />
+
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Rep:" />
 
             <EditText
                 android:id="@+id/editText4"
@@ -56,20 +86,26 @@
                 android:ems="10"
                 android:inputType="numberSigned" />
 
+            <TextView
+                android:id="@+id/textView6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Cevabı:" />
+
             <EditText
                 android:id="@+id/editText5"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:inputType="textPersonName"
-                android:text="Cevap" />
+                android:inputType="textPersonName" />
         </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="369dp"
-        android:orientation="horizontal">
+        android:layout_height="321dp"
+        android:orientation="horizontal"
+        android:layout_weight="0.04">
 
         <ListView
             android:layout_width="243dp"

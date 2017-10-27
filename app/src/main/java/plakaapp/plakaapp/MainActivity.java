@@ -26,13 +26,12 @@ public class MainActivity extends AppCompatActivity {
 
     public void checkLogin(View v)
     {
-        if(false) {
-
-            Toast.makeText(getApplicationContext(), "The text you want to display", Toast.LENGTH_LONG);
-        }
-        else{
+        if(true) {
             Intent intent = new Intent(this, admin_screen.class);
             startActivity(intent);
+        }
+        else{
+            Toast.makeText(getApplicationContext(), "Hatali Giris Yazisi", Toast.LENGTH_LONG).show();
         }
     }
 

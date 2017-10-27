@@ -4,6 +4,7 @@
     android:layout_height="match_parent">
 
     <TabHost
+        android:id="@android:id/tabhost"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -22,142 +23,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <LinearLayout
-                    android:id="@+id/uyeler"
-                    android:tag="tab1"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:weightSum="1">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="369dp"
-                        android:orientation="horizontal">
-
-                        <ListView
-                            android:layout_width="243dp"
-                            android:layout_height="match_parent" />
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_weight=".30"
-                            android:orientation="vertical">
-
-                            <Button
-                                android:id="@+id/bt_ekle"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_weight=".30"
-                                android:text="Ekle" />
-
-                            <Button
-                                android:id="@+id/bt_guncelle"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_weight=".30"
-                                android:text="Güncelle" />
-
-                            <Button
-                                android:id="@+id/bt_sil"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_weight=".30"
-                                android:text="Sil" />
-
-                            <CheckBox
-                                android:id="@+id/chb_admin"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_weight=".30"
-                                android:text="Admin?" />
-
-                        </LinearLayout>
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="horizontal">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_weight=".50"
-                            android:orientation="vertical">
-
-                            <EditText
-                                android:id="@+id/editText"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:ems="10"
-                                android:inputType="textPersonName"
-                                android:text="Kullanıcı Adı" />
-
-                            <EditText
-                                android:id="@+id/editText2"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:ems="10"
-                                android:inputType="textPersonName"
-                                android:text="Mail" />
-
-                            <Spinner
-                                android:id="@+id/spinner"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content" />
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_weight=".50"
-                            android:orientation="vertical">
-
-                            <EditText
-                                android:id="@+id/editText3"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:ems="10"
-                                android:inputType="textPassword" />
-
-                            <EditText
-                                android:id="@+id/editText4"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:ems="10"
-                                android:inputType="numberSigned" />
-
-                            <EditText
-                                android:id="@+id/editText5"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:ems="10"
-                                android:inputType="textPersonName"
-                                android:text="Cevap" />
-                        </LinearLayout>
-                    </LinearLayout>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/tab2"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/tab3"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
-
-                </LinearLayout>
             </FrameLayout>
+
         </LinearLayout>
     </TabHost>
 </LinearLayout>

@@ -21,13 +21,29 @@ public class admin_screen extends TabActivity{
 
         TabHost tabh = (TabHost)findViewById(android.R.id.tabhost);
 
-        TabSpec tab1 = tabh.newTabSpec("tab menü 1. seçenek");
-        TabSpec tab2 = tabh.newTabSpec("tab menü 2. seçenek");
-
-        tab1.setIndicator("Üyeler");
+        TabSpec tab1 = tabh.newTabSpec("tab menü üyeler");
+        tab1.setIndicator("Üye");
         tab1.setContent(new Intent(this,tab_uyeler.class));
-        tab2.setIndicator("Sorular");
+        tabh.addTab(tab1);
+
+        TabSpec tab2 = tabh.newTabSpec("tab menü sorular");
+        tab2.setIndicator("Soru");
         tab2.setContent(new Intent(this,tab_sorular.class));
-        tabh.addTab(tab1); tabh.addTab(tab2);
+        tabh.addTab(tab2);
+
+        TabSpec tab3 = tabh.newTabSpec("tab menü sorular");
+        tab3.setIndicator("Plaka");
+        tab3.setContent(new Intent(this,tab_plakalar.class));
+        tabh.addTab(tab3);
+
+        TabSpec tab4 = tabh.newTabSpec("tab menü sorular");
+        tab4.setIndicator("Cins");
+        tab4.setContent(new Intent(this,tab_cinsler.class));
+        tabh.addTab(tab4);
+
+        TabSpec tab5 = tabh.newTabSpec("tab menü sorular");
+        tab5.setIndicator("Tür");
+        tab5.setContent(new Intent(this,tab_turler.class));
+        tabh.addTab(tab5);
     }
 }

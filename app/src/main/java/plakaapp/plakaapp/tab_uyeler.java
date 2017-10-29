@@ -2,12 +2,15 @@ package plakaapp.plakaapp;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -35,8 +38,18 @@ public class tab_uyeler extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.tab_uyeler);
 
-        ListeDoldur();
-        ButtonListenEvent();
+
+
+        final TextView idsi = (TextView) findViewById(R.id.tv_uyeler_kuladi);
+        //Admin bilgileri
+        Intent inte = getIntent();
+        String id = inte.getStringExtra("IDD"); //admin idsi
+        idsi.setText("Admin id = " + id);
+        idsi.setText("Admin id = " + id);
+
+
+        //ListeDoldur();
+        //ButtonListenEvent();
     }
 
     private HashMap<String, String> createEmployee(String name, String number){

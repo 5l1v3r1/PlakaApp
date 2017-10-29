@@ -6,6 +6,8 @@ package plakaapp.plakaapp;
 
 public class Config {
 
-    public static final String BASE_URL = "https://plakaapp.cf:3000";
+    public static final String BASE_URL = "http://plakaapp.cf:3000";
     public static final String KLISTELE_URL = BASE_URL + "/Klistele";
+    public static final String GIRIS_URL = BASE_URL + "/Kgiris";
+
 }

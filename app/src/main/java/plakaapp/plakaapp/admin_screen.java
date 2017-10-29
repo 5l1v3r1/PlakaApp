@@ -19,11 +19,15 @@ public class admin_screen extends TabActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.admin_screen_activity);
 
+
+        Intent intent = getIntent();
+        String adminid = intent.getStringExtra("ID"); //admin idsi
+
         TabHost tabh = (TabHost)findViewById(android.R.id.tabhost);
 
         TabSpec tab1 = tabh.newTabSpec("tab menü üyeler");
         tab1.setIndicator("Üyeler");
-        tab1.setContent(new Intent(this,tab_uyeler.class));
+        tab1.setContent(new Intent(admin_screen.this,tab_uyeler.class).putExtra("IDD",adminid));
         tabh.addTab(tab1);
 
         TabSpec tab2 = tabh.newTabSpec("tab menü sorular");

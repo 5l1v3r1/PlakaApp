@@ -21,7 +21,7 @@
                 android:text="Kullanıcı Adı:" />
 
             <EditText
-                android:id="@+id/editText"
+                android:id="@+id/k_adi"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
@@ -34,7 +34,7 @@
                 android:text="E-Posta:" />
 
             <EditText
-                android:id="@+id/editText2"
+                android:id="@+id/eposta"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
@@ -47,7 +47,7 @@
                 android:text="Güvenlik Sorusu:" />
 
             <Spinner
-                android:id="@+id/spinner"
+                android:id="@+id/soru"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
@@ -66,7 +66,7 @@
                 android:text="Şifre:" />
 
             <EditText
-                android:id="@+id/editText3"
+                android:id="@+id/sifre"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
@@ -79,7 +79,7 @@
                 android:text="Rep:" />
 
             <EditText
-                android:id="@+id/editText4"
+                android:id="@+id/rep"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
@@ -92,7 +92,7 @@
                 android:text="Cevabı:" />
 
             <EditText
-                android:id="@+id/editText5"
+                android:id="@+id/cevap"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"

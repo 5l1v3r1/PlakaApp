@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
                     //deger değişkenimizde Api' dan gelen JSON değerimiz var
 
                     JSONObject jsonResponse = new JSONObject(deger);
-                    JSONObject jsonResponseMessage = jsonResponse.getJSONObject("kullanici");
+                    JSONObject jsonResponseMessage = jsonResponse.getJSONObject("message");
                     String durum = jsonResponseMessage.getString("durum");
                     //System.out.println(durum);
 

@@ -7,10 +7,12 @@ import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,50 +29,72 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutionException;
 
 /**
  * Created by Simulakra on 27.10.2017.
  */
 
 public class tab_uyeler extends Activity {
-    public String[] uyeler;
+    public JSONArray uyeler, sorular;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.tab_uyeler);
 
+        SorularSpinnerDoldur();
         ListeDoldur();
         ButtonListenEvent();
     }
 
-    private HashMap<String, String> createEmployee(String name, String number){
+    private void SorularSpinnerDoldur() {
+        try {
+            sorular=new JSONArray(new JSONtask().execute(Config.SORULISTELE).get());
+            Spinner soruListe = (Spinner) findViewById(R.id.soru);
+            List<String> result = new ArrayList<String>();
+
+            for (int i = 0; i < sorular.length(); i++) {
+                JSONObject jsonSoru = sorular.getJSONObject(i);
+
+                String soruMetni=jsonSoru.getJSONObject("message").getString("SoruMetin");
+                result.add(soruMetni);
+            }
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(tab_uyeler.this, android.R.layout.simple_spinner_item, result);
+            soruListe.setAdapter(adapter);
+
+        } catch (Exception e) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(tab_uyeler.this);
+            builder.setMessage(e.getMessage())
+                    .setNegativeButton("Tamam", null)
+                    .create()
+                    .show();
+        }
+
+    }
+
+    private HashMap<String, String> createListItem(String name, String number){
         HashMap<String, String> employeeNameNo = new HashMap<String, String>();
         employeeNameNo.put(name, number);
         return employeeNameNo;
     }
 
-    public JSONObject jsonVeri;
     private void ListeDoldur() {
         ListView listemiz = (ListView) findViewById(R.id.ListView);
 
-        String strURL = Config.KLISTELE_URL;
-        String deger = null;
         try{
-            deger = new JSONtask().execute(strURL).get();
+            uyeler=new JSONArray(new JSONtask().execute(Config.KLISTELE_URL).get());
 
-            //JSONObject jsonResponse = new JSONObject(deger);
-            JSONArray jsonMainNode=new JSONArray(deger);
-            //JSONArray jsonMainNode = jsonResponse.optJSONArray("user");
-            List<Map<String, String>> employeeList = new ArrayList<Map<String, String>>();
-            for (int i = 0; i < jsonMainNode.length(); i++) {
-                JSONObject jsonChildNode = jsonMainNode.getJSONObject(i);
+            List<Map<String, String>> itemList = new ArrayList<Map<String, String>>();
+            for (int i = 0; i < uyeler.length(); i++) {
+                JSONObject jsonChildNode = uyeler.getJSONObject(i);
 
-                String name = jsonChildNode.getJSONObject("user").getString("ID");
-                String number = jsonChildNode.getJSONObject("user").getString("K_Adi");
+                String name = jsonChildNode.getJSONObject("message").getString("ID");
+                String number = jsonChildNode.getJSONObject("message").getString("K_Adi");
                 String outPut = name + "-" + number;
-                employeeList.add(createEmployee("Üyeler", outPut));
+                itemList.add(createListItem("Üyeler", outPut));
             }
-            SimpleAdapter simpleAdapter = new SimpleAdapter(tab_uyeler.this, employeeList, android.R.layout.simple_list_item_1, new String[]{"Üyeler"}, new int[]{android.R.id.text1});
+            SimpleAdapter simpleAdapter = new SimpleAdapter(tab_uyeler.this, itemList, android.R.layout.simple_list_item_1, new String[]{"Üyeler"}, new int[]{android.R.id.text1});
             listemiz.setAdapter(simpleAdapter);
 
         }catch (Exception e){
@@ -86,7 +110,24 @@ public class tab_uyeler extends Activity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position,
                                     long id) {
-                //// TODO: 28.10.2017 liste itemine basinca o itemdeki elemani textbox'lara çek
+            //// TODO: 28.10.2017 liste itemine basinca o itemdeki elemani textbox'lara çek
+            try {
+                JSONObject jsonChildNode = uyeler.getJSONObject(position);
+                EditText k_adi = (EditText) findViewById(R.id.k_adi);
+                EditText sifre = (EditText) findViewById(R.id.sifre);
+                EditText eposta = (EditText) findViewById(R.id.eposta);
+                EditText rep = (EditText) findViewById(R.id.rep);
+                Spinner soruListe = (Spinner) findViewById(R.id.soru);
+                EditText cevap = (EditText) findViewById(R.id.cevap);
+
+
+            } catch (Exception e) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(tab_uyeler.this);
+                builder.setMessage(e.getMessage())
+                        .setNegativeButton("Tamam", null)
+                        .create()
+                        .show();
+            }
             }
         });
     }

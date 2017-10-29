@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -38,18 +39,8 @@ public class tab_uyeler extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.tab_uyeler);
 
-
-
-        final TextView idsi = (TextView) findViewById(R.id.tv_uyeler_kuladi);
-        //Admin bilgileri
-        Intent inte = getIntent();
-        String id = inte.getStringExtra("IDD"); //admin idsi
-        idsi.setText("Admin id = " + id);
-        idsi.setText("Admin id = " + id);
-
-
-        //ListeDoldur();
-        //ButtonListenEvent();
+        ListeDoldur();
+        ButtonListenEvent();
     }
 
     private HashMap<String, String> createEmployee(String name, String number){
@@ -60,51 +51,44 @@ public class tab_uyeler extends Activity {
 
     public JSONObject jsonVeri;
     private void ListeDoldur() {
-        JsonObjectRequest job=new JsonObjectRequest(Request.Method.POST, Config.KLISTELE_URL, null,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        ProgressDialog progressDialog= ProgressDialog.show(tab_uyeler.this, "Okuma İşlemi",
-                                "İşleniyor. Lütfen bekleyiniz...", true);
-                        ListView listemiz = (ListView) findViewById(R.id.ListView);
-                        jsonVeri=response;
-                        try {
-                            //JSONObject jsonResponse = new JSONObject(jsonString);
-                            JSONObject jsonResponse = jsonVeri;
-                            JSONArray jsonMainNode = jsonResponse.optJSONArray("user");
-                            List<Map<String, String>> employeeList = new ArrayList<Map<String, String>>();
-                            for(int i = 0; i<jsonMainNode.length();i++){
-                                JSONObject jsonChildNode = jsonMainNode.getJSONObject(i);
-                                String name = jsonChildNode.optString("ID");
-                                String number = jsonChildNode.optString("K_Adi");
-                                String outPut = name + "-" +number;
-                                employeeList.add(createEmployee("Üyeler", outPut));
-                            }
-                            SimpleAdapter simpleAdapter = new SimpleAdapter(tab_uyeler.this, employeeList, android.R.layout.simple_list_item_1, new String[] {"Üyeler"}, new int[] {android.R.id.text1});
-                            listemiz.setAdapter(simpleAdapter);
-                        }
-                        catch(JSONException e) {
-                            Toast.makeText(getApplicationContext(), "Error" + e.toString(), Toast.LENGTH_SHORT).show();
-                        }
+        ListView listemiz = (ListView) findViewById(R.id.ListView);
 
-                        listemiz.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        String strURL = Config.KLISTELE_URL;
+        String deger = null;
+        try{
+            deger = new JSONtask().execute(strURL).get();
 
-                            @Override
-                            public void onItemClick(AdapterView<?> parent, View view, int position,
-                                                    long id) {
-                                //// TODO: 28.10.2017 liste itemine basinca o itemdeki elemani textbox'lara çek
-                            }
-                        });
-                        progressDialog.dismiss();
-                    }
-                }, new Response.ErrorListener() {
+            //JSONObject jsonResponse = new JSONObject(deger);
+            JSONArray jsonMainNode=new JSONArray(deger);
+            //JSONArray jsonMainNode = jsonResponse.optJSONArray("user");
+            List<Map<String, String>> employeeList = new ArrayList<Map<String, String>>();
+            for (int i = 0; i < jsonMainNode.length(); i++) {
+                JSONObject jsonChildNode = jsonMainNode.getJSONObject(i);
+
+                String name = jsonChildNode.getJSONObject("user").getString("ID");
+                String number = jsonChildNode.getJSONObject("user").getString("K_Adi");
+                String outPut = name + "-" + number;
+                employeeList.add(createEmployee("Üyeler", outPut));
+            }
+            SimpleAdapter simpleAdapter = new SimpleAdapter(tab_uyeler.this, employeeList, android.R.layout.simple_list_item_1, new String[]{"Üyeler"}, new int[]{android.R.id.text1});
+            listemiz.setAdapter(simpleAdapter);
+
+        }catch (Exception e){
+            AlertDialog.Builder builder = new AlertDialog.Builder(tab_uyeler.this);
+            builder.setMessage(e.getMessage())
+                    .setNegativeButton("Tamam", null)
+                    .create()
+                    .show();
+        }
+
+        listemiz.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
             @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getApplicationContext(), "Error (Ters giden bişey var)", Toast.LENGTH_SHORT).show();
-                error.printStackTrace();
+            public void onItemClick(AdapterView<?> parent, View view, int position,
+                                    long id) {
+                //// TODO: 28.10.2017 liste itemine basinca o itemdeki elemani textbox'lara çek
             }
         });
-        KListele_Request.getInstance(tab_uyeler.this).addToRequestque(job);
     }
 
     private void ButtonListenEvent()

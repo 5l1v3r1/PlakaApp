@@ -21,8 +21,6 @@ import java.net.URL;
 public class MainActivity extends AppCompatActivity {
 
 
-    String value = "";
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,7 +72,6 @@ public class MainActivity extends AppCompatActivity {
                             String KulAdi = jsonResponseMessage.getString("adi");//Admin adını adlık
                             String id = jsonResponseMessage.getString("id");//ID bilgisini aldık
                             Intent intent = new Intent(MainActivity.this, admin_screen.class);
-                            intent.putExtra("K_Adi",KulAdi);
                             intent.putExtra("ID",id);
                             MainActivity.this.startActivity(intent);
                         }
@@ -134,35 +131,5 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
-
-
-    // url yi gönderip json değerini alıyoruz.
-    public class JSONtask extends AsyncTask<String, String, String> {
-
-        @Override
-        protected String doInBackground(String... params){
-            try {
-
-                URL url = new URL(params[0]);
-                HttpURLConnection con = (HttpURLConnection) url.openConnection();
-                con.setRequestMethod("GET");
-                con.connect();
-
-                BufferedReader bf = new BufferedReader(new InputStreamReader(con.getInputStream()));
-                value = bf.readLine();
-
-            }catch (Exception ex){
-                System.out.println(ex);
-            }
-            return value;
-        }
-
-        @Override
-        protected void onPostExecute(String s){
-            super.onPostExecute(s);
-        }
-
-    }
-
 }
 

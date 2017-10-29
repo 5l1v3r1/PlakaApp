@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
@@ -112,13 +113,34 @@ public class tab_uyeler extends Activity {
                                     long id) {
             //// TODO: 28.10.2017 liste itemine basinca o itemdeki elemani textbox'lara çek
             try {
-                JSONObject jsonChildNode = uyeler.getJSONObject(position);
+                JSONObject jsonChildNode = uyeler.getJSONObject(position).getJSONObject("message");
                 EditText k_adi = (EditText) findViewById(R.id.k_adi);
                 EditText sifre = (EditText) findViewById(R.id.sifre);
                 EditText eposta = (EditText) findViewById(R.id.eposta);
                 EditText rep = (EditText) findViewById(R.id.rep);
                 Spinner soruListe = (Spinner) findViewById(R.id.soru);
                 EditText cevap = (EditText) findViewById(R.id.cevap);
+                CheckBox chb_admin = (CheckBox) findViewById(R.id.chb_admin);
+
+                k_adi.setText(jsonChildNode.getString("K_Adi"));
+                sifre.setText("");
+                eposta.setText(jsonChildNode.getString("K_Mail"));
+                rep.setText(jsonChildNode.getString("K_Rep"));
+                cevap.setText(jsonChildNode.getString("K_Cevap"));
+                if(jsonChildNode.getString("Admin")=="1") chb_admin.setChecked(true);
+                else chb_admin.setChecked(false);
+
+                String soru=jsonChildNode.getString("K_Soru");
+                for (int jj=0;jj<sorular.length();jj++)
+                {
+                    JSONObject jsonSoru = sorular.getJSONObject(jj);
+
+                    String soruID=jsonSoru.getJSONObject("message").getString("ID");
+                    if(soruID==soru) {
+                        setSpinnerSelect(soruListe, jsonSoru.getJSONObject("message").getString("SoruMetin"));
+                        break;
+                    }
+                }
 
 
             } catch (Exception e) {
@@ -130,6 +152,18 @@ public class tab_uyeler extends Activity {
             }
             }
         });
+    }
+
+    private void setSpinnerSelect(Spinner spinner, String myString){
+
+        int index = 0;
+
+        for (int i=0;i<spinner.getCount();i++){
+            if (spinner.getItemAtPosition(i).equals(myString)){
+                index = i;
+            }
+        }
+        spinner.setSelection(index);
     }
 
     private void ButtonListenEvent()

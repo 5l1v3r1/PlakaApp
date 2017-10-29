@@ -19,51 +19,28 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".admin_screen"
-            android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-
         <activity android:name=".HomeScreen"
-            android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-
+            android:screenOrientation="portrait"></activity>
         <activity android:name=".SunuttumScreen"
-            android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-
+            android:screenOrientation="portrait"></activity>
         <activity android:name=".MisafirScreen"
-            android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-
+            android:screenOrientation="portrait"></activity>
         <activity android:name=".RegisterScreen"
-            android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:screenOrientation="portrait"></activity>
 
-        <activity android:name=".tab_uyeler"></activity>
-        <activity android:name=".tab_sorular"></activity>
-        <activity android:name=".tab_plakalar"></activity>
-        <activity android:name=".tab_cinsler"></activity>
-        <activity android:name=".tab_turler"></activity>
+        <activity android:name=".admin_screen"
+            android:screenOrientation="portrait"></activity>
+
+        <activity android:name=".tab_uyeler"
+            android:screenOrientation="portrait"></activity>
+        <activity android:name=".tab_sorular"
+            android:screenOrientation="portrait"></activity>
+        <activity android:name=".tab_plakalar"
+            android:screenOrientation="portrait"></activity>
+        <activity android:name=".tab_cinsler"
+            android:screenOrientation="portrait"></activity>
+        <activity android:name=".tab_turler"
+            android:screenOrientation="portrait"></activity>
 
     </application>
 

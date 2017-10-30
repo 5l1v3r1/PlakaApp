@@ -5,7 +5,7 @@
     <string name="parola">Parola</string>
     <string name="giris_yap">Giriş Yap</string>
     <string name="guvenlik_sorusu">Güvenlik Sorusu</string>
-    <string name="g_sorusu_cevabi">Güvenlik Sorusu Cevabı</string>
+    <string name="g_sorusu_cevabi">Cevap</string>
     <string name="sifremi_unuttum">Şifremi Unuttum</string>
     <string name="misafir_girisi">Misafir Girişi</string>
     <string name="kayit_ol">Kayıt Ol</string>

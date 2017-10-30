@@ -303,12 +303,12 @@ public class tab_sorular extends Activity{
             String durum=js2.getString("durum");
             if(durum.equals(String.valueOf("basarili")))
                 return true;
-            if(durum=="99")
+            if(durum.equals(String.valueOf("99")))
                 Toast.makeText(getApplicationContext(), "SQL Hatası alındı", Toast.LENGTH_LONG).show();
-            if(durum=="8")
+            if(durum.equals(String.valueOf("8")))
                 Toast.makeText(getApplicationContext(), "Kayıt Bulunamadı", Toast.LENGTH_LONG).show();
-            if(durum=="1")
-                Toast.makeText(getApplicationContext(), "Kullanıcı Adı veya Eposyası Aynı Olan Bir Kayıt Mevcut", Toast.LENGTH_LONG).show();
+            if(durum.equals(String.valueOf("1")))
+                Toast.makeText(getApplicationContext(), "Kayıt Mevcut", Toast.LENGTH_LONG).show();
         } catch (Exception e){
             AlertDialog.Builder builder = new AlertDialog.Builder(tab_sorular.this);
             builder.setMessage(e.getMessage())

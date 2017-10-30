@@ -10,13 +10,12 @@
 
         <TextView
             android:id="@+id/textView"
-            android:layout_width="match_parent"
+            android:layout_width="85dp"
             android:layout_height="wrap_content"
-            android:layout_weight=".50"
             android:text="Cins:" />
 
         <EditText
-            android:id="@+id/editText"
+            android:id="@+id/cinsText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight=".50"
@@ -32,6 +31,7 @@
         android:orientation="horizontal">
 
         <ListView
+            android:id="@+id/cinsListView"
             android:layout_width="243dp"
             android:layout_height="match_parent" />
 
@@ -42,21 +42,21 @@
             android:orientation="vertical">
 
             <Button
-                android:id="@+id/bt_ekle"
+                android:id="@+id/cins_bt_ekle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight=".30"
                 android:text="Ekle" />
 
             <Button
-                android:id="@+id/bt_guncelle"
+                android:id="@+id/cins_bt_guncelle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight=".30"
                 android:text="Güncelle" />
 
             <Button
-                android:id="@+id/bt_sil"
+                android:id="@+id/cins_bt_sil"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight=".30"

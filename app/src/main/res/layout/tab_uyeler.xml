@@ -117,21 +117,21 @@
             android:orientation="vertical">
 
             <Button
-                android:id="@+id/bt_ekle"
+                android:id="@+id/uye_bt_ekle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight=".30"
                 android:text="Ekle" />
 
             <Button
-                android:id="@+id/bt_guncelle"
+                android:id="@+id/uye_bt_guncelle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight=".30"
                 android:text="Güncelle" />
 
             <Button
-                android:id="@+id/bt_sil"
+                android:id="@+id/uye_bt_sil"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight=".30"

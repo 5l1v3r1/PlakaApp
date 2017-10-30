@@ -6,11 +6,14 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
@@ -27,6 +30,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -50,11 +54,114 @@ public class tab_uyeler extends Activity {
         SorularSpinnerDoldur();
         ListeDoldur();
         ButtonListenEvent();
+        CreateControlListenner();
+    }
+
+    private void CreateControlListenner() {
+        ((EditText) findViewById(R.id.k_adi)).addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                valueChanged=true;
+            }
+        });
+        ((EditText) findViewById(R.id.sifre)).addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                valueChanged=true;
+            }
+        });
+        ((EditText) findViewById(R.id.eposta)).addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                valueChanged=true;
+            }
+        });
+        ((EditText) findViewById(R.id.rep)).addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                valueChanged=true;
+            }
+        });
+        ((Spinner) findViewById(R.id.soru)).setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                valueChanged=true;
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+
+            }
+
+        });
+        ((EditText) findViewById(R.id.cevap)).addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                valueChanged=true;
+            }
+        });
+        ((CheckBox) findViewById(R.id.chb_admin)).setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+             @Override
+             public void onCheckedChanged(CompoundButton buttonView,boolean isChecked) {
+                 valueChanged=true;
+             }
+         }
+        );
     }
 
     public void SorularSpinnerDoldur() {
         try {
-            sorular=new JSONArray(new JSONtask().execute(Config.SORULISTELE).get());
+            sorular = new JSONArray(new JSONtask().execute(Config.SORULISTELE).get());
             Spinner soruListe = (Spinner) findViewById(R.id.soru);
             List<String> result = new ArrayList<String>();
 
@@ -64,7 +171,7 @@ public class tab_uyeler extends Activity {
                 String soruMetni=jsonSoru.getJSONObject("message").getString("SoruMetin");
                 result.add(soruMetni);
             }
-            ArrayAdapter<String> adapter = new ArrayAdapter<String>(tab_uyeler.this, android.R.layout.simple_spinner_item, result);
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(tab_uyeler.this, android.R.layout.simple_spinner_dropdown_item, result);
             soruListe.setAdapter(adapter);
 
         } catch (Exception e) {
@@ -188,9 +295,10 @@ public class tab_uyeler extends Activity {
         try {
         for (int i=0;i<sorular.length();i++){
 
-                if (spinner.getItemAtPosition(i).equals(sorular.getJSONObject(i).getJSONObject("message").getString("SoruMetin"))){
+                if (spinner.getSelectedItem().toString().equals(sorular.getJSONObject(i).getJSONObject("message").getString("SoruMetin"))) {
                     index = sorular.getJSONObject(i).getJSONObject("message").getString("ID");
-            }
+                    return index;
+                }
         }
         }catch (JSONException e) {
             e.printStackTrace();
@@ -199,7 +307,7 @@ public class tab_uyeler extends Activity {
     }
 
     private void ButtonListenEvent() {
-        Button btn = (Button) findViewById(R.id.bt_ekle);
+        Button btn = (Button) findViewById(R.id.uye_bt_ekle);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -221,7 +329,6 @@ public class tab_uyeler extends Activity {
                                     EditText sifre = (EditText) findViewById(R.id.sifre);
                                     EditText eposta = (EditText) findViewById(R.id.eposta);
                                     EditText rep = (EditText) findViewById(R.id.rep);
-                                    Spinner soruListe = (Spinner) findViewById(R.id.soru);
                                     EditText cevap = (EditText) findViewById(R.id.cevap);
                                     CheckBox chb_admin = (CheckBox) findViewById(R.id.chb_admin);
 
@@ -263,9 +370,12 @@ public class tab_uyeler extends Activity {
                                     }
 
                                     JSONObject temp = new JSONObject(new JSONtask().execute(
-                                            Config.Kekle_URL(k_adi.getText().toString(), sifre.getText().toString(),
-                                                    eposta.getText().toString(), returnSpinnerID(),
-                                                    cevap.getText().toString())).get());
+                                            Config.Kekle_URL(
+                                                    URLEncoder.encode(k_adi.getText().toString(),"utf-8"),
+                                    URLEncoder.encode(sifre.getText().toString(),"utf-8"),
+                                    URLEncoder.encode(eposta.getText().toString(),"utf-8"),
+                                    URLEncoder.encode(returnSpinnerID(),"utf-8"),
+                                    URLEncoder.encode(cevap.getText().toString(),"utf-8"))).get());
                                     if (JsonErrorCheck(temp)) {
                                         Toast.makeText(getApplicationContext(), "Ekleme İşlemi Tamamlandı", Toast.LENGTH_LONG).show();
                                         ListeDoldur();
@@ -292,48 +402,107 @@ public class tab_uyeler extends Activity {
             }
         });
 
-        btn = (Button) findViewById(R.id.bt_guncelle);
+        btn = (Button) findViewById(R.id.uye_bt_guncelle);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //// TODO: 28.10.2017 üye Güncelleme sistemi
-                DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        switch (which) {
-                            case DialogInterface.BUTTON_POSITIVE:
-                                //Yes button clicked
-                                try {
-                                    JSONObject jsonChildNode = uyeler.getJSONObject(selectedIndex).getJSONObject("message");
-                                    EditText k_adi = (EditText) findViewById(R.id.k_adi);
-                                    EditText sifre = (EditText) findViewById(R.id.sifre);
-                                    EditText eposta = (EditText) findViewById(R.id.eposta);
-                                    EditText rep = (EditText) findViewById(R.id.rep);
-                                    Spinner soruListe = (Spinner) findViewById(R.id.soru);
-                                    EditText cevap = (EditText) findViewById(R.id.cevap);
-                                    CheckBox chb_admin = (CheckBox) findViewById(R.id.chb_admin);
+                if (userPulled == false) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(tab_uyeler.this);
+                    builder.setMessage("Güncellenecek bir kullanıcı seçmediniz")
+                            .setNegativeButton("Tamam", null).create().show();
+                }
+                else if(userPulled==true && valueChanged==false) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(tab_uyeler.this);
+                    builder.setMessage("Seçilen kullanıcıda hiçbir değeri değiştirmediniz")
+                            .setNegativeButton("Tamam", null).create().show();
+                }
+                else
+                 {
+                    DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            switch (which) {
+                                case DialogInterface.BUTTON_POSITIVE:
+                                    //Yes button clicked
+                                    try {
+                                        JSONObject jsonChildNode = uyeler.getJSONObject(selectedIndex).getJSONObject("message");
+                                        EditText k_adi = (EditText) findViewById(R.id.k_adi);
+                                        EditText sifre = (EditText) findViewById(R.id.sifre);
+                                        EditText eposta = (EditText) findViewById(R.id.eposta);
+                                        EditText rep = (EditText) findViewById(R.id.rep);
+                                        EditText cevap = (EditText) findViewById(R.id.cevap);
+                                        CheckBox chb_admin = (CheckBox) findViewById(R.id.chb_admin);
 
-                                    Toast.makeText(getApplicationContext(), "Güncelleme İşlemi Tamamlandı", Toast.LENGTH_LONG).show();
-                                } catch (Exception e){
-                                    AlertDialog.Builder builder = new AlertDialog.Builder(tab_uyeler.this);
-                                    builder.setMessage(e.getMessage())
-                                            .setNegativeButton("Tamam", null).create().show();
-                                }break;
+                                        String admin="0";
+                                        if(chb_admin.isChecked()) admin="1";
+                                        String ssTemp="~~";
+                                        if(!sifre.getText().toString().isEmpty()) ssTemp=sifre.getText().toString();
 
-                            case DialogInterface.BUTTON_NEGATIVE:
-                                //No button clicked
-                                break;
+                                        if(k_adi.getText().toString().isEmpty())
+                                        {
+                                            AlertDialog.Builder builder = new AlertDialog.Builder(tab_uyeler.this);
+                                            builder.setMessage("kullanıcı adı boş olamaz.")
+                                                    .setNegativeButton("Tamam", null).create().show();
+                                            return;
+                                        }
+                                        if(eposta.getText().toString().isEmpty())
+                                        {
+                                            AlertDialog.Builder builder = new AlertDialog.Builder(tab_uyeler.this);
+                                            builder.setMessage("eposta boş olamaz.")
+                                                    .setNegativeButton("Tamam", null).create().show();
+                                            return;
+                                        }
+                                        if(rep.getText().toString().isEmpty())
+                                        {
+                                            AlertDialog.Builder builder = new AlertDialog.Builder(tab_uyeler.this);
+                                            builder.setMessage("kullanıcı rep'i boş olamaz.")
+                                                    .setNegativeButton("Tamam", null).create().show();
+                                            return;
+                                        }
+                                        if(cevap.getText().toString().isEmpty())
+                                        {
+                                            AlertDialog.Builder builder = new AlertDialog.Builder(tab_uyeler.this);
+                                            builder.setMessage("güvenlik sorusu cevabı boş olamaz.")
+                                                    .setNegativeButton("Tamam", null).create().show();
+                                            return;
+                                        }
+
+                                        JSONObject temp = new JSONObject(new JSONtask().execute(
+                                                Config.Kguncelle_URL(jsonChildNode.getString("ID"),
+                                                        admin,
+                                                        URLEncoder.encode(k_adi.getText().toString(),"utf-8")
+                                                        ,ssTemp
+                                                        ,URLEncoder.encode(rep.getText().toString(),"utf-8")
+                                                        ,URLEncoder.encode(eposta.getText().toString(),"utf-8")
+                                                        ,returnSpinnerID()
+                                                        ,URLEncoder.encode(cevap.getText().toString(),"utf-8"))).get());
+                                        if (JsonErrorCheck(temp)) {
+                                            Toast.makeText(getApplicationContext(), "Güncelleme İşlemi Tamamlandı", Toast.LENGTH_LONG).show();
+                                            ListeDoldur();
+                                            return;
+                                        }
+                                    } catch (Exception e) {
+                                        AlertDialog.Builder builder = new AlertDialog.Builder(tab_uyeler.this);
+                                        builder.setMessage(e.getMessage())
+                                                .setNegativeButton("Tamam", null).create().show();
+                                    }
+                                    break;
+
+                                case DialogInterface.BUTTON_NEGATIVE:
+                                    //No button clicked
+                                    break;
+                            }
                         }
-                    }
-                };
+                    };
 
-                AlertDialog.Builder builder = new AlertDialog.Builder(tab_uyeler.this);
-                builder.setMessage("Are you sure?").setPositiveButton("Yes", dialogClickListener)
-                        .setNegativeButton("No", dialogClickListener).show();
+                    AlertDialog.Builder builder = new AlertDialog.Builder(tab_uyeler.this);
+                    builder.setMessage("Kaydı güncellemek istediğinize emin misiniz?").setPositiveButton("Evet", dialogClickListener)
+                            .setNegativeButton("Hayır", dialogClickListener).show();
+                }
             }
         });
 
-        btn = (Button) findViewById(R.id.bt_sil);
+        btn = (Button) findViewById(R.id.uye_bt_sil);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -347,7 +516,6 @@ public class tab_uyeler extends Activity {
                             switch (which) {
                                 case DialogInterface.BUTTON_POSITIVE:
                                     //Yes button clicked
-                                    //// TODO: 28.10.2017 üye Silme sistemi
                                     try {
                                         JSONObject jsonChildNode = uyeler.getJSONObject(selectedIndex).getJSONObject("message");
 
@@ -370,9 +538,12 @@ public class tab_uyeler extends Activity {
                             }
                         }
                     };
-
+                    String k_adi="";
+                    try{
+                        k_adi = uyeler.getJSONObject(selectedIndex).getJSONObject("message").getString("K_Adi");
+                    }catch (Exception e){}
                     AlertDialog.Builder builder = new AlertDialog.Builder(tab_uyeler.this);
-                    builder.setMessage("Silmek istediğinize emin misiniz?").setPositiveButton("Evet", dialogClickListener)
+                    builder.setMessage(k_adi + " kişisini silmek istediğinize emin misiniz?").setPositiveButton("Evet", dialogClickListener)
                             .setNegativeButton("Hayır", dialogClickListener).show();
                 }
             }
@@ -399,6 +570,4 @@ public class tab_uyeler extends Activity {
         }
         return false;
     }
-
-
 }

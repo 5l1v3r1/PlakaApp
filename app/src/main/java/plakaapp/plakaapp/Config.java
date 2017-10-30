@@ -13,11 +13,29 @@ public class Config {
 
     public static String Kekle_URL(String K_Adi,String K_Parola,String K_Mail,String K_Soru,String K_Cevap)
     {
-        return BASE_URL+"/Kekle"+"/"+K_Adi+"/"+K_Parola+"/"+K_Mail+"/"+K_Soru+"/"+K_Cevap;
+        return (BASE_URL+"/Kekle"+"/"+K_Adi+"/"+K_Parola+"/"+K_Mail+"/"+K_Soru+"/"+K_Cevap).replaceAll("\\+","%20");
     }
-
+    public static String Kguncelle_URL(String ID,String Admin,String K_Adi,String K_Parola,
+                                       String K_Rep,String K_Mail,String K_Soru,String K_Cevap)
+    {
+        return (BASE_URL+"/Kguncelle"+"/"+ID+"/"+Admin+"/"+K_Adi+"/"+K_Parola
+                +"/"+K_Rep+"/"+K_Mail+"/"+K_Soru+"/"+K_Cevap).replaceAll("\\+","%20");
+    }
     public static String Ksil_URL(String ID)
     {
         return BASE_URL+"/Ksil"+"/"+ID;
+    }
+
+    public static String Soruekle_URL(String SoruMetin)
+    {
+        return BASE_URL+"/Soruekle"+"/"+SoruMetin.replaceAll("\\+","%20");
+    }
+    public static String Soruguncelle_URL(String ID, String SoruMetin)
+    {
+        return BASE_URL+"/Soruguncelle"+"/"+ID+"/"+SoruMetin.replaceAll("\\+","%20");
+    }
+    public static String Sorusil_URL(String ID)
+    {
+        return BASE_URL+"/Sorusil"+"/"+ID;
     }
 }

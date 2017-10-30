@@ -21,10 +21,16 @@
 
         <activity android:name=".HomeScreen"
             android:screenOrientation="portrait"></activity>
+
         <activity android:name=".SunuttumScreen"
             android:screenOrientation="portrait"></activity>
+
+        <activity android:name=".GsorusuScreen"
+            android:screenOrientation="portrait"></activity>
+
         <activity android:name=".MisafirScreen"
             android:screenOrientation="portrait"></activity>
+
         <activity android:name=".RegisterScreen"
             android:screenOrientation="portrait"></activity>
 

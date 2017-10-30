@@ -16,6 +16,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.regex.Matcher;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -43,62 +44,97 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                final String email = etMail.getText().toString();
+
+
+                final String kul_email = etMail.getText().toString();
                 final String password = etpassword.getText().toString();
-                String strURL = Config.GIRIS_URL + "/" + email + "/" + password;
+                String strURL = Config.GIRIS_URL + "/" + kul_email + "/" + password;
                 String deger = null;
-                try{
-                    deger = new JSONtask().execute(strURL).get();
-                    //System.out.println(deger);
-                    //deger değişkenimizde Api' dan gelen JSON değerimiz var
 
-                    JSONObject jsonResponse = new JSONObject(deger);
-                    JSONObject jsonResponseMessage = jsonResponse.getJSONObject("message");
-                    String durum = jsonResponseMessage.getString("durum");
-                    //System.out.println(durum);
 
-                    if(durum.equals(String.valueOf("basarili"))){
-                        //kullanıcı girisi basarılı
-                        String admin = jsonResponseMessage.getString("admin"); // admin bilgisini aldık
-                        if(admin.equals(String.valueOf("0"))){ //Kullanıcı ise (admin değilse)
-                            String KulAdi = jsonResponseMessage.getString("adi"); //Kullanıcı adını aldık
-                            String id = jsonResponseMessage.getString("id"); //id sini aldık
-                            Intent intent = new Intent(MainActivity.this, HomeScreen.class);
-                            intent.putExtra("K_Adi",KulAdi);
-                            intent.putExtra("ID",id);
-                            MainActivity.this.startActivity(intent);
 
-                        }else if(admin.equals(String.valueOf("1"))){ //Admin ise
-                            String KulAdi = jsonResponseMessage.getString("adi");//Admin adını adlık
-                            String id = jsonResponseMessage.getString("id");//ID bilgisini aldık
-                            Intent intent = new Intent(MainActivity.this, admin_screen.class);
-                            intent.putExtra("ID",id);
-                            MainActivity.this.startActivity(intent);
+                if(Validation.email(kul_email)){
+                    if(Validation.password(password)){
+                        try{
+                            deger = new JSONtask().execute(strURL).get();
+                            //System.out.println(deger);
+                            //deger değişkenimizde Api' dan gelen JSON değerimiz var
+
+                            JSONObject jsonResponse = new JSONObject(deger);
+
+                            String hata = Validation.JsonErrorCheck(jsonResponse);
+
+
+                            JSONObject jsonResponseMessage = jsonResponse.getJSONObject("message");
+                            System.out.println(hata);
+
+                            if(hata.equals(String.valueOf("basarili"))){
+                                //kullanıcı girisi basarılı
+                                String admin = jsonResponseMessage.getString("admin"); // admin bilgisini aldık
+                                if(admin.equals(String.valueOf("0"))){ //Kullanıcı ise (admin değilse)
+                                    String KulAdi = jsonResponseMessage.getString("adi"); //Kullanıcı adını aldık
+                                    String id = jsonResponseMessage.getString("id"); //id sini aldık
+                                    Intent intent = new Intent(MainActivity.this, HomeScreen.class);
+                                    intent.putExtra("K_Adi",KulAdi);
+                                    intent.putExtra("ID",id);
+                                    MainActivity.this.startActivity(intent);
+
+                                }else if(admin.equals(String.valueOf("1"))){ //Admin ise
+                                    String KulAdi = jsonResponseMessage.getString("adi");//Admin adını adlık
+                                    String id = jsonResponseMessage.getString("id");//ID bilgisini aldık
+                                    Intent intent = new Intent(MainActivity.this, admin_screen.class);
+                                    intent.putExtra("ID",id);
+                                    MainActivity.this.startActivity(intent);
+                                }
+                            }else if(hata.equals(String.valueOf("8"))){
+                                //giriş Başarısızsa
+                                //Hatalı bilgiler
+                                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                                builder.setMessage("Kayıt Bulunamadı")
+                                        .setNegativeButton("TEKRAR DENEYİNİZ", null)
+                                        .create()
+                                        .show();
+                                etMail.setText("");
+                                etpassword.setText("");
+
+                            }else{
+                                //Başka bir sorun varsa
+                                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                                builder.setMessage(" BİLİNMEDİK BİR SORUN OLUŞTU")
+                                        .setNegativeButton("TEKRAR DENEYİNİZ", null)
+                                        .create()
+                                        .show();
+                                etMail.setText("");
+                                etpassword.setText("");
+                            }
+                        }catch (Exception e){
+                            AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                            builder.setMessage(e.getMessage())
+                                    .setNegativeButton("TEKRAR DENEYİNİZ", null)
+                                    .create()
+                                    .show();
+                            etMail.setText("");
+                            etpassword.setText("");
                         }
-                    }else if(durum.equals(String.valueOf("hata"))){
-                        //giriş Başarısızsa
-                        //Hatalı bilgiler
+                    }else{
                         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-                        builder.setMessage("BİLGİLER HATALI")
-                                .setNegativeButton("TEKRAR DENEYİNİZ", null)
+                        builder.setMessage("Şifre 8-29 karakter arasında olmalır." +
+                                "\nEn az bir büyük harf içermelidir." +
+                                "\nEn az bir küçük harf içermelidir."+
+                                "\nEn az bir rakam harf içermelidir." +
+                                "\nEn az bir '@$^&+=' karakter içermelidir.")
+                                .setNegativeButton("Tamam", null)
                                 .create()
                                 .show();
-                        etMail.setText("");
-                        etpassword.setText("");
-
-                    }
-                    else{
-                        //Başka bir sorun varsa
-                        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-                        builder.setMessage(" BİLİNMEDİK BİR SORUN OLUŞTU")
-                                .setNegativeButton("TEKRAR DENEYİNİZ", null)
-                                .create()
-                                .show();
-                        etMail.setText("");
                         etpassword.setText("");
                     }
-                }catch (Exception e){
-                    System.out.println(e);
+                }else{
+                    AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                    builder.setMessage("Mail adresi formata uygun değildir.")
+                            .setNegativeButton("Tamam", null)
+                            .create()
+                            .show();
+                    etMail.setText("");
                 }
             }
         });

@@ -1,5 +1,10 @@
 package plakaapp.plakaapp;
 
+import android.support.v7.app.AlertDialog;
+import android.widget.Toast;
+
+import org.json.JSONObject;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -37,10 +42,28 @@ public class Validation {
 
         Pattern pattern;
         Matcher matcher;
-        String USERNAME_PATTERN = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,29}$";
+        String USERNAME_PATTERN = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@$^&+=])(?=\\S+$).{8,29}$";
         pattern = Pattern.compile(USERNAME_PATTERN);
         matcher = pattern.matcher(pass);
         return matcher.matches();
 
+    }
+    public static String JsonErrorCheck(JSONObject temp) {
+        try {
+            //JSONObject js1 =temp.getJSONObject(0);
+            JSONObject js2=temp.getJSONObject("message");
+            String durum=js2.getString("durum");
+            if(durum.equals(String.valueOf("basarili")))
+                return "basarili";
+            if(durum.equals(String.valueOf("99")))
+                return "99"; //SQL hatası
+            if(durum.equals(String.valueOf("8")))
+                return "8"; //Kayıt bulunamadı
+            if(durum.equals(String.valueOf("1")))
+                return "1"; //Kayıt Var
+        } catch (Exception e){
+                return e.getMessage().toString();
+        }
+        return "yanlışlık Var";
     }
 }

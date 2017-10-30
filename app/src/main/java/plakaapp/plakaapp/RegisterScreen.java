@@ -79,7 +79,7 @@ public class RegisterScreen extends AppCompatActivity {
                                     "\nEn az bir büyük harf içermelidir." +
                                     "\nEn az bir küçük harf içermelidir."+
                                     "\nEn az bir rakam harf içermelidir." +
-                                    "\nEn az bir özel karakter içermelidir.")
+                                    "\nEn az bir '@$^&+=' karakter içermelidir.")
                                     .setNegativeButton("Tamam", null)
                                     .create()
                                     .show();
@@ -145,6 +145,7 @@ public class RegisterScreen extends AppCompatActivity {
         }
         return index;
     }
+
     private boolean JsonErrorCheck(JSONObject temp) {
         try {
             //JSONObject js1 =temp.getJSONObject(0);

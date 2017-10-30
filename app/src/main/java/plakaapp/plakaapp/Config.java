@@ -57,5 +57,11 @@ public class Config {
     public static String Tsil_URL(String ID)
     {return (BASE_URL+"/Tsil"+"/"+ID).replaceAll("\\+","%20");}
 
+    public static String Pekle_URL(String Plaka,String CinsID,String TurID,String AracRengi)
+    {return (BASE_URL+"/Pekle"+"/"+Plaka+"/"+CinsID+"/"+TurID+"/"+AracRengi).replaceAll("\\+","%20");}
+    public static String Pguncelle_URL(String ID,String Plaka,String CinsID,String TurID,String AracRengi)
+    {return (BASE_URL+"/Pguncelle"+"/"+ID+"/"+Plaka+"/"+CinsID+"/"+TurID+"/"+AracRengi).replaceAll("\\+","%20");}
+    public static String Psil_URL(String ID)
+    {return (BASE_URL+"/Psil"+"/"+ID).replaceAll("\\+","%20");}
 
 }

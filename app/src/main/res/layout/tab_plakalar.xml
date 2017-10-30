@@ -17,7 +17,7 @@
             android:text="Plaka:" />
 
         <EditText
-            android:id="@+id/editText8"
+            android:id="@+id/plakaText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight=".50"
@@ -43,7 +43,7 @@
                     android:text="Cins:" />
 
                 <Spinner
-                    android:id="@+id/spinner3"
+                    android:id="@+id/plakaCinsSpin"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight=".50" />
@@ -64,7 +64,7 @@
                     android:text="Tür:" />
 
                 <Spinner
-                    android:id="@+id/spinner4"
+                    android:id="@+id/plakaTurSpin"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight=".50" />
@@ -149,6 +149,7 @@
         android:orientation="horizontal">
 
         <ListView
+            android:id="@+id/plakaListView"
             android:layout_width="243dp"
             android:layout_height="match_parent" />
 
@@ -159,21 +160,21 @@
             android:orientation="vertical">
 
             <Button
-                android:id="@+id/bt_ekle"
+                android:id="@+id/plaka_bt_ekle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight=".30"
                 android:text="Ekle" />
 
             <Button
-                android:id="@+id/bt_guncelle"
+                android:id="@+id/plaka_bt_guncelle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight=".30"
                 android:text="Güncelle" />
 
             <Button
-                android:id="@+id/bt_sil"
+                android:id="@+id/plaka_bt_sil"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight=".30"

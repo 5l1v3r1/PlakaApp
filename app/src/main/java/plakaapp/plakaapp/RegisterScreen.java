@@ -116,7 +116,7 @@ public class RegisterScreen extends AppCompatActivity {
                 String soruMetni=jsonSoru.getJSONObject("message").getString("SoruMetin");
                 result.add(soruMetni);
             }
-            ArrayAdapter<String> adapter = new ArrayAdapter<String>(RegisterScreen.this, android.R.layout.simple_spinner_item, result);
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(RegisterScreen.this, android.R.layout.simple_spinner_dropdown_item, result);
             soruListe.setAdapter(adapter);
 
         } catch (Exception e) {

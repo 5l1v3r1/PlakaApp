@@ -197,6 +197,7 @@ public class tab_turler extends Activity {
             }
         }
         spinner.setSelection(index);
+        //// TODO: 01.11.2017 getirmiyor 
     }
 
     private void ButtonListenEvent() {

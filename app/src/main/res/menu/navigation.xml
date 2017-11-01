@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_home"
+        android:title="@string/e_mail" />
+
+    <item
+        android:id="@+id/navigation_list"
+        android:title="@string/e_mail" />
+    <item
+        android:id="@+id/navigation_report"
+        android:title="@string/e_mail" />
+
+    <item
+        android:id="@+id/navigation_activity"
+        android:title="@string/e_mail" />
+
+    <item
+        android:id="@+id/navigation_about"
+        android:title="@string/e_mail" />
+
+
+</menu>

@@ -356,6 +356,52 @@ public class tab_uyeler extends Activity {
                                                 .setNegativeButton("Tamam", null).create().show();
                                         return;
                                     }
+
+
+                                    /*if(!Validation.userValidate(URLEncoder.encode(k_adi.getText().toString(),"utf-8")))
+                                    {
+                                        AlertDialog.Builder builder = new AlertDialog.Builder(tab_uyeler.this);
+                                        builder.setMessage("Kullanıcı adı 5-28 karakter arasında olmalı" +
+                                                "\nRakam ve harflerden oluşabilir." +
+                                                "\n sadece '_' ve '-' karakterleri kullanılabilir.' ")
+                                                .setNegativeButton("Tamam", null)
+                                                .create()
+                                                .show();
+                                        return;
+                                    }
+                                    if(!Validation.password(URLEncoder.encode(sifre.getText().toString(),"utf-8")))
+                                    {
+                                        AlertDialog.Builder builder = new AlertDialog.Builder(tab_uyeler.this);
+                                        builder.setMessage("Şifre 8-29 karakter arasında olmalır." +
+                                                "\nEn az bir büyük harf içermelidir." +
+                                                "\nEn az bir küçük harf içermelidir."+
+                                                "\nEn az bir rakam harf içermelidir." +
+                                                "\nEn az bir '@$^&+=' karakter içermelidir.")
+                                                .setNegativeButton("Tamam", null)
+                                                .create()
+                                                .show();
+                                        return;
+                                    }
+                                    if(!Validation.email(URLEncoder.encode(eposta.getText().toString(),"utf-8")))
+                                    {
+                                        AlertDialog.Builder builder = new AlertDialog.Builder(tab_uyeler.this);
+                                        builder.setMessage("Mail adresi formata uygun değildir.")
+                                                .setNegativeButton("Tamam", null)
+                                                .create()
+                                                .show();
+                                        return;
+                                    }
+                                    if(URLEncoder.encode(cevap.getText().toString(),"utf-8").length()<5 ||
+                                            URLEncoder.encode(cevap.getText().toString(),"utf-8").length()>50)
+                                    {
+                                        AlertDialog.Builder builder = new AlertDialog.Builder(tab_uyeler.this);
+                                        builder.setMessage("Cevap 5 ile 50 karakter arasında olmalıdır...")
+                                                .setNegativeButton("Tamam", null)
+                                                .create()
+                                                .show();
+                                        return;
+                                    }*/
+
                                     if (chb_admin.isChecked()) {
                                         AlertDialog.Builder builder = new AlertDialog.Builder(tab_uyeler.this);
                                         builder.setMessage("Yeni bir kullanıcı admin olarak tanımlanamaz,\nAdmin olarak güncellenebilir.")
@@ -466,6 +512,50 @@ public class tab_uyeler extends Activity {
                                                     .setNegativeButton("Tamam", null).create().show();
                                             return;
                                         }
+
+                                        /*if(!Validation.userValidate(URLEncoder.encode(k_adi.getText().toString(),"utf-8")))
+                                        {
+                                            AlertDialog.Builder builder = new AlertDialog.Builder(tab_uyeler.this);
+                                            builder.setMessage("Kullanıcı adı 5-28 karakter arasında olmalı" +
+                                                    "\nRakam ve harflerden oluşabilir." +
+                                                    "\n sadece '_' ve '-' karakterleri kullanılabilir.' ")
+                                                    .setNegativeButton("Tamam", null)
+                                                    .create()
+                                                    .show();
+                                            return;
+                                        }
+                                        if(!Validation.password(URLEncoder.encode(sifre.getText().toString(),"utf-8")))
+                                        {
+                                            AlertDialog.Builder builder = new AlertDialog.Builder(tab_uyeler.this);
+                                            builder.setMessage("Şifre 8-29 karakter arasında olmalır." +
+                                                    "\nEn az bir büyük harf içermelidir." +
+                                                    "\nEn az bir küçük harf içermelidir."+
+                                                    "\nEn az bir rakam harf içermelidir." +
+                                                    "\nEn az bir '@$^&+=' karakter içermelidir.")
+                                                    .setNegativeButton("Tamam", null)
+                                                    .create()
+                                                    .show();
+                                            return;
+                                        }
+                                        if(!Validation.email(URLEncoder.encode(eposta.getText().toString(),"utf-8")))
+                                        {
+                                            AlertDialog.Builder builder = new AlertDialog.Builder(tab_uyeler.this);
+                                            builder.setMessage("Mail adresi formata uygun değildir.")
+                                                    .setNegativeButton("Tamam", null)
+                                                    .create()
+                                                    .show();
+                                            return;
+                                        }
+                                        if(URLEncoder.encode(cevap.getText().toString(),"utf-8").length()<5 ||
+                                                URLEncoder.encode(cevap.getText().toString(),"utf-8").length()>50)
+                                        {
+                                            AlertDialog.Builder builder = new AlertDialog.Builder(tab_uyeler.this);
+                                            builder.setMessage("Cevap 5 ile 50 karakter arasında olmalıdır...")
+                                                    .setNegativeButton("Tamam", null)
+                                                    .create()
+                                                    .show();
+                                            return;
+                                        }*/
 
                                         JSONObject temp = new JSONObject(new JSONtask().execute(
                                                 Config.Kguncelle_URL(jsonChildNode.getString("ID"),

@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -223,17 +224,24 @@ public class tab_plakalar extends Activity {
         int index=0;
         String CinsID=PullCinsSpinnerID();
         try {
-            for (int i = 0; i < turler.length(); i++) {
+            int i=0; int sayac=0;
+            while(i<turListe.getCount() || sayac<turler.length())
+            {
                 JSONObject jsontur = turler.getJSONObject(i);
-
                 if (jsontur.getJSONObject("message").getString("CinsID").equals(CinsID)) {
-                    if(jsontur.getJSONObject("message").getString("ID").equals(ID)) index = i;
+                    if(jsontur.getJSONObject("message").getString("ID").equals(ID)) {
+                        index = i;
+                        turListe.setSelection(index);
+                        return;
+                        }
+                    i++;
                 }
+                sayac++;
             }
-        }catch (JSONException e) {
+        }catch (Exception e) {
             e.printStackTrace();
         }
-        //turListe.setSelection(index);
+        turListe.setSelection(index);
         //// TODO: 30.10.2017 tur cekmiyor
     }
 
@@ -286,7 +294,7 @@ public class tab_plakalar extends Activity {
                     plakaText.setText(jsonChildNode.getString("Plaka"));
 
                     PutCinsSpinner(jsonChildNode.getString("CinsID"));
-                    PutTurSpinner(jsonChildNode.getString("TurID"));
+                    //PutTurSpinner(jsonChildNode.getString("TurID"));
 
                     String rgbColor=jsonChildNode.getString("AracRengi");
                     if(!rgbColor.isEmpty()) {

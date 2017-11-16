@@ -1,6 +1,9 @@
 package plakaapp.plakaapp;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -31,6 +34,36 @@ public class GsorusuScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.gsorusu_screen_activity);
+
+        SharedPreferences sharedPref = GsorusuScreen.this.getPreferences(Context.MODE_PRIVATE);
+        int denemeSayisi = sharedPref.getInt("denemeSayisi", 0);
+        if(denemeSayisi>=3)
+        {
+            DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    switch (which){
+                        case DialogInterface.BUTTON_POSITIVE:
+                            //Yes button clicked
+                            SharedPreferences sharedPref = GsorusuScreen.this.getPreferences(Context.MODE_PRIVATE);
+                            SharedPreferences.Editor editor = sharedPref.edit();
+                            editor.putInt("denemeSayisi", 0);
+                            editor.commit();
+                            break;
+
+                        case DialogInterface.BUTTON_NEGATIVE:
+                            //No button clicked
+                            Toast.makeText(getApplicationContext(), "Şifre değiştirme işlemin BLOKLANDI!.", Toast.LENGTH_SHORT).show();
+                            finish();
+                            break;
+                    }
+                }
+            };
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(GsorusuScreen.this);
+            builder.setMessage("DEBUG MODE\n\nBu kullanıcı BLOKLANDI.\nBlok kaldırmak ister misiniz?").setPositiveButton("Evet Kaldır", dialogClickListener)
+                    .setNegativeButton("Hayır Çık", dialogClickListener).show();
+        }
 
         Intent intent = getIntent();
         gsid = intent.getStringExtra("K_id"); //kullanıcı idsi
@@ -63,6 +96,10 @@ public class GsorusuScreen extends AppCompatActivity {
 
                             JSONObject temp = new JSONObject(new JSONtask().execute(url).get());
                             if(JsonErrorCheck(temp)){
+                                SharedPreferences sharedPref = GsorusuScreen.this.getPreferences(Context.MODE_PRIVATE);
+                                SharedPreferences.Editor editor = sharedPref.edit();
+                                editor.putInt("denemeSayisi", 0);
+                                editor.commit();
                                 Toast.makeText(getApplicationContext(), "Şifreniniz başarıyla değiştirilmiştir.", Toast.LENGTH_SHORT).show();
                                 finish();
                             }
@@ -85,12 +122,36 @@ public class GsorusuScreen extends AppCompatActivity {
                                 .create()
                                 .show();
                     }
-                }else {
+                }
+                else if(et_cevap.getText().length()>20)
+                {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(GsorusuScreen.this);
+                    builder.setMessage("Cevap Limiti Aşıldı (20 karakter)")
+                            .setNegativeButton("Tamam", null)
+                            .create()
+                            .show();
+                }
+                else {
                     AlertDialog.Builder builder = new AlertDialog.Builder(GsorusuScreen.this);
                     builder.setMessage("Cevap Doğru Değil")
                             .setNegativeButton("Tamam", null)
                             .create()
                             .show();
+
+                    SharedPreferences sharedPref = GsorusuScreen.this.getPreferences(Context.MODE_PRIVATE);
+                    int denemeSayisi = sharedPref.getInt("denemeSayisi", 0);
+                    SharedPreferences.Editor editor = sharedPref.edit();
+                    editor.putInt("denemeSayisi", denemeSayisi + 1);
+                    editor.commit();
+                    if((denemeSayisi+1)>=3)
+                    {
+                        Toast.makeText(getApplicationContext(), "Şifre değiştirme işlemin BLOKLANDI!.", Toast.LENGTH_SHORT).show();
+                        finish();
+                    }
+                    else
+                    {
+                        Toast.makeText(getApplicationContext(), "Yanlış cevap denemesi: "+(denemeSayisi+1), Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         });

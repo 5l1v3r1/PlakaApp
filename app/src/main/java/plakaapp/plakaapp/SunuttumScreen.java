@@ -74,6 +74,7 @@ public class SunuttumScreen extends AppCompatActivity {
                             intent.putExtra("K_soru",su_gsoru);
                             intent.putExtra("K_cevap",su_cevap);
                             SunuttumScreen.this.startActivity(intent);
+
                             finish();
                         }
                         else{

@@ -1,5 +1,7 @@
 package plakaapp.plakaapp;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -71,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
                             if(hata.equals(String.valueOf("basarili"))){
                                 //kullanıcı girisi basarılı
                                 String admin = jsonResponseMessage.getString("admin"); // admin bilgisini aldık
-                                if(admin.equals(String.valueOf("0"))){ //Kullanıcı ise (admin değilse)
+                                if(admin.equals(String.valueOf("0"))){//Kullanıcı ise (admin değilse)
                                     String KulAdi = jsonResponseMessage.getString("adi"); //Kullanıcı adını aldık
                                     String id = jsonResponseMessage.getString("id"); //id sini aldık
                                     Intent intent = new Intent(MainActivity.this, HomeScreen.class);
@@ -79,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
                                     intent.putExtra("ID",id);
                                     MainActivity.this.startActivity(intent);
 
-                                }else if(admin.equals(String.valueOf("1"))){ //Admin ise
+                                }else if(admin.equals(String.valueOf("1"))){                                    //Admin ise
                                     String KulAdi = jsonResponseMessage.getString("adi");//Admin adını adlık
                                     String id = jsonResponseMessage.getString("id");//ID bilgisini aldık
                                     Intent intent = new Intent(MainActivity.this, admin_screen.class);
@@ -161,8 +163,13 @@ public class MainActivity extends AppCompatActivity {
         misafirgiris.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, MisafirScreen.class);
-                startActivity(intent);
+                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                builder.setMessage("Bu panel ilerde tanımlanacaktır.")
+                        .setNegativeButton("Tamam", null)
+                        .create()
+                        .show();
+                /*Intent intent = new Intent(MainActivity.this, MisafirScreen.class);
+                startActivity(intent);*/
             }
         });
 

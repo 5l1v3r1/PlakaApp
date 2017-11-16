@@ -87,19 +87,18 @@
             tools:ignore="RtlHardcoded,RtlSymmetry" />
 
 
-
         <EditText
             android:id="@+id/Kayitol_gcevap"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:ems="10"
-            android:drawablePadding="10dp"
-            android:drawableLeft="@drawable/ic_play_arrow_black_24dp"
-            android:background="@drawable/et_rounded_corner"
-            android:paddingLeft="20dp"
-            android:inputType="textPassword"
             android:layout_marginBottom="15dp"
+            android:background="@drawable/et_rounded_corner"
+            android:drawableLeft="@drawable/ic_play_arrow_black_24dp"
+            android:drawablePadding="10dp"
+            android:ems="10"
             android:hint="@string/g_sorusu_cevabi"
+            android:inputType="text"
+            android:paddingLeft="20dp"
             tools:ignore="RtlHardcoded,RtlSymmetry,TextFields" />
 
         <Button

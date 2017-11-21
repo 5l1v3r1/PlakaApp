@@ -222,10 +222,31 @@ public class tab_plakalar extends Activity {
     private void PutTurSpinner(String ID){
         Spinner turListe = (Spinner) findViewById(R.id.plakaTurSpin);
         int index=0;
+        try{
+        String CinsID=PullCinsSpinnerID();
+        int sayac=0;
+        ArrayList<String> result = new ArrayList<String>();
+        for (int i = 0; i < turler.length(); i++) {
+            JSONObject jsontur = turler.getJSONObject(i);
+
+            if(jsontur.getJSONObject("message").getString("CinsID").equals(CinsID)) {
+                String soruMetni = jsontur.getJSONObject("message").getString("TurAdi");
+                result.add(soruMetni);
+                if(jsontur.getJSONObject("message").getString("ID").equals(ID))
+                    index = sayac;
+                sayac ++;
+            }
+        }
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(tab_plakalar.this, android.R.layout.simple_spinner_dropdown_item, result);
+        turListe.setAdapter(adapter);}catch (Exception e){}
+        turListe.setSelection(index);
+
+        /*
         String CinsID=PullCinsSpinnerID();
         try {
+            
             int i=0; int sayac=0;
-            while(i<turListe.getCount() || sayac<turler.length())
+            while(i < turListe.getCount() || sayac<turler.length())
             {
                 JSONObject jsontur = turler.getJSONObject(i);
                 if (jsontur.getJSONObject("message").getString("CinsID").equals(CinsID)) {
@@ -242,7 +263,7 @@ public class tab_plakalar extends Activity {
             e.printStackTrace();
         }
         turListe.setSelection(index);
-        //// TODO: 30.10.2017 tur cekmiyor
+        //// TODO: 30.10.2017 tur cekmiyor*/
     }
 
     private HashMap<String, String> createListItem(String name, String number){
@@ -292,9 +313,8 @@ public class tab_plakalar extends Activity {
                     SeekBar blueSeekBar = (SeekBar) findViewById(R.id.seekBarBlue);
 
                     plakaText.setText(jsonChildNode.getString("Plaka"));
-
                     PutCinsSpinner(jsonChildNode.getString("CinsID"));
-                    //PutTurSpinner(jsonChildNode.getString("TurID"));
+                    PutTurSpinner(jsonChildNode.getString("TurID"));
 
                     String rgbColor=jsonChildNode.getString("AracRengi");
                     if(!rgbColor.isEmpty()) {

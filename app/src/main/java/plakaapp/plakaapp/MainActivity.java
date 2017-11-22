@@ -42,6 +42,30 @@ public class MainActivity extends AppCompatActivity {
         final Button misafirgiris = (Button) findViewById(R.id.misafir_girisi);
         final Button sifremiunuttum = (Button) findViewById(R.id.sifremi_unuttum);
 
+        //debug mod admin ve kullanıcı girişi
+            final Button admin_giris = (Button) findViewById(R.id.btn_admin_girisi);
+            final Button kullanici_giris = (Button) findViewById(R.id.btn_kullanici_girisi);
+
+            admin_giris.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    etMail.setText("ahmet@gmail.com");
+                    etpassword.setText("asdASD123$");
+                }
+            });
+
+            kullanici_giris.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    etMail.setText("cumen@gmail.com");
+                    etpassword.setText("asdASD123$");
+                }
+            });
+
+
+        //debug mod admin ve kullanıcı girişi
+
+
         bLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

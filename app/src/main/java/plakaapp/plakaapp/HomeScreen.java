@@ -9,6 +9,8 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import org.w3c.dom.Text;
@@ -30,6 +32,20 @@ public class HomeScreen extends AppCompatActivity {
         String kuladi = intent.getStringExtra("K_Adi");//kullanıcı adı
         String id = intent.getStringExtra("ID"); //kullanıcı idsi
 
+
+        // Mail gonderme alanı
+
+        final Button mgonder = (Button) findViewById(R.id.btn_mail_gonder);
+
+        mgonder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String mailler[] = {"gonderilecekmail1@gmail.com","gonderilecekmail2@gmail.com"};
+                MailGonder.mgonder("Başlık1","içerik yazısı", mailler, HomeScreen.this);
+            }
+        });
+
+        //mail gonderme alanı
 
 
 

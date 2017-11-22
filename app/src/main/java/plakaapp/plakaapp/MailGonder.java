@@ -16,9 +16,9 @@ public class MailGonder extends Activity {
             emailIntent.setType("plain/text");
             emailIntent.putExtra(Intent.EXTRA_SUBJECT, baslik);//Email konusu
             emailIntent.putExtra(Intent.EXTRA_TEXT, icerik);//Email içeriği
-            act.startActivity(Intent.createChooser(emailIntent, "E-mail Göndermek için Seçiniz:")); //birden fazla email uygulaması varsa seçmek için
             emailIntent.putExtra(android.content.Intent.EXTRA_EMAIL, mailler);
-            act.startActivity(emailIntent);
+            act.startActivity(Intent.createChooser(emailIntent, "E-mail Göndermek için Seçiniz:")); //birden fazla email uygulaması varsa seçmek için
+            //act.startActivity(emailIntent);
             return true;
         }catch (Exception e){
             return false;

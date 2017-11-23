@@ -5,6 +5,10 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
@@ -20,66 +24,56 @@ import org.w3c.dom.Text;
  */
 
 public class HomeScreen extends AppCompatActivity {
+
+    //menu
+    private static final String TAG = MainActivity.class.getSimpleName();
+    private BottomNavigationView bottomNavigation;
+    public Fragment fragment;
+    private FragmentManager fragmentManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.home_screen_activity);
-
-
-        final TextView tvKulAdi = (TextView) findViewById(R.id.tv_Kul_Adi);
 
         Intent intent = getIntent();
         String kuladi = intent.getStringExtra("K_Adi");//kullanıcı adı
         String id = intent.getStringExtra("ID"); //kullanıcı idsi
 
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.home_screen_activity);
 
-        // Mail gonderme alanı
+        bottomNavigation = (BottomNavigationView)findViewById(R.id.navigation);
+        fragmentManager = getSupportFragmentManager();
 
-        final Button mgonder = (Button) findViewById(R.id.btn_mail_gonder);
+        //başlangıç sayfası için
+        fragment = new fragment_home();
+        final FragmentTransaction transactionb = fragmentManager.beginTransaction();
+        transactionb.replace(R.id.main_container, fragment).commit();
 
-        mgonder.setOnClickListener(new View.OnClickListener() {
+        bottomNavigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
-            public void onClick(View view) {
-                String mailler[] = {"gonderilecekmail1@gmail.com","gonderilecekmail2@gmail.com"};
-                MailGonder.mgonder("Başlık1","içerik yazısı", mailler, HomeScreen.this);
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                fragment = new fragment_home();
+                switch (item.getItemId()){
+                    case R.id.navigation_home:
+                        fragment = new fragment_home();
+                        break;
+                    case R.id.navigation_addtext:
+                        fragment = new fragment_hizliyazi();
+                        break;
+                    case R.id.navigation_search:
+                        fragment = new fragment_arama();
+                        break;
+                    case R.id.navigation_notification:
+                        fragment = new fragment_bildirim();
+                        break;
+                    case R.id.navigation_profil:
+                        fragment = new fragment_profil();
+                        break;
+                }
+                final FragmentTransaction transaction = fragmentManager.beginTransaction();
+                transaction.replace(R.id.main_container, fragment).commit();
+                return true;
             }
         });
-
-        //mail gonderme alanı
-
-
-
-
     }
-
-    //menu
-    private TextView mTextMessage;
-
-    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
-            = new BottomNavigationView.OnNavigationItemSelectedListener() {
-
-        @Override
-        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            switch (item.getItemId()) {
-                case R.id.navigation_home:
-                    mTextMessage.setText("asd");
-                    return true;
-                case R.id.navigation_list:
-                    mTextMessage.setText("2");
-                    return true;
-                case R.id.navigation_report:
-                    mTextMessage.setText("3");
-                    return true;
-                case R.id.navigation_activity:
-                    mTextMessage.setText("4");
-                    return true;
-                case R.id.navigation_about:
-                    mTextMessage.setText("4");
-                    return true;
-            }
-            return false;
-        }
-
-    };
     //menu
 }

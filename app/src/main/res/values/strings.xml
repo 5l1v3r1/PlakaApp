@@ -13,6 +13,12 @@
     <string name="kayit_ol">Kayıt Ol</string>
     <string name="Hosgeldiniz">Hoşgeldiniz</string>
 
+    <string name="home">Anasayfa</string>
+    <string name="add_text">Hızlı Yazı</string>
+    <string name="search">Arama</string>
+    <string name="notification">Bildirim</string>
+    <string name="profil">Profil</string>
+
 
     <string name="uyeler">Üyeler</string>
     <string name="bt_ekle">Ekle</string>

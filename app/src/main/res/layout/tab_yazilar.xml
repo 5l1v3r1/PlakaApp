@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="1">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight=".50"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_uyeler_kuladi"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Yazar:" />
+
+            <Spinner
+                android:id="@+id/y_yazar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Plaka:" />
+
+            <Spinner
+                android:id="@+id/y_plaka"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Konum:" />
+
+            <Spinner
+                android:id="@+id/y_konum"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight=".50"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Tarih:" />
+
+            <EditText
+                android:id="@+id/y_tarih"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="date" />
+
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Rep:" />
+
+            <EditText
+                android:id="@+id/y_rep"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="numberSigned" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Yazı" />
+
+            <EditText
+                android:id="@+id/y_yazi"
+                android:layout_width="match_parent"
+                android:layout_height="90dp"
+                android:ems="10"
+                android:inputType="textMultiLine" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <ListView
+            android:id="@+id/y_listview"
+            android:layout_width="243dp"
+            android:layout_height="match_parent" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight=".30"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/y_bt_ekle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight=".30"
+                android:text="Ekle" />
+
+            <Button
+                android:id="@+id/y_bt_guncelle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight=".30"
+                android:text="Güncelle" />
+
+            <Button
+                android:id="@+id/y_bt_sil"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight=".30"
+                android:text="Sil" />
+
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

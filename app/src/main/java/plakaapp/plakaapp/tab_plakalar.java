@@ -240,30 +240,6 @@ public class tab_plakalar extends Activity {
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(tab_plakalar.this, android.R.layout.simple_spinner_dropdown_item, result);
         turListe.setAdapter(adapter);}catch (Exception e){}
         turListe.setSelection(index);
-
-        /*
-        String CinsID=PullCinsSpinnerID();
-        try {
-            
-            int i=0; int sayac=0;
-            while(i < turListe.getCount() || sayac<turler.length())
-            {
-                JSONObject jsontur = turler.getJSONObject(i);
-                if (jsontur.getJSONObject("message").getString("CinsID").equals(CinsID)) {
-                    if(jsontur.getJSONObject("message").getString("ID").equals(ID)) {
-                        index = i;
-                        turListe.setSelection(index);
-                        return;
-                        }
-                    i++;
-                }
-                sayac++;
-            }
-        }catch (Exception e) {
-            e.printStackTrace();
-        }
-        turListe.setSelection(index);
-        //// TODO: 30.10.2017 tur cekmiyor*/
     }
 
     private HashMap<String, String> createListItem(String name, String number){

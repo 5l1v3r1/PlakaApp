@@ -16,6 +16,10 @@
     <string name="Plaka">Plaka</string>
     <string name="Yaziniz">Yazınız</string>
     <string name="Gonder">Gönder</string>
+    <string name="Ara">Ara</string>
+    <string name="bulunanlar">Bulunanlar</string>
+    <string name="bildirimler">Bildirimler</string>
+    <string name="temizle">TEMİZLE</string>
 
     <string name="home">Anasayfa</string>
     <string name="add_text">Hızlı Yazı</string>

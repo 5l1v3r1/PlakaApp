@@ -12,6 +12,10 @@
     <string name="kontrol_et">Kontrol Et</string>
     <string name="kayit_ol">Kayıt Ol</string>
     <string name="Hosgeldiniz">Hoşgeldiniz</string>
+    <string name="ornek_plaka">35 ABC 23</string>
+    <string name="Plaka">Plaka</string>
+    <string name="Yaziniz">Yazınız</string>
+    <string name="Gonder">Gönder</string>
 
     <string name="home">Anasayfa</string>
     <string name="add_text">Hızlı Yazı</string>

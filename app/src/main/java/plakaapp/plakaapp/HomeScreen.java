@@ -33,9 +33,7 @@ public class HomeScreen extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        Intent intent = getIntent();
-        String kuladi = intent.getStringExtra("K_Adi");//kullanıcı adı
-        String id = intent.getStringExtra("ID"); //kullanıcı idsi
+
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home_screen_activity);

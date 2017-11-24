@@ -47,6 +47,8 @@
             android:screenOrientation="portrait"></activity>
         <activity android:name=".tab_turler"
             android:screenOrientation="portrait"></activity>
+        <activity android:name=".tab_yazilar"
+            android:screenOrientation="portrait"></activity>
 
     </application>
 

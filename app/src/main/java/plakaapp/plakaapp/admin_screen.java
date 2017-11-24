@@ -50,5 +50,10 @@ public class admin_screen extends TabActivity{
         tab5.setIndicator("Türler");
         tab5.setContent(new Intent(admin_screen.this,tab_turler.class));
         tabh.addTab(tab5);
+
+        TabSpec tab6 = tabh.newTabSpec("tab menü yazılar");
+        tab6.setIndicator("Yazılar");
+        tab6.setContent(new Intent(admin_screen.this,tab_yazilar.class));
+        tabh.addTab(tab6);
     }
 }

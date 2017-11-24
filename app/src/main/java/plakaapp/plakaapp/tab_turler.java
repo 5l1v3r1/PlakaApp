@@ -189,15 +189,37 @@ public class tab_turler extends Activity {
     }
 
     private void CinsSpinnerSec(String s) {
-        int index = 0;
-        Spinner spinner=(Spinner)findViewById(R.id.cinsSpin);
-        for (int i=0;i<spinner.getCount();i++){
-            if (spinner.getItemAtPosition(i).equals(s)){
-                index = i;
+        try{
+            if(s.isEmpty()) return;
+
+            Spinner cins = ((Spinner) findViewById(R.id.cinsSpin));
+
+            int arrayPos=0;
+            for (int i=0;i<cinsler.length();i++)
+            {
+                if(cinsler.getJSONObject(i).getJSONObject("message").getString("ID")==s)
+                {
+                    arrayPos=i;
+                    break;
+                }
             }
+
+            for (int i=0;i<cins.getCount();i++)
+            {
+                if(cins.getItemAtPosition(i).toString()==
+                        cinsler.getJSONObject(arrayPos).getJSONObject("message").getString("AracCins"))
+                {
+                    cins.setSelection(i);
+                    return;
+                }
+            }
+        }catch (Exception e) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(tab_turler.this);
+            builder.setMessage(e.getMessage())
+                    .setNegativeButton("Tamam", null)
+                    .create()
+                    .show();
         }
-        spinner.setSelection(index);
-        //// TODO: 01.11.2017 getirmiyor 
     }
 
     private void ButtonListenEvent() {

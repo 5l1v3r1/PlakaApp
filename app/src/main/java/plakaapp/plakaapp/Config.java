@@ -13,6 +13,8 @@ public class Config {
     public static final String CLISTELE_URL = BASE_URL + "/Clistele";
     public static final String TLISTELE_URL = BASE_URL + "/Tlistele";
     public static final String PLISTELE_URL = BASE_URL + "/Plistele";
+    public static final String YLISTELE_URL = BASE_URL + "/Ylistele";
+    public static final String ILLISTELE_URL = BASE_URL + "/Ilistele";
 
 
     public static String Kekle_URL(String K_Adi,String K_Parola,String K_Mail,String K_Soru,String K_Cevap)
@@ -64,4 +66,10 @@ public class Config {
     public static String Psil_URL(String ID)
     {return (BASE_URL+"/Psil"+"/"+ID).replaceAll("\\+","%20");}
 
+    public static String Yekle_URL(String PlakaID, String YazarID, String KonumID, String Yazi)
+    {return (BASE_URL+"/Yekle"+"/"+PlakaID+"/"+YazarID+"/"+KonumID+"/"+Yazi).replaceAll("\\+","%20");}
+    public static String Yguncelle_URL(String ID, String PlakaID, String YazarID, String KonumID, String Yazi, String Rep)
+    {return (BASE_URL+"/Yguncelle"+"/"+ID+"/"+PlakaID+"/"+YazarID+"/"+KonumID+"/"+Yazi+"/"+Rep).replaceAll("\\+","%20");}
+    public static String Ysil_URL(String ID)
+    {return (BASE_URL+"/Ysil"+"/"+ID).replaceAll("\\+","%20");}
 }

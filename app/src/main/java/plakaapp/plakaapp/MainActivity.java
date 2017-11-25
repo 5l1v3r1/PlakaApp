@@ -187,11 +187,8 @@ public class MainActivity extends AppCompatActivity {
         misafirgiris.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-                builder.setMessage("Bu panel ilerde tanımlanacaktır.")
-                        .setNegativeButton("Tamam", null)
-                        .create()
-                        .show();
+                Intent intent = new Intent(MainActivity.this, MisafirScreen.class);
+                startActivity(intent);
                 /*Intent intent = new Intent(MainActivity.this, MisafirScreen.class);
                 startActivity(intent);*/
             }

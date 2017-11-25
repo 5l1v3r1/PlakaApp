@@ -180,7 +180,7 @@ public class tab_yazilar extends Activity {
                     EditText rep = ((EditText) findViewById(R.id.y_rep));
                     EditText yazi = ((EditText) findViewById(R.id.y_yazi));
 
-                    tarih.setText(jsonChildNode.getString("YazilmaTarih"));
+                    tarih.setText(jsonChildNode.getString("YazilmaTarih").replace('T',' '));
                     rep.setText(jsonChildNode.getString("Rep"));
                     yazi.setText(jsonChildNode.getString("Yazi"));
 
@@ -457,11 +457,6 @@ public class tab_yazilar extends Activity {
                                             return;
                                         }
 
-                                        if (!yTarih.getText().toString().isEmpty()) {
-                                            AlertDialog.Builder builder = new AlertDialog.Builder(tab_yazilar.this);
-                                            builder.setMessage("İlk eklemede el ile tarih girilemez, bügünü alır.")
-                                                    .setNegativeButton("Tamam", null).create().show();
-                                        }
 
                                         if(yRep.getText().toString().isEmpty())yRep.setText("0");
                                         if(!yRep.getText().toString().equals("0"))
@@ -599,7 +594,7 @@ public class tab_yazilar extends Activity {
                                         JSONObject jsonChildNode = yazilar.getJSONObject(selectedIndex).getJSONObject("message");
 
                                         JSONObject temp = new JSONObject(new JSONtask().execute(
-                                                Config.Ksil_URL(jsonChildNode.getString("ID"))).get());
+                                                Config.Ysil_URL(jsonChildNode.getString("ID"))).get());
                                         if (JsonErrorCheck(temp)) {
                                             Toast.makeText(getApplicationContext(), "Silme İşlemi Tamamlandı", Toast.LENGTH_LONG).show();
                                             ListeDoldur();

@@ -92,7 +92,6 @@ public class MainActivity extends AppCompatActivity {
 
 
                             JSONObject jsonResponseMessage = jsonResponse.getJSONObject("message");
-                            System.out.println(hata);
 
                             if(hata.equals(String.valueOf("basarili"))){
                                 //kullanıcı girisi basarılı

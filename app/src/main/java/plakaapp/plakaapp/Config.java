@@ -72,4 +72,9 @@ public class Config {
     {return (BASE_URL+"/Yguncelle"+"/"+ID+"/"+PlakaID+"/"+YazarID+"/"+KonumID+"/"+Yazi+"/"+Rep).replaceAll("\\+","%20");}
     public static String Ysil_URL(String ID)
     {return (BASE_URL+"/Ysil"+"/"+ID).replaceAll("\\+","%20");}
+
+    public static String PlakaSorgula_URL(String Plaka)
+    {
+        return BASE_URL+"/Psorgula"+"/"+Plaka.replaceAll("\\+","%20");
+    }
 }

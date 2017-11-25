@@ -72,7 +72,7 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/et_misafir_bulunanlar"
+            android:id="@+id/tv_misafir_sonuclar"
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:ems="10"
@@ -81,8 +81,12 @@
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
             android:inputType="textMultiLine"
+            android:textAlignment="center"
+            android:textColor="#003748"
+            android:paddingTop="70dp"
+            android:textSize="20sp"
             android:layout_marginBottom="15dp"
-            tools:ignore="LabelFor" />
+            tools:ignore="LabelFor,TextViewEdits" />
 
 
     </LinearLayout>

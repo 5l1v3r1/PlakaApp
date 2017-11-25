@@ -51,13 +51,16 @@ public class Validation {
 
     public static boolean plaka(final String plaka){
 
+        String formattedStr01 = plaka.replaceAll("\\s","");
+        formattedStr01.toUpperCase();
 
         Pattern pattern;
         Matcher matcher;
         String USERNAME_PATTERN = "^(0[1-9]|[1-7][0-9]|8[01])(([A-Z])(\\d{4,5})|([A-Z]{2})(\\d{3,4})|([A-Z]{3})(\\d{2}))$";
         pattern = Pattern.compile(USERNAME_PATTERN);
-        matcher = pattern.matcher(plaka);
+        matcher = pattern.matcher(formattedStr01);
         return matcher.matches();
+
 
     }
     public static String JsonErrorCheck(JSONObject temp) {

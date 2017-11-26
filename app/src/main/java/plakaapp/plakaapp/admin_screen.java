@@ -2,11 +2,13 @@ package plakaapp.plakaapp;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.TabHost;
 import android.widget.TabHost.TabSpec;
 import android.app.Activity;
 import android.app.TabActivity;
 import android.content.Intent;
+import android.widget.TextView;
 
 import org.json.JSONArray;
 
@@ -55,5 +57,17 @@ public class admin_screen extends TabActivity{
         tab6.setIndicator("Yazılar");
         tab6.setContent(new Intent(admin_screen.this,tab_yazilar.class));
         tabh.addTab(tab6);
+
+        //tabwidget in yazı rengini ayarladık
+        for (int i = 0; i < tabh.getTabWidget().getChildCount(); i++) {
+            View v = tabh.getTabWidget().getChildAt(i);
+            v.setBackgroundResource(R.drawable.tabwidget_background);
+
+            TextView tv = (TextView) tabh.getTabWidget().getChildAt(i).findViewById(android.R.id.title);
+            tv.setTextColor(getResources().getColor(R.color.white));
+        }
+        //tabwidget in yazı rengini ayarladık
+
+
     }
 }

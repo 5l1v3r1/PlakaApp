@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:weightSum="1">
@@ -12,18 +13,24 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight=".50"
+            android:padding="2dp"
             android:orientation="vertical">
 
             <TextView
                 android:id="@+id/tv_uyeler_kuladi"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Kullanıcı Adı:" />
+                android:textAlignment="center"
+                android:textColor="@color/yazi"
+                android:text="KULLANICI ADI" />
 
             <EditText
                 android:id="@+id/k_adi"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@drawable/admin_et_background"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
                 android:ems="10"
                 android:inputType="textPersonName" />
 
@@ -31,12 +38,17 @@
                 android:id="@+id/textView2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="E-Posta:" />
+                android:textAlignment="center"
+                android:textColor="@color/yazi"
+                android:text="E-POSTA:" />
 
             <EditText
                 android:id="@+id/eposta"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:background="@drawable/admin_et_background"
                 android:ems="10"
                 android:inputType="textEmailAddress" />
 
@@ -44,18 +56,22 @@
                 android:id="@+id/textView3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Güvenlik Sorusu:" />
+                android:textAlignment="center"
+                android:textColor="@color/yazi"
+                android:text="GÜVENLİK SORUSU:" />
 
             <Spinner
                 android:id="@+id/soru"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="wrap_content"
+                android:background="@drawable/admin_et_background"/>
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:padding="2dp"
             android:layout_weight=".50"
             android:orientation="vertical">
 
@@ -63,12 +79,17 @@
                 android:id="@+id/textView4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Şifre:" />
+                android:textAlignment="center"
+                android:textColor="@color/yazi"
+                android:text="ŞİFRE" />
 
             <EditText
                 android:id="@+id/sifre"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:background="@drawable/admin_et_background"
                 android:ems="10"
                 android:inputType="textPassword" />
 
@@ -76,12 +97,17 @@
                 android:id="@+id/textView5"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Rep:" />
+                android:textAlignment="center"
+                android:textColor="@color/yazi"
+                android:text="REP" />
 
             <EditText
                 android:id="@+id/rep"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:background="@drawable/admin_et_background"
                 android:ems="10"
                 android:inputType="numberSigned" />
 
@@ -89,11 +115,17 @@
                 android:id="@+id/textView6"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Cevabı:" />
+                android:textAlignment="center"
+                android:textColor="@color/yazi"
+                android:text="CEVABI"
+                tools:ignore="HardcodedText" />
 
             <EditText
                 android:id="@+id/cevap"
                 android:layout_width="match_parent"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:background="@drawable/admin_et_background"
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:inputType="text" />
@@ -103,46 +135,64 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:padding="2dp"
         android:orientation="horizontal">
 
         <ListView
             android:id="@+id/ListView"
-            android:layout_width="243dp"
+            android:layout_width="220dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:paddingRight="5dp"
+            android:paddingLeft="5dp"
+            android:background="@drawable/et_rounded_corner"
+            android:dividerHeight="2dp"
+            android:divider="@color/yazi"
             android:layout_height="match_parent" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight=".30"
+            android:layout_marginTop="70dp"
+            android:padding="10dp"
             android:orientation="vertical">
 
             <Button
                 android:id="@+id/uye_bt_ekle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight=".30"
-                android:text="Ekle" />
+                android:textColor="@color/white"
+                android:background="@drawable/btn_rounded_corner"
+                android:layout_marginBottom="20dp"
+                android:text="Ekle"
+                tools:ignore="HardcodedText" />
 
             <Button
                 android:id="@+id/uye_bt_guncelle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight=".30"
+                android:textColor="@color/white"
+                android:background="@drawable/btn_rounded_corner"
+                android:layout_marginBottom="20dp"
                 android:text="Güncelle" />
 
             <Button
                 android:id="@+id/uye_bt_sil"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight=".30"
+                android:textColor="@color/white"
+                android:background="@drawable/btn_rounded_corner"
+                android:layout_marginBottom="20dp"
                 android:text="Sil" />
 
             <CheckBox
                 android:id="@+id/chb_admin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight=".30"
-                android:text="Admin?" />
+                android:text="Admin?"
+                tools:ignore="HardcodedText" />
 
         </LinearLayout>
     </LinearLayout>

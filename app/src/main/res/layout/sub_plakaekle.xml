@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="1">
+
+    <TextView
+        android:id="@+id/textView14"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:text="Plaka Bilgi Girişi"
+        android:textAlignment="center"
+        android:textColor="@color/yazi" />
+
+    <EditText
+        android:id="@+id/plakaText"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/et_rounded_corner"
+        android:drawableLeft="@drawable/ic_directions_car_black_24dp"
+        android:drawablePadding="10dp"
+        android:enabled="false"
+        android:hint="@string/ornek_plaka"
+        android:inputType="textPersonName"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight=".50"
+            android:orientation="vertical"
+            android:paddingRight="2dp">
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="CİNS"
+                android:textAlignment="center"
+                android:textColor="@color/yazi" />
+
+            <Spinner
+                android:id="@+id/plakaCinsSpin"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/admin_et_background"
+                android:popupBackground="@drawable/admin_et_background" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight=".50"
+            android:orientation="vertical"
+            android:paddingLeft="2dp">
+
+            <TextView
+                android:id="@+id/textView8"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="TÜR"
+                android:textAlignment="center"
+                android:textColor="@color/yazi" />
+
+            <Spinner
+                android:id="@+id/plakaTurSpin"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/admin_et_background"
+                android:popupBackground="@drawable/admin_et_background" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight=".33"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView10"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="KIRMIZI"
+                android:textAlignment="center"
+                android:textColor="@color/yazi" />
+
+            <SeekBar
+                android:id="@+id/seekBarRed"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight=".33"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView11"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="YEŞİl"
+                android:textAlignment="center"
+                android:textColor="@color/yazi" />
+
+            <SeekBar
+                android:id="@+id/seekBarGreen"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight=".33"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView12"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="MAVİ"
+                android:textAlignment="center"
+                android:textColor="@color/yazi" />
+
+            <SeekBar
+                android:id="@+id/seekBarBlue"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/plakaRenkPalet"
+        android:layout_width="match_parent"
+        android:layout_height="25dp"
+        android:layout_weight="0.13"
+        app:srcCompat="@android:color/holo_red_dark" />
+
+    <Button
+        android:id="@+id/bt_giris"
+        android:layout_marginTop="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="40dp"
+        android:background="@drawable/btn_rounded_corner"
+        android:text="Bilgileri Gir"
+        android:textColor="#ffffff" />
+</LinearLayout>

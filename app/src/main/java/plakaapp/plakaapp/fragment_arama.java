@@ -1,5 +1,6 @@
 package plakaapp.plakaapp;
 
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -42,11 +43,21 @@ public class fragment_arama extends Fragment {
     int islem = 0;
     String pText="";
 
-    private void GitButtonListener(View view) {
+    private void ResetControls(View view)
+    {
+        islem=0;
+        ((EditText) view.findViewById(R.id.et_plakaNumarasi)).setText("");
+        ((TextView) view.findViewById(R.id.et_hizliyazi)).setText("");
+    }
+
+    private void GitButtonListener(final View view) {
         final Button sorgula = (Button) view.findViewById(R.id.btn_git);
         sorgula.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
+                EditText plaka = (EditText) view.findViewById(R.id.et_plakaNumarasi);
+                pText=plaka.getText().toString();
+                plaka.clearFocus();
                 if(islem==0)
                 {
                     AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -57,12 +68,10 @@ public class fragment_arama extends Fragment {
                 }
                 else if(islem==1)
                 {
-                    //// TODO: 26.11.2017 Plaka ekleme penceresine yönlendirme 
-                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                    builder.setMessage("Plaka ekleme ekranı")
-                            .setNegativeButton("Tamam", null)
-                            .create()
-                            .show();
+                    Intent intent = new Intent(getActivity(), sub_plakaEkle.class);
+                    intent.putExtra("Plaka",pText);
+                    getActivity().startActivity(intent);
+                    ResetControls(view);
                 }
                 else if(islem==2)
                 {
@@ -72,13 +81,14 @@ public class fragment_arama extends Fragment {
                             .setNegativeButton("Tamam", null)
                             .create()
                             .show();
+                    ResetControls(view);
                 }
             }
         });
     }
 
     private void AraButtonListener(final View view) {
-        islem=0;
+
         //Coppied from MisafirScreen.java (Ahmet Çümen)
         final Button sorgula = (Button) view.findViewById(R.id.btn_yazigonder);
         final EditText plaka = (EditText) view.findViewById(R.id.et_plakaNumarasi);
@@ -90,7 +100,7 @@ public class fragment_arama extends Fragment {
                     final EditText plaka = (EditText) view.findViewById(R.id.et_plakaNumarasi);
                     final TextView bulunanlar = (TextView) view.findViewById(R.id.et_hizliyazi);
 
-
+                    islem=0;
                     Boolean dogrumu = Validation.plaka(plaka.getText().toString());
                     if(dogrumu == true){
                         //Api için stringleri tanımlıyoruz

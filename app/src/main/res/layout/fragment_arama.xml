@@ -70,14 +70,24 @@
         <EditText
             android:id="@+id/et_hizliyazi"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:ems="10"
-            android:drawablePadding="10dp"
+            android:layout_height="170dp"
+            android:layout_marginBottom="15dp"
             android:background="@drawable/et_rounded_corner"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp"
+            android:drawablePadding="10dp"
+            android:ems="10"
             android:inputType="textMultiLine"
-            android:layout_marginBottom="15dp" />
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp" />
+
+        <Button
+            android:id="@+id/btn_git"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="40dp"
+            android:background="@drawable/btn_rounded_corner"
+            android:onClick="checkLogin"
+            android:text="@string/Git"
+            android:textColor="#ffffff" />
 
 
     </LinearLayout>

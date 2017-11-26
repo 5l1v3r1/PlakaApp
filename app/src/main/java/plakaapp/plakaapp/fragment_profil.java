@@ -103,6 +103,41 @@ public class fragment_profil extends Fragment {
                                     if (e5) v5 = rep.getText().toString();
                                     else v5 = jsonChildNode.getString("K_Cevap");
 
+                                    if(!Validation.userValidate(v1))
+                                    {
+                                        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                                        builder.setMessage("Kullanıcı adı 5-28 karakter arasında olmalı" +
+                                                "\nRakam ve harflerden oluşabilir." +
+                                                "\n sadece '_' ve '-' karakterleri kullanılabilir.' ")
+                                                .setNegativeButton("Tamam", null)
+                                                .create()
+                                                .show();
+                                        return;
+                                    }
+                                    if(!Validation.email(v2))
+                                    {
+                                        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                                        builder.setMessage("Mail adresi formata uygun değildir.")
+                                                .setNegativeButton("Tamam", null)
+                                                .create()
+                                                .show();
+                                        return;
+                                    }
+                                    if(!Validation.password(v3) && e3)
+                                    {
+                                        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                                        builder.setMessage("Şifre 8-29 karakter arasında olmalır." +
+                                                "\nEn az bir büyük harf içermelidir." +
+                                                "\nEn az bir küçük harf içermelidir."+
+                                                "\nEn az bir rakam harf içermelidir." +
+                                                "\nEn az bir '@$^&+=' karakter içermelidir.")
+                                                .setNegativeButton("Tamam", null)
+                                                .create()
+                                                .show();
+                                        return;
+                                    }
+
+
                                     JSONObject temp = new JSONObject(new JSONtask().execute(
                                             Config.Kguncelle_URL(jsonChildNode.getString("ID"),
                                                     jsonChildNode.getString("Admin"),

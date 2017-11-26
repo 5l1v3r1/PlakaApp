@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
+    android:padding="10dp"
     android:layout_height="match_parent">
 
     <LinearLayout
@@ -11,39 +12,50 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/textView"
-                android:layout_width="100dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Cins:" />
+                android:textAlignment="center"
+                android:textColor="@color/yazi"
+                android:layout_marginBottom="5dp"
+                android:text="CİNS" />
 
             <Spinner
                 android:id="@+id/cinsSpin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight=".50" />
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/admin_et_background"
+                android:popupBackground="@drawable/admin_et_background" />
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/textView7"
-                android:layout_width="100dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Tür:" />
+                android:textAlignment="center"
+                android:textColor="@color/yazi"
+                android:layout_marginBottom="5dp"
+                android:text="TÜR" />
 
             <EditText
                 android:id="@+id/turText"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:ems="10"
+                android:layout_height="50dp"
+                android:background="@drawable/admin_et_background"
+                android:drawableLeft="@drawable/ic_play_arrow_black_24dp"
+                android:drawablePadding="10dp"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
                 android:inputType="textPersonName" />
 
         </LinearLayout>
@@ -58,34 +70,48 @@
 
         <ListView
             android:id="@+id/turListView"
-            android:layout_width="243dp"
+            android:layout_width="220dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:paddingRight="5dp"
+            android:paddingLeft="5dp"
+            android:background="@drawable/et_rounded_corner"
+            android:dividerHeight="2dp"
+            android:divider="@color/yazi"
             android:layout_height="match_parent" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight=".30"
+            android:layout_marginTop="100dp"
+            android:paddingLeft="5dp"
             android:orientation="vertical">
 
             <Button
                 android:id="@+id/tur_bt_ekle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight=".30"
+                android:textColor="@color/white"
+                android:background="@drawable/btn_rounded_corner"
+                android:layout_marginBottom="20dp"
                 android:text="Ekle" />
 
             <Button
                 android:id="@+id/tur_bt_guncelle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight=".30"
+                android:textColor="@color/white"
+                android:background="@drawable/btn_rounded_corner"
+                android:layout_marginBottom="20dp"
                 android:text="Güncelle" />
 
             <Button
                 android:id="@+id/tur_bt_sil"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight=".30"
+                android:textColor="@color/white"
+                android:background="@drawable/btn_rounded_corner"
+                android:layout_marginBottom="20dp"
                 android:text="Sil" />
 
         </LinearLayout>

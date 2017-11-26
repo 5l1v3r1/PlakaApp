@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
+    android:padding="10dp"
     android:layout_height="match_parent"
     android:weightSum="1">
     <LinearLayout
@@ -12,40 +13,53 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight=".50"
+            android:layout_marginRight="5dp"
             android:orientation="vertical">
 
             <TextView
                 android:id="@+id/tv_uyeler_kuladi"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Yazar:" />
+                android:textAlignment="center"
+                android:textColor="@color/yazi"
+                android:text="YAZAR" />
 
             <Spinner
                 android:id="@+id/y_yazar"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:background="@drawable/admin_et_background"
+                android:popupBackground="@drawable/admin_et_background"/>
 
             <TextView
                 android:id="@+id/textView2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Plaka:" />
+                android:textAlignment="center"
+                android:textColor="@color/yazi"
+                android:text="PLAKA" />
 
             <Spinner
                 android:id="@+id/y_plaka"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:background="@drawable/admin_et_background"
+                android:popupBackground="@drawable/admin_et_background" />
 
             <TextView
                 android:id="@+id/textView3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Konum:" />
+                android:textAlignment="center"
+                android:textColor="@color/yazi"
+                android:text="KONUM" />
 
             <Spinner
                 android:id="@+id/y_konum"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:background="@drawable/admin_et_background"
+                android:popupBackground="@drawable/admin_et_background" />
 
         </LinearLayout>
 
@@ -59,13 +73,17 @@
                 android:id="@+id/textView4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Tarih:" />
+                android:textAlignment="center"
+                android:textColor="@color/yazi"
+                android:text="TARİH" />
 
             <EditText
                 android:id="@+id/y_tarih"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
+                android:layout_height="50dp"
+                android:background="@drawable/admin_et_background"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
                 android:enabled="false"
                 android:inputType="date" />
 
@@ -73,13 +91,17 @@
                 android:id="@+id/textView5"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Rep:" />
+                android:textAlignment="center"
+                android:textColor="@color/yazi"
+                android:text="REP" />
 
             <EditText
                 android:id="@+id/y_rep"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
+                android:layout_height="48dp"
+                android:background="@drawable/admin_et_background"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
                 android:inputType="numberSigned" />
 
         </LinearLayout>
@@ -100,14 +122,21 @@
                 android:id="@+id/textView6"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Yazı" />
+                android:textAlignment="center"
+                android:textColor="@color/yazi"
+                android:layout_marginBottom="2dp"
+                android:layout_marginTop="5dp"
+                android:text="YAZI" />
 
             <EditText
                 android:id="@+id/y_yazi"
                 android:layout_width="match_parent"
                 android:layout_height="90dp"
-                android:ems="10"
+                android:background="@drawable/admin_et_background"
+                android:drawableLeft="@drawable/ic_play_arrow_black_24dp"
+                android:drawablePadding="10dp"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
                 android:inputType="textMultiLine" />
 
         </LinearLayout>
@@ -120,34 +149,48 @@
 
         <ListView
             android:id="@+id/y_listview"
-            android:layout_width="243dp"
+            android:layout_width="220dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="20dp"
+            android:paddingRight="5dp"
+            android:paddingLeft="5dp"
+            android:background="@drawable/et_rounded_corner"
+            android:dividerHeight="2dp"
+            android:divider="@color/yazi"
             android:layout_height="match_parent" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight=".30"
+            android:layout_marginTop="10dp"
+            android:paddingLeft="5dp"
             android:orientation="vertical">
 
             <Button
                 android:id="@+id/y_bt_ekle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight=".30"
+                android:textColor="@color/white"
+                android:background="@drawable/btn_rounded_corner"
+                android:layout_marginBottom="20dp"
                 android:text="Ekle" />
 
             <Button
                 android:id="@+id/y_bt_guncelle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight=".30"
+                android:textColor="@color/white"
+                android:background="@drawable/btn_rounded_corner"
+                android:layout_marginBottom="20dp"
                 android:text="Güncelle" />
 
             <Button
                 android:id="@+id/y_bt_sil"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight=".30"
+                android:textColor="@color/white"
+                android:background="@drawable/btn_rounded_corner"
+                android:layout_marginBottom="20dp"
                 android:text="Sil" />
 
         </LinearLayout>

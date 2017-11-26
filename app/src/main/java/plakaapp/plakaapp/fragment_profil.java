@@ -59,7 +59,7 @@ public class fragment_profil extends Fragment {
         return view;
     }
 
-    private void CreateButtonListener(final View view) {
+    private void CreateButtonListener(View view) {
         Button btn = (Button) view.findViewById(R.id.et_profil_guncelle);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,7 +79,7 @@ public class fragment_profil extends Fragment {
                                 try {
                                     int index = 0;
                                     for (int i = 0; i < uyeler.length(); i++) {
-                                        if (uyeler.getJSONObject(i).getJSONObject("message").getString("ID") == K_ID) {
+                                        if (uyeler.getJSONObject(i).getJSONObject("message").getString("ID").equals(K_ID)) {
                                             index = i;
                                             break;
                                         }
@@ -98,7 +98,7 @@ public class fragment_profil extends Fragment {
                                     else v2 = jsonChildNode.getString("K_Mail");
                                     if (e3) v3 = sifre.getText().toString();
                                     else v3 = "~~";
-                                    if (e4) v4 = SpinnerPull(view);
+                                    if (e4) v4 = SpinnerPull(vvv);
                                     else v4 = jsonChildNode.getString("K_Soru");
                                     if (e5) v5 = rep.getText().toString();
                                     else v5 = jsonChildNode.getString("K_Cevap");

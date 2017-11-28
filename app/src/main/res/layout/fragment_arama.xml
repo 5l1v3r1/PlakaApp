@@ -38,13 +38,13 @@
             android:id="@+id/et_plakaNumarasi"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:drawablePadding="10dp"
-            android:paddingLeft="10dp"
-            android:drawableLeft="@drawable/ic_directions_car_black_24dp"
-            android:background="@drawable/et_rounded_corner"
-            android:inputType="textEmailAddress"
             android:layout_marginBottom="10dp"
-            android:hint="@string/ornek_plaka"/>
+            android:background="@drawable/et_rounded_corner"
+            android:drawableLeft="@drawable/ic_directions_car_black_24dp"
+            android:drawablePadding="10dp"
+            android:hint="@string/ornek_plaka"
+            android:inputType="text"
+            android:paddingLeft="10dp" />
 
         <Button
             android:id="@+id/btn_yazigonder"
@@ -70,7 +70,7 @@
         <EditText
             android:id="@+id/et_hizliyazi"
             android:layout_width="match_parent"
-            android:layout_height="170dp"
+            android:layout_height="150dp"
             android:layout_marginBottom="15dp"
             android:background="@drawable/et_rounded_corner"
             android:drawablePadding="10dp"

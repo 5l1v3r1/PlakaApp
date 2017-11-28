@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -121,10 +122,33 @@ public class fragment_arama extends Fragment {
                         if(hata.equals(String.valueOf("basarili"))) {
                             String yazisayisi = jsonResponseMessage.getString("yazisayisi");
                             if(yazisayisi.equals(String.valueOf("0"))){
-                                bulunanlar.setTextColor(getResources().getColor(R.color.red));
-                                bulunanlar.setText("Böyle bir plaka veya yazısı bulunmamaktadır...\n"+
-                                "Plaka bilgilerini eklemek için Git'e tıklayınız.");
-                                islem=1;
+                                boolean plakavar=false;
+                                try {
+                                    JSONArray plakalar=new JSONArray(new JSONtask().execute(Config.PLISTELE_URL).get());
+                                    for (int i = 0; i < plakalar.length(); i++) {
+                                        JSONObject jsonChildNode = plakalar.getJSONObject(i);
+                                        if(jsonChildNode.getJSONObject("message").getString("Plaka").equals(plaka.getText().toString()))
+                                        {
+                                            plakavar=true;
+                                            break;
+                                        }
+                                    }
+                                }
+                                catch (Exception e){}
+                                if(plakavar)
+                                {
+                                    bulunanlar.setTextColor(getResources().getColor(R.color.yazi));
+                                    bulunanlar.setText("Böyle bir plaka var ama yazısı bulunmamaktadır...\n"+
+                                            "Plaka sayfasına gitmek için Git'e tıklayınız.");
+                                    islem=2;
+                                }
+                                else
+                                {
+                                    bulunanlar.setTextColor(getResources().getColor(R.color.red));
+                                    bulunanlar.setText("Böyle bir plaka bulunmamaktadır...\n"+
+                                            "Plaka bilgilerini eklemek için Git'e tıklayınız.");
+                                    islem=1;
+                                }
                             }else{
                                 bulunanlar.setTextColor(getResources().getColor(R.color.yazi));
                                 bulunanlar.setText(plaka.getText().toString() + " Plakasının toplam " + 
@@ -166,5 +190,26 @@ public class fragment_arama extends Fragment {
                 }
             }
         });
+    }
+
+    private boolean JsonErrorCheck(JSONObject temp) {
+        try {
+            //JSONObject js1 =temp.getJSONObject(0);
+            JSONObject js2=temp.getJSONObject("message");
+            String durum=js2.getString("durum");
+            if(durum.equals(String.valueOf("basarili")))
+                return true;
+            if(durum.equals(String.valueOf("99")))
+                Toast.makeText(getContext(), "SQL Hatası alındı", Toast.LENGTH_LONG).show();
+            if(durum.equals(String.valueOf("8")))
+                Toast.makeText(getContext(), "Kayıt Bulunamadı", Toast.LENGTH_LONG).show();
+            if(durum.equals(String.valueOf("1")))
+                Toast.makeText(getContext(), "Kayıt Mevcut", Toast.LENGTH_LONG).show();
+        } catch (Exception e){
+            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+            builder.setMessage(e.getMessage())
+                    .setNegativeButton("Tamam", null).create().show();
+        }
+        return false;
     }
 }

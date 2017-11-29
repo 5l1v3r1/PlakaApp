@@ -2,96 +2,114 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:orientation="vertical" android:layout_width="fill_parent"
+    android:background="@drawable/background_gradient"
+    android:padding="10dp"
     android:layout_height="match_parent"
     android:weightSum="1">
 
-    <TextView
-        android:id="@+id/textView14"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="5dp"
-        android:text="Plaka Bilgi Girişi"
-        android:textAlignment="center"
-        android:textColor="@color/yazi" />
-
-    <EditText
-        android:id="@+id/plakaText"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="@drawable/et_rounded_corner"
-        android:drawableLeft="@drawable/ic_directions_car_black_24dp"
-        android:drawablePadding="10dp"
-        android:enabled="false"
-        android:hint="@string/ornek_plaka"
-        android:inputType="textPersonName"
-        android:paddingLeft="5dp"
-        android:paddingRight="5dp" />
-
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginBottom="10dp"
-        android:layout_marginTop="10dp"
-        android:orientation="horizontal">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-        <LinearLayout
+        <TextView
+            android:id="@+id/Logo"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight=".50"
-            android:orientation="vertical"
-            android:paddingRight="2dp"
-            tools:ignore="RtlSymmetry">
-
-            <TextView
-                android:id="@+id/textView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="CİNS"
-                android:textAlignment="center"
-                android:textColor="@color/yazi"
-                tools:ignore="HardcodedText" />
-
-            <Spinner
-                android:id="@+id/plakaCinsSpin"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/admin_et_background"
-                android:popupBackground="@drawable/admin_et_background" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight=".50"
-            android:orientation="vertical"
-            android:paddingLeft="2dp"
-            tools:ignore="RtlSymmetry">
-
-            <TextView
-                android:id="@+id/textView8"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="TÜR"
-                android:textAlignment="center"
-                android:textColor="@color/yazi" />
-
-            <Spinner
-                android:id="@+id/plakaTurSpin"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/admin_et_background"
-                android:popupBackground="@drawable/admin_et_background" />
-
-        </LinearLayout>
-
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:layout_marginTop="10dp"
+            android:textColor="#003748"
+            android:text="@string/app_name"
+            android:layout_marginBottom="30dp"
+            android:textSize="30sp"
+            android:textStyle="bold" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textView14"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_marginBottom="5dp"
+            android:layout_weight="1"
+            android:text="PLAKA BİLGİ GİRİŞİ"
+            android:textAlignment="center"
+            android:textColor="@color/yazi"
+            tools:ignore="HardcodedText" />
+
+        <EditText
+            android:id="@+id/plakaText"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:background="@drawable/et_rounded_corner"
+            android:drawableLeft="@drawable/ic_directions_car_black_24dp"
+            android:drawablePadding="10dp"
+            android:enabled="false"
+            android:hint="@string/ornek_plaka"
+            android:inputType="textPersonName"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            tools:ignore="RtlHardcoded" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
+        android:orientation="vertical"
+        tools:ignore="DisableBaselineAlignment">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="2dp"
+            android:text="CİNS"
+            android:textAlignment="center"
+            android:textColor="@color/yazi"
+            tools:ignore="HardcodedText" />
+
+        <Spinner
+            android:id="@+id/plakaCinsSpin"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/admin_et_background"
+            android:popupBackground="@drawable/admin_et_background" />
+
+        <TextView
+            android:id="@+id/textView8"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="2dp"
+            android:text="TÜR"
+            android:textAlignment="center"
+            android:textColor="@color/yazi"
+            tools:ignore="HardcodedText" />
+
+        <Spinner
+            android:id="@+id/plakaTurSpin"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/admin_et_background"
+            android:popupBackground="@drawable/admin_et_background" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
+        android:baselineAligned="false">
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -105,7 +123,8 @@
                 android:layout_height="wrap_content"
                 android:text="KIRMIZI"
                 android:textAlignment="center"
-                android:textColor="@color/yazi" />
+                android:textColor="@color/yazi"
+                tools:ignore="HardcodedText" />
 
             <SeekBar
                 android:id="@+id/seekBarRed"
@@ -125,7 +144,8 @@
                 android:layout_height="wrap_content"
                 android:text="YEŞİl"
                 android:textAlignment="center"
-                android:textColor="@color/yazi" />
+                android:textColor="@color/yazi"
+                tools:ignore="HardcodedText" />
 
             <SeekBar
                 android:id="@+id/seekBarGreen"
@@ -145,7 +165,8 @@
                 android:layout_height="wrap_content"
                 android:text="MAVİ"
                 android:textAlignment="center"
-                android:textColor="@color/yazi" />
+                android:textColor="@color/yazi"
+                tools:ignore="HardcodedText" />
 
             <SeekBar
                 android:id="@+id/seekBarBlue"
@@ -159,16 +180,18 @@
         android:layout_width="match_parent"
         android:layout_height="25dp"
         android:layout_weight="0.13"
-        app:srcCompat="@android:color/holo_red_dark" />
+        android:layout_marginBottom="15dp"
+        app:srcCompat="@android:color/holo_red_dark"
+        tools:ignore="ContentDescription,InefficientWeight" />
 
     <Button
         android:id="@+id/bt_giris"
-        android:layout_marginTop="15dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="40dp"
+        android:layout_marginTop="15dp"
         android:background="@drawable/btn_rounded_corner"
-        android:text="Bilgileri Gir"
+        android:text="Bilgileri kaydet"
         android:textColor="#ffffff"
         tools:ignore="HardcodedText" />
 </LinearLayout>

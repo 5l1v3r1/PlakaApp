@@ -3,6 +3,7 @@ package plakaapp.plakaapp;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
@@ -13,6 +14,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONArray;
@@ -32,6 +34,12 @@ public class sub_plakaEkle extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.sub_plakaekle);
+
+        //Logoya yazı fontu eklendi
+        TextView Logo = (TextView) findViewById(R.id.Logo);
+        Typeface typeface = Typeface.createFromAsset(getAssets(), "fonts/daysoneregular.ttf");
+        Logo.setTypeface(typeface);
+        //Logoya yazı fontu eklendi
 
         Intent intent = sub_plakaEkle.this.getIntent();
         String plaka = intent.getStringExtra("Plaka");

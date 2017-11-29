@@ -74,6 +74,7 @@ public class fragment_home extends Fragment {
             takipler = new JSONArray(new JSONtask().execute(Config.TaLISTELE_URL).get());
             plakalar = new JSONArray(new JSONtask().execute(Config.PLISTELE_URL).get());
             yazilar = new JSONArray(new JSONtask().execute(Config.YLISTELE_URL).get());
+            List listplakalar = new ArrayList<>();
 
             List<Map<String, String>> itemList = new ArrayList<Map<String, String>>();
             for (int i = 0; i < takipler.length(); i++) {
@@ -107,11 +108,15 @@ public class fragment_home extends Fragment {
                         }
                     }
                     if(okunmamis) name += " *";
-                    itemList.add(createListItem("Üyeler", name));
+                    //itemList.add(createListItem("Üyeler", name));
+                    listplakalar.add(new Plakalar(name));
+
+
                 }
             }
-            SimpleAdapter simpleAdapter = new SimpleAdapter(getActivity(), itemList, android.R.layout.simple_list_item_1, new String[]{"Üyeler"}, new int[]{android.R.id.text1});
-            listemiz.setAdapter(simpleAdapter);
+
+            ListAdapter adapter = new ListAdapter(getActivity(), listplakalar);
+            listemiz.setAdapter(adapter);
 
         } catch (Exception e) {
             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());

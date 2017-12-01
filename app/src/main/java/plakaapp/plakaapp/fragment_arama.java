@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,6 +25,7 @@ import java.net.URLEncoder;
  */
 
 public class fragment_arama extends Fragment {
+    String K_ID;
     public fragment_arama() {
 
     }
@@ -36,6 +38,8 @@ public class fragment_arama extends Fragment {
         Typeface typeface = Typeface.createFromAsset(getActivity().getAssets(), "fonts/daysoneregular.ttf");
         Logo.setTypeface(typeface);
         //Logoya yazı fontu eklendi
+        Intent intent = getActivity().getIntent();
+        K_ID = intent.getStringExtra("ID"); //kullanıcı idsi
         AraButtonListener(view);
         GitButtonListener(view);
         return view;
@@ -76,12 +80,37 @@ public class fragment_arama extends Fragment {
                 }
                 else if(islem==2)
                 {
-                    //// TODO: 26.11.2017 Plaka yazıları penceresine yönlendirme 
-                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                    builder.setMessage("Plaka yazıları ekranı")
-                            .setNegativeButton("Tamam", null)
-                            .create()
-                            .show();
+                    try {
+                        JSONArray plakalar=new JSONArray(new JSONtask().execute(Config.PLISTELE_URL).get());
+                        String PlakaID="";
+                        for (int i = 0; i < plakalar.length(); i++) {
+                            JSONObject jsonChildNode = plakalar.getJSONObject(i);
+
+                            String ID = jsonChildNode.getJSONObject("message").getString("ID");
+                            String PPP = jsonChildNode.getJSONObject("message").getString("Plaka");
+                            if(PPP.equals(pText))
+                            {
+                                PlakaID=ID;
+                                break;
+                            }
+                        }
+
+                        new JSONtask().execute(
+                                Config.Taguncelle_URL(
+                                        URLEncoder.encode(K_ID, "utf-8"),
+                                        URLEncoder.encode(PlakaID, "utf-8")
+                                )).get();
+                        Intent intent = new Intent(getActivity(), sub_yazilistele.class);
+                        intent.putExtra("Plaka",pText);
+                        intent.putExtra("PlakaID",PlakaID);
+                        getActivity().startActivity(intent);
+                    } catch (Exception e) {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                        builder.setMessage(e.getMessage())
+                                .setNegativeButton("Tamam", null)
+                                .create()
+                                .show();
+                    }
                     ResetControls(view);
                 }
             }

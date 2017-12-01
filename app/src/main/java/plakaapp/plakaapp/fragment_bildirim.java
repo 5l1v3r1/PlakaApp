@@ -33,7 +33,7 @@ import java.util.Map;
  */
 
 public class fragment_bildirim extends Fragment {
-    public JSONArray takipler,plakalar,yazilar;
+    public JSONArray takipler,plakalar,yazilar,gozuken;
     String K_ID, K_Ad;
 
     public fragment_bildirim() {
@@ -150,12 +150,16 @@ public class fragment_bildirim extends Fragment {
                 } catch (Exception e) {   }
 
                 if(K_ID.equals(number)) {
+                    JSONObject temp=new JSONObject();
                     for (int j = 0; j < plakalar.length(); j++) {
                         if (plakalar.getJSONObject(j).getJSONObject("message").getString("ID") == name) {
+                            String a="{\"ID\":\""+name+"\",";
                             name = plakalar.getJSONObject(j).getJSONObject("message").getString("Plaka");
+                            a+="\"Plaka\":\""+name+"\"}";
+                            temp=new JSONObject(a);
                         }
                     }
-
+                    gozuken.put(temp);
                     String outPut = name+" plakasına yeni yazı eklendi.";
                     itemList.add(createListItem("Üyeler", outPut));
             }
@@ -176,7 +180,15 @@ public class fragment_bildirim extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 try {
-                    //// TODO: 25.11.2017 Plaka yazıları penceresine yönlendirme
+                    new JSONtask().execute(
+                            Config.Taguncelle_URL(
+                                    URLEncoder.encode(K_ID, "utf-8"),
+                                    URLEncoder.encode(gozuken.getJSONObject(position).getString("ID"), "utf-8")
+                            )).get();
+                    Intent intent = new Intent(getActivity(), sub_yazilistele.class);
+                    intent.putExtra("Plaka",gozuken.getJSONObject(position).getString("Plaka"));
+                    intent.putExtra("PlakaID",gozuken.getJSONObject(position).getString("ID"));
+                    getActivity().startActivity(intent);
 
                 } catch (Exception e) {
                     AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());

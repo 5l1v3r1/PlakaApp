@@ -4,8 +4,10 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,8 +20,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -35,7 +39,7 @@ import java.util.Map;
 public class fragment_home extends Fragment {
 
     String K_ID;
-    public JSONArray takipler,plakalar,yazilar;
+    public JSONArray takipler,plakalar,yazilar,gozuken;
     public fragment_home() {
 
 
@@ -69,7 +73,8 @@ public class fragment_home extends Fragment {
     }
 
     private void ListeDoldur(View view) {
-        ListView listemiz = (ListView) view.findViewById(R.id.lv_plakalar);
+        final ListView listemiz = (ListView) view.findViewById(R.id.lv_plakalar);
+        gozuken=new JSONArray();
         try {
             takipler = new JSONArray(new JSONtask().execute(Config.TaLISTELE_URL).get());
             plakalar = new JSONArray(new JSONtask().execute(Config.PLISTELE_URL).get());
@@ -101,17 +106,20 @@ public class fragment_home extends Fragment {
                 } catch (Exception e) {   }
 
                 if(K_ID.equals(number)) {
+                    JSONObject temp=new JSONObject();
                     for (int j = 0; j < plakalar.length(); j++) {
                         if (plakalar.getJSONObject(j).getJSONObject("message").getString("ID") == name) {
+                            String a="{\"ID\":\""+name+"\",";
                             name = plakalar.getJSONObject(j).getJSONObject("message").getString("Plaka");
+                            a+="\"Plaka\":\""+name+"\"}";
+                            temp=new JSONObject(a);
                             break;
                         }
                     }
+                    gozuken.put(temp);
+
                     if(okunmamis) name += " *";
-                    //itemList.add(createListItem("Üyeler", name));
                     listplakalar.add(new Plakalar(name));
-
-
                 }
             }
 
@@ -130,9 +138,17 @@ public class fragment_home extends Fragment {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                try {
-                    //// TODO: 26.11.2017 Plaka yazıları penceresine yönlendirme
 
+                try {
+                    new JSONtask().execute(
+                            Config.Taguncelle_URL(
+                                    URLEncoder.encode(K_ID, "utf-8"),
+                                    URLEncoder.encode(gozuken.getJSONObject(position).getString("ID"), "utf-8")
+                            )).get();
+                    Intent intent = new Intent(getActivity(), sub_yazilistele.class);
+                    intent.putExtra("Plaka",gozuken.getJSONObject(position).getString("Plaka"));
+                    intent.putExtra("PlakaID",gozuken.getJSONObject(position).getString("ID"));
+                    getActivity().startActivity(intent);
                 } catch (Exception e) {
                     AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                     builder.setMessage(e.getMessage())

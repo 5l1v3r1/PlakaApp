@@ -52,6 +52,8 @@
 
         <activity android:name=".sub_plakaEkle"
             android:screenOrientation="portrait"></activity>
+        <activity android:name=".sub_yazilistele"
+            android:screenOrientation="portrait"></activity>
 
     </application>
 

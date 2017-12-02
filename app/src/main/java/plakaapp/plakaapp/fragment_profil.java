@@ -46,15 +46,23 @@ public class fragment_profil extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_profil, container, false);
         vvv = view;
+
+        //giriş yapan kullanıcı verileri çekiliyor
         Intent intent = getActivity().getIntent();
         K_Ad = intent.getStringExtra("K_Adi");//kullanıcı adı
         K_ID = intent.getStringExtra("ID"); //kullanıcı id
 
+        //soruların bulunduğu spinner dolduruluyor
         SorularSpinnerDoldur(view);
+        //üyelerin bilgileri gerekli alanlara dolduruluyor
         UyeBilgiDoldur(view);
+        //tüm kontrolleri dinleyen listenerlar oluşturuluyor
+        //ki hangi verilerin değiştiği veya hangilerine dokunulmadığı belli olsun diye
         CreateControlListener(view);
-        e1 = e2 = e3 = e4 = e5 = false;
+        //buttton için bir listener oluşturuluyor
         CreateButtonListener(view);
+        //tüm verilere hiç dokunulmadı verisi giriliyor
+        e1 = e2 = e3 = e4 = e5 = false;
 
         return view;
     }
@@ -64,12 +72,15 @@ public class fragment_profil extends Fragment {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //eğer tüm veriler için değer "dokunulmadı" yani "false" ise
                 if (!e1 & !e2 & !e3 & !e4 & !e5) {
                     AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                     builder.setMessage("Hiçbir değeri değiştirmediniz")
                             .setNegativeButton("Tamam", null).create().show();
+                    //alt satırlardaki hiçbir koda gitmemesi için engelleniyor
                     return;
                 }
+                //değiştirmek ister misiniz sorusu için evet-hayır cevabı alınması
                 DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -77,6 +88,7 @@ public class fragment_profil extends Fragment {
                             case DialogInterface.BUTTON_POSITIVE:
                                 //Yes button clicked
                                 try {
+                                    //üye ID'sinden üyenin bilgilerinin olduğu obje kümesi indexi
                                     int index = 0;
                                     for (int i = 0; i < uyeler.length(); i++) {
                                         if (uyeler.getJSONObject(i).getJSONObject("message").getString("ID").equals(K_ID)) {
@@ -84,14 +96,18 @@ public class fragment_profil extends Fragment {
                                             break;
                                         }
                                     }
+                                    //değişken alınan kontroller tanımlanıyor
                                     JSONObject jsonChildNode = uyeler.getJSONObject(index).getJSONObject("message");
                                     EditText k_adi = (EditText) vvv.findViewById(R.id.et_profil_kuladi);
                                     EditText sifre = (EditText) vvv.findViewById(R.id.et_profil_email);
                                     EditText eposta = (EditText) vvv.findViewById(R.id.et_profil_parola);
                                     EditText rep = (EditText) vvv.findViewById(R.id.et_profil_gcevap);
 
+                                    //geri gönderilecek string verileri tanımlanıyor
                                     String v1, v2, v3, v4, v5;
 
+                                    //değişmiş veriler için yeni veriler,
+                                    //dokunulmamışlar için ise bellekteki veriler çekiliyor
                                     if (e1) v1 = k_adi.getText().toString();
                                     else v1 = jsonChildNode.getString("K_Adi");
                                     if (e2) v2 = eposta.getText().toString();
@@ -103,6 +119,8 @@ public class fragment_profil extends Fragment {
                                     if (e5) v5 = rep.getText().toString();
                                     else v5 = jsonChildNode.getString("K_Cevap");
 
+                                    //girilen değerler Validation class'ında kontrol ediliyor
+                                    //usulsüzlik olduğu takdirde işlemler return ile disband ediliyor
                                     if(!Validation.userValidate(v1))
                                     {
                                         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -138,6 +156,7 @@ public class fragment_profil extends Fragment {
                                     }
 
 
+                                    //verilerin sisteme girişi api ile sağlanıyor
                                     JSONObject temp = new JSONObject(new JSONtask().execute(
                                             Config.Kguncelle_URL(jsonChildNode.getString("ID"),
                                                     jsonChildNode.getString("Admin"),
@@ -147,6 +166,7 @@ public class fragment_profil extends Fragment {
                                                     URLEncoder.encode(v2, "utf-8"),
                                                     URLEncoder.encode(v4, "utf-8"),
                                                     URLEncoder.encode(v5, "utf-8"))).get());
+                                    //başarılı mesajı alınıyor
                                     if (JsonErrorCheck(temp)) {
                                         Toast.makeText(getContext(), "Güncelleme İşlemi Tamamlandı", Toast.LENGTH_LONG).show();
                                         UyeBilgiDoldur(vvv);
@@ -165,6 +185,7 @@ public class fragment_profil extends Fragment {
                         }
                     }
                 };
+                //ekranda gösterilecek evet-hayır mesajı tanımlanıyor
                 String mesaj = "Değiştirilecek Bilgiler;\n";
                 if (e1) mesaj += "Kullanıcı Adı,\n";
                 if (e2) mesaj += "Mail,\n";
@@ -181,6 +202,7 @@ public class fragment_profil extends Fragment {
     }
 
     private void CreateControlListener(View view) {
+        //değişen her bir veri için ayrı bir boolean değeri true oluyor
         ((EditText) view.findViewById(R.id.et_profil_kuladi)).addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {

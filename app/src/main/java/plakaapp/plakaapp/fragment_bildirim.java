@@ -54,7 +54,9 @@ public class fragment_bildirim extends Fragment {
         Logo.setTypeface(typeface);
         //Logoya yazı fontu eklendi
 
+        //bildirimlerin doldurulması ve bildirimlere basıldığı zaman çalışacak işlevler
         ListeDoldur(view);
+        //temizle buttonunun işlevi için oluşturulan listener
         TemizleListener(view);
 
         return view;
@@ -65,6 +67,8 @@ public class fragment_bildirim extends Fragment {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //altta oluşturulacak dialog click eventi için oluşturulacak listener
+                //evet-hayır sorusunun cevabına göre temizleme işlemi
                 DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -72,22 +76,28 @@ public class fragment_bildirim extends Fragment {
                             case DialogInterface.BUTTON_POSITIVE:
                                 //Yes button clicked
                                 try {
+                                    //tüm takip listesi inceleniyor
                                     for (int i = 0; i < takipler.length(); i++) {
                                         JSONObject jsonChildNode = takipler.getJSONObject(i).getJSONObject("message");
                                         String ID=jsonChildNode.getString("Uye_ID");
+                                        //eğer takip eden ID'si şu an giriş yapmış kişinin ID'si ise
                                         if(K_ID.equals(ID)) {
+                                            //o takiplerin son görülmelerini "şimdi" olarak güncelliyor
                                             JSONObject temp = new JSONObject(new JSONtask().execute(
                                                     Config.Taguncelle_URL(
                                                             URLEncoder.encode(jsonChildNode.getString("Uye_ID"), "utf-8"),
                                                             URLEncoder.encode(jsonChildNode.getString("Plaka_ID"), "utf-8")
                                                     )).get());
+                                            //bir hata var ise gösterilmesi için yollanıyor
                                             if (!JsonErrorCheck(temp)) {
                                                 return;
                                             }
                                         }
 
                                     }
+                                    //tüm bildirimler dolaşıldıktan sonra bildirim mesajı
                                     Toast.makeText(getContext(), "Bildirimler temizlendi", Toast.LENGTH_LONG).show();
+                                    //bildirimler temizlendikten sonra listeyi yenilemek
                                     ListeDoldur(view);
 
                                 } catch (Exception e) {
@@ -103,6 +113,7 @@ public class fragment_bildirim extends Fragment {
                         }
                     }
                 };
+                //evet-hayır sorusunun üstteki listener ile oluşturulması
                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                 builder.setMessage("Tüm bildirimlerinizi kaldırmak istediğinize emin misiniz?").setPositiveButton("Evet", dialogClickListener)
                         .setNegativeButton("Hayır", dialogClickListener).show();
@@ -111,6 +122,7 @@ public class fragment_bildirim extends Fragment {
         });
     }
 
+    //liste elemanlarının tanımlanması için yardımcı method
     private HashMap<String, String> createListItem(String name, String number){
         HashMap<String, String> employeeNameNo = new HashMap<String, String>();
         employeeNameNo.put(name, number);
@@ -118,20 +130,27 @@ public class fragment_bildirim extends Fragment {
     }
 
     private void ListeDoldur(View view) {
+        //listview tanımlanıyor
         ListView listemiz = (ListView) view.findViewById(R.id.lv_bildirimler);
         try {
+            //yardımcı diziler serverdan api yardımı ile çekiliyor
             takipler = new JSONArray(new JSONtask().execute(Config.TaLISTELE_URL).get());
             plakalar = new JSONArray(new JSONtask().execute(Config.PLISTELE_URL).get());
             yazilar = new JSONArray(new JSONtask().execute(Config.YLISTELE_URL).get());
 
+            //listenin içeriği olacak map haritası oluşturuluyor
             List<Map<String, String>> itemList = new ArrayList<Map<String, String>>();
+            //her bir takip satırı için işlem yapılıyor
             for (int i = 0; i < takipler.length(); i++) {
                 JSONObject jsonChildNode = takipler.getJSONObject(i);
 
+                //takip bilgileri çekiliyor
                 String name = jsonChildNode.getJSONObject("message").getString("Plaka_ID");
                 String number = jsonChildNode.getJSONObject("message").getString("Uye_ID");
                 String tarih=jsonChildNode.getJSONObject("message").getString("SonBakma");
 
+                //takip satırının tarih bilgisi sorgulanıyor
+                //eğer plaka üzerinde yazı yok ise listeye alınmaması sağlanıyor
                 SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.000'Z'");
                 try {
                     boolean oku=false;
@@ -149,6 +168,7 @@ public class fragment_bildirim extends Fragment {
                     if(!oku) number="-1";
                 } catch (Exception e) {   }
 
+                //eğer kullanıcı ID'si giriş yapan kullanıcı ise listeleniyor
                 if(K_ID.equals(number)) {
                     JSONObject temp=new JSONObject();
                     for (int j = 0; j < plakalar.length(); j++) {
@@ -175,16 +195,20 @@ public class fragment_bildirim extends Fragment {
                     .show();
         }
 
+        //listenin click eventi oluşturuluyor
         listemiz.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 try {
+                    //tıklanılan plaka için son bakılma güncelleniyor
                     new JSONtask().execute(
                             Config.Taguncelle_URL(
                                     URLEncoder.encode(K_ID, "utf-8"),
                                     URLEncoder.encode(gozuken.getJSONObject(position).getString("ID"), "utf-8")
                             )).get();
+
+                    //ve plaka için plaka yazıları penceresi açılıyor
                     Intent intent = new Intent(getActivity(), sub_yazilistele.class);
                     intent.putExtra("Plaka",gozuken.getJSONObject(position).getString("Plaka"));
                     intent.putExtra("PlakaID",gozuken.getJSONObject(position).getString("ID"));

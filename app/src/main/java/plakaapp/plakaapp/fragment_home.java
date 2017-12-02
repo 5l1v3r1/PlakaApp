@@ -76,6 +76,7 @@ public class fragment_home extends Fragment {
         final ListView listemiz = (ListView) view.findViewById(R.id.lv_plakalar);
         gozuken=new JSONArray();
         try {
+            //liste doldurmak için gerekli diziler çekiliyor
             takipler = new JSONArray(new JSONtask().execute(Config.TaLISTELE_URL).get());
             plakalar = new JSONArray(new JSONtask().execute(Config.PLISTELE_URL).get());
             yazilar = new JSONArray(new JSONtask().execute(Config.YLISTELE_URL).get());
@@ -89,6 +90,7 @@ public class fragment_home extends Fragment {
                 String number = jsonChildNode.getJSONObject("message").getString("Uye_ID");
                 String tarih=jsonChildNode.getJSONObject("message").getString("SonBakma");
 
+                //en son bakılmadan sonra yazılan bir yazı olup olmadığı kontrol ediliyor
                 boolean okunmamis=false;
                 SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.000'Z'");
                 try {
@@ -105,6 +107,7 @@ public class fragment_home extends Fragment {
                     }
                 } catch (Exception e) {   }
 
+                //kişinin takip ettiği tüm plakalar listeleniyor
                 if(K_ID.equals(number)) {
                     JSONObject temp=new JSONObject();
                     for (int j = 0; j < plakalar.length(); j++) {
@@ -118,6 +121,7 @@ public class fragment_home extends Fragment {
                     }
                     gozuken.put(temp);
 
+                    //plakada okumadığı yazılar bulunuyor ise yanında yıldız beliriyor
                     if(okunmamis) name += " *";
                     listplakalar.add(new Plakalar(name));
                 }
@@ -140,11 +144,13 @@ public class fragment_home extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                 try {
+                    //tıklanılan plaka için son bakılma güncelleniyor
                     new JSONtask().execute(
                             Config.Taguncelle_URL(
                                     URLEncoder.encode(K_ID, "utf-8"),
                                     URLEncoder.encode(gozuken.getJSONObject(position).getString("ID"), "utf-8")
                             )).get();
+                    //ve plaka için plaka yazıları penceresi açılıyor
                     Intent intent = new Intent(getActivity(), sub_yazilistele.class);
                     intent.putExtra("Plaka",gozuken.getJSONObject(position).getString("Plaka"));
                     intent.putExtra("PlakaID",gozuken.getJSONObject(position).getString("ID"));

@@ -2,6 +2,7 @@ package plakaapp.plakaapp;
 
 /**
  * Created by Simulakra on 28.10.2017.
+ * Coded by berke & cumen
  */
 
 public class Config {

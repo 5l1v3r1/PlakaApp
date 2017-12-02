@@ -13,24 +13,33 @@ import android.widget.TextView;
 import org.json.JSONArray;
 
 /**
- * Created by cumen on 26.10.2017.
+ * Created by berke on 26.10.2017.
  */
 
 public class admin_screen extends TabActivity{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        //Admin activity'sinin oluşturulması
         super.onCreate(savedInstanceState);
         setContentView(R.layout.admin_screen_activity);
 
+        //intent'ten admin ID verisinin çekilmesi
         Intent intent = getIntent();
-        String adminid = intent.getStringExtra("ID"); //admin idsi
+        String adminid = intent.getStringExtra("ID");
+        //ileride kullanılır amacı ile çekilmiş fakat kullanılmamış değişken
 
+        //Tabhost değişkenine ulaşıp tüm tab'ların entegresi
+        //(Diğer bir deyişle sekmelerin oluşturulması
         TabHost tabh = (TabHost)findViewById(android.R.id.tabhost);
 
+        //Sekme tanımı
         TabSpec tab1 = tabh.newTabSpec("tab menü üyeler");
+        //Sekme başlığı
         tab1.setIndicator("Üyeler");
+        //sekmenin içeriği
         tab1.setContent(new Intent(admin_screen.this,tab_uyeler.class));
+        //sekmenin eklenişi
         tabh.addTab(tab1);
 
         TabSpec tab2 = tabh.newTabSpec("tab menü sorular");
@@ -58,7 +67,7 @@ public class admin_screen extends TabActivity{
         tab6.setContent(new Intent(admin_screen.this,tab_yazilar.class));
         tabh.addTab(tab6);
 
-        //tabwidget in yazı rengini ayarladık
+        //tabwidget in yazı rengini ayarladık(cumen)
         for (int i = 0; i < tabh.getTabWidget().getChildCount(); i++) {
             View v = tabh.getTabWidget().getChildAt(i);
             v.setBackgroundResource(R.drawable.tabwidget_background);
@@ -67,7 +76,5 @@ public class admin_screen extends TabActivity{
             tv.setTextColor(getResources().getColor(R.color.white));
         }
         //tabwidget in yazı rengini ayarladık
-
-
     }
 }

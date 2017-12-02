@@ -33,14 +33,20 @@ public class fragment_arama extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_arama, container, false);
 
-        //Logoya yazı fontu eklendi
+        //Logoya yazı fontu eklendi(cumen)
         TextView Logo = (TextView) view.findViewById(R.id.Logo);
         Typeface typeface = Typeface.createFromAsset(getActivity().getAssets(), "fonts/daysoneregular.ttf");
         Logo.setTypeface(typeface);
         //Logoya yazı fontu eklendi
+
+        //intent'ten kullanıcı ID'si çekmek
         Intent intent = getActivity().getIntent();
         K_ID = intent.getStringExtra("ID"); //kullanıcı idsi
+
+        //ara buttonunun işlevlerinin oluşturulması
         AraButtonListener(view);
+
+        //git buttonunun işlevleri
         GitButtonListener(view);
         return view;
     }
@@ -48,6 +54,7 @@ public class fragment_arama extends Fragment {
     int islem = 0;
     String pText="";
 
+    //tüm kontrolleri sıfırlayacak olan method
     private void ResetControls(View view)
     {
         islem=0;
@@ -56,13 +63,19 @@ public class fragment_arama extends Fragment {
     }
 
     private void GitButtonListener(final View view) {
+        //git buttonunun tanımlanması
         final Button sorgula = (Button) view.findViewById(R.id.btn_git);
         sorgula.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
+                //plaka yazısını almak
                 EditText plaka = (EditText) view.findViewById(R.id.et_plakaNumarasi);
                 pText=plaka.getText().toString();
+
+                //plaka editText'inden focus'u kaldırmak
                 plaka.clearFocus();
+
+                //eğer işlem 0 tanımlı ise ara tuşuna basılmamış demektir veya hatalı plaka girilmiştir
                 if(islem==0)
                 {
                     AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -70,17 +83,18 @@ public class fragment_arama extends Fragment {
                             .setNegativeButton("Tamam", null)
                             .create()
                             .show();
-                }
+                }//eğer işlem 1 ise plaka hiç bulunmamaktadır ve plaka ekleme paneline gönderilir
                 else if(islem==1)
                 {
                     Intent intent = new Intent(getActivity(), sub_plakaEkle.class);
                     intent.putExtra("Plaka",pText);
                     getActivity().startActivity(intent);
                     ResetControls(view);
-                }
+                }//eğer işlem 2 ise plaka bulunmaktadır, plaka yazılarına yönlendirilir
                 else if(islem==2)
                 {
                     try {
+                        //plakaların hepsi çekilir ve plakaya göre ID'si bulunur
                         JSONArray plakalar=new JSONArray(new JSONtask().execute(Config.PLISTELE_URL).get());
                         String PlakaID="";
                         for (int i = 0; i < plakalar.length(); i++) {
@@ -95,11 +109,14 @@ public class fragment_arama extends Fragment {
                             }
                         }
 
+                        //kullanıcının takip ettiği bir plaka ise son görülme güncellenir
                         new JSONtask().execute(
                                 Config.Taguncelle_URL(
                                         URLEncoder.encode(K_ID, "utf-8"),
                                         URLEncoder.encode(PlakaID, "utf-8")
                                 )).get();
+
+                        //plaka ve plakaID gönderilerek plaka yazıları açılır
                         Intent intent = new Intent(getActivity(), sub_yazilistele.class);
                         intent.putExtra("Plaka",pText);
                         intent.putExtra("PlakaID",PlakaID);
@@ -120,6 +137,8 @@ public class fragment_arama extends Fragment {
     private void AraButtonListener(final View view) {
 
         //Coppied from MisafirScreen.java (Ahmet Çümen)
+        //plaka sorgulanır, plaka için yazı olup olmadığı değeri döndürülür
+        //plaka için yazı yok ise plakanın olup olmadığı kontrol edilir(berke)
         final Button sorgula = (Button) view.findViewById(R.id.btn_yazigonder);
         final EditText plaka = (EditText) view.findViewById(R.id.et_plakaNumarasi);
         sorgula.setOnClickListener(new View.OnClickListener(){

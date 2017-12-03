@@ -120,6 +120,7 @@ public class fragment_arama extends Fragment {
                         Intent intent = new Intent(getActivity(), sub_yazilistele.class);
                         intent.putExtra("Plaka",pText);
                         intent.putExtra("PlakaID",PlakaID);
+                        intent.putExtra("KisiID",K_ID);
                         getActivity().startActivity(intent);
                     } catch (Exception e) {
                         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());

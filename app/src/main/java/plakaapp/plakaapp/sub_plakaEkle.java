@@ -41,17 +41,24 @@ public class sub_plakaEkle extends Activity {
         Logo.setTypeface(typeface);
         //Logoya yazı fontu eklendi
 
+        //eklenecek plakanın bilgisi intent'ten çekiliyor
         Intent intent = sub_plakaEkle.this.getIntent();
         String plaka = intent.getStringExtra("Plaka");
         ((EditText) findViewById(R.id.plakaText)).setText(plaka);
 
+        //renk seçici oluşturuluyor
         ColorPickerCreate();
+        //tür ve cins spinnerları dolduruluyor
         SpinnerlariDoldur();
+        //spinnerlar için listener oluşturuluyor
+        //cins seçildiği zaman ona göre türlerin çekilmesi için
         CreateSpinnerCinsListener();
+        //ana işlem buttonunun listeneri oluşturuluyor
         CreateButtonListener();
     }
 
     private void CreateSpinnerCinsListener() {
+        //cins seçildiği zaman türlerin ona göre listelenmesi
         ((Spinner) findViewById(R.id.plakaCinsSpin)).setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
@@ -80,16 +87,19 @@ public class sub_plakaEkle extends Activity {
     }
 
     private void CreateButtonListener() {
+        //plaka eklemek için tanımlanan button
         final Button giris = (Button) findViewById(R.id.bt_giris);
         giris.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
                 try {
+                    //değerler dışarıdan alınıyor
                     EditText plaka = (EditText) findViewById(R.id.plakaText);
                     SeekBar redSeek=(SeekBar) findViewById(R.id.seekBarRed);
                     SeekBar greenSeek=(SeekBar) findViewById(R.id.seekBarGreen);
                     SeekBar blueSeek=(SeekBar) findViewById(R.id.seekBarBlue);
 
+                    //api yardımı ile plaka ekleniyor
                     JSONObject temp = new JSONObject(new JSONtask().execute(
                             Config.Pekle_URL(
                                     URLEncoder.encode(plaka.getText().toString(),"utf-8")
@@ -98,6 +108,8 @@ public class sub_plakaEkle extends Activity {
                                     ,Integer.toHexString(redSeek.getProgress())+
                                             Integer.toHexString(greenSeek.getProgress())+
                                             Integer.toHexString(blueSeek.getProgress()))).get());
+
+                    //başarılı verisi alınıyor
                     if (JsonErrorCheck(temp)) {
                         Toast.makeText(getApplicationContext(), "Ekleme İşlemi Tamamlandı", Toast.LENGTH_LONG).show();
                         finish();
@@ -120,6 +132,7 @@ public class sub_plakaEkle extends Activity {
     int blueValue;
     ImageView picker;
     private void ColorPickerCreate() {
+        //renk seçici tanımlanıyor
         picker=findViewById(R.id.plakaRenkPalet);
 
         SeekBar redSeekBar= (SeekBar) findViewById(R.id.seekBarRed);
@@ -130,12 +143,15 @@ public class sub_plakaEkle extends Activity {
         greenValue  = greenSeekBar.getProgress();
         blueValue  = blueSeekBar.getProgress();
 
+        //değer çubuklarının maksimum değerleri 255'e atanıyor
         redSeekBar.setMax(255);
         greenSeekBar.setMax(255);
         blueSeekBar.setMax(255);
 
+        //arkaplan rengi değerlere göre değiştiriliyor
         picker.setBackgroundColor(Color.rgb(redValue,greenValue,blueValue));
 
+        //ve her değer değişiminde arkaplan rengi değişmeye devam ediyor
         redSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
 
             @Override
@@ -193,12 +209,14 @@ public class sub_plakaEkle extends Activity {
 
     private void SpinnerlariDoldur(){
         try {
+            //doldurulacak spinnerlar tanımlanıyor
             cinsler = new JSONArray(new JSONtask().execute(Config.CLISTELE_URL).get());
             turler = new JSONArray(new JSONtask().execute(Config.TLISTELE_URL).get());
 
             Spinner cinsListe = (Spinner) findViewById(R.id.plakaCinsSpin);
             Spinner turListe = (Spinner) findViewById(R.id.plakaTurSpin);
 
+            //cinslerin tamamı dolduruluyor
             List<String> result = new ArrayList<String>();
             for (int i = 0; i < cinsler.length(); i++) {
                 JSONObject jsoncins = cinsler.getJSONObject(i);
@@ -209,6 +227,7 @@ public class sub_plakaEkle extends Activity {
             ArrayAdapter<String> adapter = new ArrayAdapter<String>(sub_plakaEkle.this, android.R.layout.simple_spinner_dropdown_item, result);
             cinsListe.setAdapter(adapter);
 
+            //o an seçili olan cinse göre türler dolduruluyor
             String CinsID=PullCinsSpinnerID();
             result = new ArrayList<String>();
             for (int i = 0; i < turler.length(); i++) {
@@ -232,6 +251,7 @@ public class sub_plakaEkle extends Activity {
     }
 
     private String PullCinsSpinnerID(){
+        //cins spinner'indan seçili cins'in CinsID'si çekiliyor
         Spinner spinner = ((Spinner) findViewById(R.id.plakaCinsSpin));
         String index = "0";
         try {
@@ -248,6 +268,7 @@ public class sub_plakaEkle extends Activity {
         return index;}
 
     private String PullTurSpinnerID(){
+        //tür spinner'indan seçili olan türün ID'si çekiliyor
         Spinner spinner = ((Spinner) findViewById(R.id.plakaTurSpin));
         String index = "0";
         try {
@@ -261,43 +282,7 @@ public class sub_plakaEkle extends Activity {
         }catch (JSONException e) {
             e.printStackTrace();
         }
-        return index;}
-
-    private void PutCinsSpinner(String ID){
-        Spinner spinner = ((Spinner) findViewById(R.id.plakaCinsSpin));
-        int index = 0;
-        try {
-            for (int i = 0; i < cinsler.length(); i++) {
-                JSONObject jsoncins = cinsler.getJSONObject(i);
-                if(jsoncins.getJSONObject("message").getString("ID").equals(ID)) index = i;
-            }
-
-        }catch (JSONException e) {
-            e.printStackTrace();
-        }
-        spinner.setSelection(index);
-    }
-    private void PutTurSpinner(String ID){
-        Spinner turListe = (Spinner) findViewById(R.id.plakaTurSpin);
-        int index=0;
-        try{
-            String CinsID=PullCinsSpinnerID();
-            int sayac=0;
-            ArrayList<String> result = new ArrayList<String>();
-            for (int i = 0; i < turler.length(); i++) {
-                JSONObject jsontur = turler.getJSONObject(i);
-
-                if(jsontur.getJSONObject("message").getString("CinsID").equals(CinsID)) {
-                    String soruMetni = jsontur.getJSONObject("message").getString("TurAdi");
-                    result.add(soruMetni);
-                    if(jsontur.getJSONObject("message").getString("ID").equals(ID))
-                        index = sayac;
-                    sayac ++;
-                }
-            }
-            ArrayAdapter<String> adapter = new ArrayAdapter<String>(sub_plakaEkle.this, android.R.layout.simple_spinner_dropdown_item, result);
-            turListe.setAdapter(adapter);}catch (Exception e){}
-        turListe.setSelection(index);
+        return index;
     }
 
     private boolean JsonErrorCheck(JSONObject temp) {

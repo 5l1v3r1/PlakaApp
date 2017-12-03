@@ -283,16 +283,23 @@ public class fragment_profil extends Fragment {
 
     private void UyeBilgiDoldur(View view) {
         try {
+            //Üye bilgilerini çek
             uyeler = new JSONArray(new JSONtask().execute(Config.KLISTELE_URL).get());
             for (int i = 0; i < uyeler.length(); i++) {
                 JSONObject jsonSoru = uyeler.getJSONObject(i).getJSONObject("message");
 
-                ((EditText) view.findViewById(R.id.et_profil_kuladi)).setText(jsonSoru.getString("K_Adi"));
-                ((EditText) view.findViewById(R.id.et_profil_email)).setText(jsonSoru.getString("K_Mail"));
-                ((EditText) view.findViewById(R.id.et_profil_parola)).setText("");
-                ((EditText) view.findViewById(R.id.et_profil_gcevap)).setText(jsonSoru.getString("K_Cevap"));
-                SpinnerPush(jsonSoru.getString("K_Soru"), view);
+                //üyelerin bilgilerini uygun alanlara gir
+                if(jsonSoru.getString("ID").equals(K_ID)) {
+                    ((EditText) view.findViewById(R.id.et_profil_kuladi)).setText(jsonSoru.getString("K_Adi"));
+                    ((EditText) view.findViewById(R.id.et_profil_email)).setText(jsonSoru.getString("K_Mail"));
+                    ((EditText) view.findViewById(R.id.et_profil_parola)).setText("");
+                    ((EditText) view.findViewById(R.id.et_profil_gcevap)).setText(jsonSoru.getString("K_Cevap"));
+                    SpinnerPush(jsonSoru.getString("K_Soru"), view);
+                    return;
+                }
             }
+
+            //kullanıcı bilgileri el ile değişmemiş olarak tanımla
             e1 = e2 = e3 = e4 = e5 = false;
         } catch (Exception e) {
             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -304,11 +311,13 @@ public class fragment_profil extends Fragment {
     }
 
     private String SpinnerPull(View view) {
+        //spinner tanımla
         Spinner soru = ((Spinner) view.findViewById(R.id.sp_profil_gsorusu));
             String index = "0";
             try {
                 for (int i=0;i<sorular.length();i++){
 
+                    //soru metnine göre sorunun ID'sini çekip geri gönder
                     if (soru.getSelectedItem().toString().equals(sorular.getJSONObject(i).getJSONObject("message").getString("SoruMetin"))) {
                         index = sorular.getJSONObject(i).getJSONObject("message").getString("ID");
                         return index;
@@ -317,15 +326,18 @@ public class fragment_profil extends Fragment {
             }catch (JSONException e) {
                 e.printStackTrace();
             }
+            //bulunamaması ihtimali ile sıfır gönder
             return index;
     }
 
     private void SpinnerPush(String ID, View view) {
         try {
+            //girilen ID değeri boş ise durdur
             if (ID.isEmpty()) return;
 
             Spinner soru = ((Spinner) view.findViewById(R.id.sp_profil_gsorusu));
 
+            //gelen ID ile soru ID'lerini kıyasla, hangi soru olduğunu bul
             int arrayPos = 0;
             for (int i = 0; i < sorular.length(); i++) {
                 if (sorular.getJSONObject(i).getJSONObject("message").getString("ID") == ID) {
@@ -334,10 +346,13 @@ public class fragment_profil extends Fragment {
                 }
             }
 
+            //belirlenen ID'deki sorunun spinnerdaki sırasını bulup seçtir
             for (int i = 0; i < soru.getCount(); i++) {
                 if (soru.getItemAtPosition(i).toString() ==
                         sorular.getJSONObject(arrayPos).getJSONObject("message").getString("SoruMetin")) {
                     soru.setSelection(i);
+                    //bu işlem el ile seçim olmadığından değeri false ata
+                    e4=false;
                     return;
                 }
             }
@@ -348,15 +363,16 @@ public class fragment_profil extends Fragment {
                     .create()
                     .show();
         }
-        e4=false;
     }
 
     public void SorularSpinnerDoldur(View view) {
         try {
+            //spinner ve doldurulacak list tanımla
             sorular = new JSONArray(new JSONtask().execute(Config.SORULISTELE).get());
             Spinner soruListe = (Spinner) view.findViewById(R.id.sp_profil_gsorusu);
             List<String> result = new ArrayList<String>();
 
+            //soruları listeleniyor
             for (int i = 0; i < sorular.length(); i++) {
                 JSONObject jsonSoru = sorular.getJSONObject(i);
 

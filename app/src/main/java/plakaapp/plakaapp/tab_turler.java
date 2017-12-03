@@ -118,14 +118,18 @@ public class tab_turler extends Activity {
             turler=new JSONArray(new JSONtask().execute(Config.TLISTELE_URL).get());
 
             List<Map<String, String>> itemList = new ArrayList<Map<String, String>>();
+            String cinsID=ReturnCinsID();
             for (int i = 0; i < turler.length(); i++) {
                 JSONObject jsonChildNode = turler.getJSONObject(i);
 
                 String name = jsonChildNode.getJSONObject("message").getString("ID");
                 String number = ReturnCinsAdi(jsonChildNode.getJSONObject("message").getString("CinsID"));
                 String number2 = jsonChildNode.getJSONObject("message").getString("TurAdi");
-                String outPut = name + "-" + number+ "-" + number2;
-                itemList.add(createListItem("Üyeler", outPut));
+                String outPut = name + "-" + number2;
+                if(cinsID.equals(number))
+                {
+                    itemList.add(createListItem("Üyeler", outPut));
+                }
             }
             SimpleAdapter simpleAdapter = new SimpleAdapter(tab_turler.this, itemList, android.R.layout.simple_list_item_1, new String[]{"Üyeler"}, new int[]{android.R.id.text1});
             listemiz.setAdapter(simpleAdapter);

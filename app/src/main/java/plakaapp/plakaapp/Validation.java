@@ -66,8 +66,6 @@ public class Validation {
 
     }
 
-
-
     public static String JsonErrorCheck(JSONObject temp) {
         try {
             //JSONObject js1 =temp.getJSONObject(0);

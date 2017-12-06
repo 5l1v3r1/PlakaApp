@@ -88,8 +88,11 @@ public class openAlpr extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-
-                //TODO: fragment_hizliyazi ya yönlendirelecek ve sonuc gönderilecek
+                // fragment_hizliyazi ya değişkenimizi gönderiyoruz
+                Intent result = new Intent();
+                result.putExtra("sonuc", sonuc);
+                setResult(Activity.RESULT_OK,result);
+                finish();
 
             }
         });
@@ -132,7 +135,7 @@ public class openAlpr extends AppCompatActivity {
                                     sonuc = boslukDoldurma(results.getResults().get(0).getPlate());
                                     resultTextView.setText("Plaka: " + sonuc
                                             // Trim confidence to two decimal places
-                                            + " Başarı Oranı: " + String.format("%.2f", results.getResults().get(0).getConfidence()) + "%"
+                                            + " Doğruluk Oranı: " + String.format("%.2f", results.getResults().get(0).getConfidence()) + "%"
                                             // Convert processing time to seconds and trim to two decimal places
                                             + " İşlem Süresi: " + String.format("%.2f", ((results.getProcessingTimeMs() / 1000.0) % 60)) + " saniye");
 

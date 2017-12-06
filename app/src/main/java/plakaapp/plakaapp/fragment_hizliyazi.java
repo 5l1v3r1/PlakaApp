@@ -52,6 +52,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import static android.app.Activity.RESULT_OK;
+
 /**
  * Created by cumen on 23.11.2017.
  */
@@ -66,11 +68,11 @@ public class fragment_hizliyazi extends Fragment {
     }
 
 
-
+    public View Alprview; // OpenAlpr den gelen plaka için tanımlanmış global View Objesi
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_hizliyazi, container, false);
 
+        final View view = inflater.inflate(R.layout.fragment_hizliyazi, container, false);
         final Button yaziekle = (Button) view.findViewById(R.id.btn_yazigonder);
         final Button alpr = (Button) view.findViewById(R.id.btn_alpr_git);
         String foto_plaka = "boş";
@@ -79,19 +81,6 @@ public class fragment_hizliyazi extends Fragment {
         Intent intent = getActivity().getIntent();
         final String yazarID = intent.getStringExtra("ID");
         //YazarID yi çekiyoruz
-
-
-
-
-        //Fotoğraftan gelen plakayı çekiyoruz
-
-        //TODO: openAlpr den gelen plakayı çekeceğiz
-
-        //Fotoğraftan gelen plakayı çekiyoruz
-
-
-
-
 
 
         //Logoya yazı fontu eklendi
@@ -227,17 +216,35 @@ public class fragment_hizliyazi extends Fragment {
         alpr.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 Intent intent = new Intent(getActivity(), openAlpr.class);
-                startActivity(intent);
-
+                startActivityForResult(intent,1);
             }
         });
         //alpr penceresine yönlendiriyoruz
 
-
+        Alprview=view; //OnActivityResult için  Alprview içine view imizi atıyoruz.
         return view;
 
+    }
+
+
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        // check that it is the SecondActivity with an OK result
+        if (requestCode == 1) {
+            if (resultCode == RESULT_OK) {
+
+                // get String data from Intent
+                String returnString = data.getStringExtra("sonuc");
+
+                // set text view with string
+                TextView textView = (TextView) Alprview.findViewById(R.id.et_plakaNumarasi);
+                textView.setText(returnString);
+            }
+        }
     }
 
 

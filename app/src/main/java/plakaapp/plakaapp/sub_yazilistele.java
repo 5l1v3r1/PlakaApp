@@ -79,7 +79,7 @@ public class sub_yazilistele  extends Activity {
             public boolean onMenuItemClick(MenuItem item) {
                 Log.d("kID",K_ID);
                 Log.d("pID",P_ID);
-                if (item.isChecked()) {
+                if (!item.isChecked()) {
                     try {
                         Log.d("q1",new JSONtask().execute(Config.Taekle_URL(K_ID,P_ID)).get());
                         takipPopup.getMenu().findItem(R.id.takip).setChecked(false);

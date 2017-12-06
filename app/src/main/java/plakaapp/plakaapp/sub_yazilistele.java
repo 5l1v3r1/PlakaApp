@@ -240,6 +240,7 @@ public class sub_yazilistele  extends Activity {
                                                         jsTemp.getString("KonumID"),
                                                         jsTemp.getString("Yazi"),
                                                         String.valueOf(rep + 1))).get();
+                                                YazarRepDegistir(jsTemp.getString("YazarID"),true);
                                                 Toast.makeText(sub_yazilistele.this, "Yazi rep'i arttırıldı", Toast.LENGTH_SHORT).show();
                                                 ListeDoldur();
                                                 break;
@@ -252,6 +253,7 @@ public class sub_yazilistele  extends Activity {
                                                     jsTemp.getString("KonumID"),
                                                     jsTemp.getString("Yazi"),
                                                     String.valueOf(rep-1))).get();
+                                            YazarRepDegistir(jsTemp.getString("YazarID"),false);
                                             Toast.makeText(sub_yazilistele.this,"Yazi rep'i azaltıldı",Toast.LENGTH_SHORT).show();
                                             ListeDoldur();
                                             break;
@@ -277,5 +279,32 @@ public class sub_yazilistele  extends Activity {
                 }
             }
         });
+    }
+
+    private void YazarRepDegistir(String YazarID, boolean artis)
+    {
+        try{
+        //kişinin dizi üzerindeki index'i hesaplanıyor
+        int index=0;
+        for(int i=0;i<uyeler.length();i++)
+        {
+            if(uyeler.getJSONObject(i).getJSONObject("message").getString("ID").equals(YazarID))
+            {
+                index=i;
+                break;
+            }
+        }
+
+        //üyenin rep değerini gelen değere göre arttırmak veya azaltmak
+        JSONObject jsTemp=uyeler.getJSONObject(index).getJSONObject("message");
+        new JSONtask().execute(Config.Kguncelle_URL(jsTemp.getString("ID"),
+                jsTemp.getString("Admin"),
+                jsTemp.getString("K_Adi"),
+                "~~",
+                String.valueOf(Integer.parseInt(jsTemp.getString("K_Rep"))+(artis?1:-1)),
+                jsTemp.getString("K_Mail"),
+                jsTemp.getString("K_Soru"),
+                jsTemp.getString("K_Cevap"))).get();
+        } catch (Exception e){}
     }
 }

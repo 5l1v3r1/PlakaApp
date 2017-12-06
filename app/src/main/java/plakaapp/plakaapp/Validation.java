@@ -1,5 +1,7 @@
 package plakaapp.plakaapp;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
 import android.support.v7.app.AlertDialog;
 import android.widget.Toast;
 
@@ -63,6 +65,9 @@ public class Validation {
 
 
     }
+
+
+
     public static String JsonErrorCheck(JSONObject temp) {
         try {
             //JSONObject js1 =temp.getJSONObject(0);

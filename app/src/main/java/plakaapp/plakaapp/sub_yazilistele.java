@@ -77,6 +77,8 @@ public class sub_yazilistele  extends Activity {
         //item click eventi için listener oluşturuluyor
         takipPopup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
             public boolean onMenuItemClick(MenuItem item) {
+                Log.d("kID",K_ID);
+                Log.d("pID",P_ID);
                 if (item.isChecked()) {
                     try {
                         Log.d("q1",new JSONtask().execute(Config.Taekle_URL(K_ID,P_ID)).get());
@@ -138,6 +140,14 @@ public class sub_yazilistele  extends Activity {
 
                     //tarih göze şık gelecek formata değiştiriliyor
                     Tarih = Tarih.substring(0,Tarih.indexOf('T'))+" "+Tarih.substring(Tarih.indexOf('T')+1,Tarih.indexOf(".000Z"));
+
+                    //eğer rep değeri -25'in altında ise yazı bulanık gözükecektir
+                    if(Integer.parseInt(Rep)<=-25)
+                    {
+                        String temp="";
+                        for (int j=0;j<Yazi.length();j++)temp+="$";
+                        Yazi=temp;
+                    }
 
                     //tüm yazı ek bilgileri ile birleştiriliyor
                     Yazi+="\n\nKonum: "+KonumID+"\nYazar: "+YazarID+"\nTarih: "+Tarih+"\nRep: "+Rep;
@@ -213,16 +223,29 @@ public class sub_yazilistele  extends Activity {
                                     int rep=Integer.parseInt(jsTemp.getString("Rep"));
                                     switch (item.getItemId()) {
                                         case R.id.artirep:
-                                            new JSONtask().execute(Config.Yguncelle_URL(jsTemp.getString("ID"),
-                                                    jsTemp.getString("PlakaID"),
-                                                    jsTemp.getString("YazarID"),
-                                                    jsTemp.getString("KonumID"),
-                                                    jsTemp.getString("Yazi"),
-                                                    String.valueOf(rep+1))).get();
-                                            Toast.makeText(sub_yazilistele.this,"Yazi rep'i arttırıldı",Toast.LENGTH_SHORT).show();
-                                            ListeDoldur();
-                                            break;
+                                            //eğer rep değeri -25'in altında ise artmasını engellemek
+                                            if(rep<=-25)
+                                            {
+                                                AlertDialog.Builder builder = new AlertDialog.Builder(sub_yazilistele.this);
+                                                builder.setMessage("Bu yazı -25 limitinin altında, artması engellenmiştir.")
+                                                        .setNegativeButton("Tamam", null)
+                                                        .create()
+                                                        .show();
+                                                break;
+                                            }
+                                            else {//rep artma işlemi
+                                                new JSONtask().execute(Config.Yguncelle_URL(jsTemp.getString("ID"),
+                                                        jsTemp.getString("PlakaID"),
+                                                        jsTemp.getString("YazarID"),
+                                                        jsTemp.getString("KonumID"),
+                                                        jsTemp.getString("Yazi"),
+                                                        String.valueOf(rep + 1))).get();
+                                                Toast.makeText(sub_yazilistele.this, "Yazi rep'i arttırıldı", Toast.LENGTH_SHORT).show();
+                                                ListeDoldur();
+                                                break;
+                                            }
                                         case R.id.eksirep:
+                                            //rep azaltma işlemi
                                             new JSONtask().execute(Config.Yguncelle_URL(jsTemp.getString("ID"),
                                                     jsTemp.getString("PlakaID"),
                                                     jsTemp.getString("YazarID"),

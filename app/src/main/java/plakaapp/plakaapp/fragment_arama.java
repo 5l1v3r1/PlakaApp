@@ -2,6 +2,7 @@ package plakaapp.plakaapp;
 
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.media.Image;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.NotificationCompat;
@@ -11,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,6 +20,8 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.net.URLEncoder;
+
+import static android.app.Activity.RESULT_OK;
 
 /**
  * Created by cumen on 23.11.2017.
@@ -29,6 +33,9 @@ public class fragment_arama extends Fragment {
     public fragment_arama() {
 
     }
+
+    public View Alprview; // OpenAlpr den gelen plaka için tanımlanmış global View Objesi
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_arama, container, false);
@@ -39,6 +46,9 @@ public class fragment_arama extends Fragment {
         Logo.setTypeface(typeface);
         //Logoya yazı fontu eklendi
 
+        //Openalpr butonunun tanımlanması
+        final ImageButton arama_alpr_btn = (ImageButton) view.findViewById(R.id.btn_arama_alpr);
+
         //intent'ten kullanıcı ID'si çekmek
         Intent intent = getActivity().getIntent();
         K_ID = intent.getStringExtra("ID"); //kullanıcı idsi
@@ -48,7 +58,37 @@ public class fragment_arama extends Fragment {
 
         //git buttonunun işlevleri
         GitButtonListener(view);
+
+        //alpr penceresine yönlendiriyoruz
+        arama_alpr_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), openAlpr.class);
+                startActivityForResult(intent,2);
+            }
+        });
+
+
+        //alpr penceresine yönlendiriyoruz
+        Alprview = view;
         return view;
+    }
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        // check that it is the SecondActivity with an OK result
+        if (requestCode == 2) {
+            if (resultCode == RESULT_OK) {
+
+                // get String data from Intent
+                String returnString = data.getStringExtra("sonuc");
+
+                // set text view with string
+                TextView textView = (TextView) Alprview.findViewById(R.id.et_plakaNumarasi);
+                textView.setText(returnString);
+            }
+        }
     }
     
     int islem = 0;

@@ -26,6 +26,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.SimpleAdapter;
 import android.widget.Spinner;
@@ -74,7 +75,7 @@ public class fragment_hizliyazi extends Fragment {
 
         final View view = inflater.inflate(R.layout.fragment_hizliyazi, container, false);
         final Button yaziekle = (Button) view.findViewById(R.id.btn_yazigonder);
-        final Button alpr = (Button) view.findViewById(R.id.btn_alpr_git);
+        final ImageButton alpr = (ImageButton) view.findViewById(R.id.btn_alpr_git);
         String foto_plaka = "boş";
 
         //YazarID yi çekiyoruz

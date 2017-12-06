@@ -110,7 +110,7 @@ public class sub_yazilistele  extends Activity {
             for (int i = 0; i < yazilar.length(); i++) {
                 JSONObject jsonChildNode = yazilar.getJSONObject(i);
 
-                gozuken.put(jsonChildNode.getJSONObject("message").getString("ID"));
+
                 //seçili yazının bilgileri çekiliyor
                 String PlakaID = jsonChildNode.getJSONObject("message").getString("PlakaID");
                 String YazarID = jsonChildNode.getJSONObject("message").getString("YazarID");
@@ -121,6 +121,7 @@ public class sub_yazilistele  extends Activity {
 
                 //yazı plakaya ait ise işlemlere devam ediliyor
                 if(PlakaID.equals(P_ID)) {
+                    gozuken.put(jsonChildNode.getJSONObject("message").getString("ID"));
                     //yazarı ve ili string olarak ID'lerinden çekiliyor
                     for (int j = 0; j < uyeler.length(); j++) {
                         if (uyeler.getJSONObject(j).getJSONObject("message").getString("ID") == YazarID) {
@@ -170,41 +171,72 @@ public class sub_yazilistele  extends Activity {
                     popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                         public boolean onMenuItemClick(MenuItem item) {
                             try {
-
+                                //bu cihazdan bu yazı için rep artışı yapılıp yapılmadığı kontrol ediliyor
                                 SharedPreferences sharedPref = sub_yazilistele.this.getPreferences(Context.MODE_PRIVATE);
                                 int repGiris = sharedPref.getInt("yaziRep" + gozuken.get(position), 0);
 
+                                //eğer bu cihazdan bu yazıya rep verilmiş ise hiçbir işlem yapmadan bildiriyor
                                 if(repGiris!=0)
                                 {
                                     AlertDialog.Builder builder = new AlertDialog.Builder(sub_yazilistele.this);
-                                    builder.setMessage("Bu yazı için bu cihazdan zaten rep girişi yapılmış.")
+                                    builder.setMessage("Bu yazı için bu cihazdan zaten rep girişi yapılmış.\n(Sıfırlandı)")
                                             .setNegativeButton("Tamam", null)
                                             .create()
                                             .show();
+                                    //Sırf DEBUG amaçlı bildirdikten sonra sıfırlıyor
+                                    SharedPreferences.Editor editor = sharedPref.edit();
+                                    editor.putInt("yaziRep" + gozuken.get(position), 0);
+                                    editor.commit();
                                 }
                                 else {
+                                    //eğer giriş olmadı ise giriş oldu bilgisi cihaza işleniyor
+                                    String yaziID=String.valueOf(gozuken.get(position));
                                     SharedPreferences.Editor editor = sharedPref.edit();
-                                    editor.putInt("yaziRep" + gozuken.get(position), 1);
+                                    editor.putInt("yaziRep" + yaziID, 1);
                                     editor.commit();
-                                    //// TODO: 03.12.2017 repGiriş
+
+                                    //yazının dizi üzerindeki index'i hesaplanıyor
+                                    int index=0;
+                                    for(int i=0;i<yazilar.length();i++)
+                                    {
+                                        if(yazilar.getJSONObject(i).getJSONObject("message").getString("ID").equals(yaziID))
+                                        {
+                                            index=i;
+                                            break;
+                                        }
+                                    }
+
+                                    //yazılar dizisinden tüm bilgiler çekiliyor
+                                    //update api'si tüm bilgileri istediği için hepsi yollanıyor
+                                    //rep değeri switch koşullandırması ile 1 artıyor veya eksiliyor
+                                    JSONObject jsTemp=yazilar.getJSONObject(index).getJSONObject("message");
+                                    int rep=Integer.parseInt(jsTemp.getString("Rep"));
                                     switch (item.getItemId()) {
                                         case R.id.artirep:
-                                            AlertDialog.Builder bb1 = new AlertDialog.Builder(sub_yazilistele.this);
-                                            bb1.setMessage("Bu yazı için bu cihazdan zaten rep girişi yapılmış.")
-                                                    .setNegativeButton("Tamam", null)
-                                                    .create()
-                                                    .show();
+                                            new JSONtask().execute(Config.Yguncelle_URL(jsTemp.getString("ID"),
+                                                    jsTemp.getString("PlakaID"),
+                                                    jsTemp.getString("YazarID"),
+                                                    jsTemp.getString("KonumID"),
+                                                    jsTemp.getString("Yazi"),
+                                                    String.valueOf(rep+1))).get();
+                                            Toast.makeText(sub_yazilistele.this,"Yazi rep'i arttırıldı",Toast.LENGTH_SHORT).show();
+                                            ListeDoldur();
                                             break;
                                         case R.id.eksirep:
-                                            AlertDialog.Builder bb2 = new AlertDialog.Builder(sub_yazilistele.this);
-                                            bb2.setMessage("Bu yazı için bu cihazdan zaten rep girişi yapılmış.")
-                                                    .setNegativeButton("Tamam", null)
-                                                    .create()
-                                                    .show();
+                                            new JSONtask().execute(Config.Yguncelle_URL(jsTemp.getString("ID"),
+                                                    jsTemp.getString("PlakaID"),
+                                                    jsTemp.getString("YazarID"),
+                                                    jsTemp.getString("KonumID"),
+                                                    jsTemp.getString("Yazi"),
+                                                    String.valueOf(rep-1))).get();
+                                            Toast.makeText(sub_yazilistele.this,"Yazi rep'i azaltıldı",Toast.LENGTH_SHORT).show();
+                                            ListeDoldur();
                                             break;
                                     }
                                 }
-                            }catch (Exception e){}
+                            }catch (Exception e){
+                                Toast.makeText(sub_yazilistele.this,e.toString(),Toast.LENGTH_SHORT).show();
+                            }
                             //Toast.makeText(sub_yazilistele.this,"You Clicked : " + item.getTitle(),Toast.LENGTH_SHORT).show();
                             return true;
                         }

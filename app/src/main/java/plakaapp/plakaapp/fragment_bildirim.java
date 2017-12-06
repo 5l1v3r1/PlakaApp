@@ -212,6 +212,7 @@ public class fragment_bildirim extends Fragment {
                     Intent intent = new Intent(getActivity(), sub_yazilistele.class);
                     intent.putExtra("Plaka",gozuken.getJSONObject(position).getString("Plaka"));
                     intent.putExtra("PlakaID",gozuken.getJSONObject(position).getString("ID"));
+                    intent.putExtra("KisiID",K_ID);
                     getActivity().startActivity(intent);
 
                 } catch (Exception e) {

@@ -28,7 +28,9 @@
             android:paddingLeft="30dp"
             android:text="35 ABC 23"
             android:textColor="#003748"
-            android:textSize="15sp" />
+            android:textSize="15sp"
+            android:onClick="LabelClick"
+            android:clickable="true"/>
     </LinearLayout>
 
     <LinearLayout

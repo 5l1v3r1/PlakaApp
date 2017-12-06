@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -65,6 +66,7 @@ public class tab_turler extends Activity {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
                 valueChanged=true;
+                ListeDoldur();
             }
 
             @Override
@@ -83,7 +85,6 @@ public class tab_turler extends Activity {
 
     private void ResetControls() {
         ((EditText) findViewById(R.id.turText)).setText("");
-        ((Spinner) findViewById(R.id.cinsSpin)).setSelection(0);
         valueChanged = false;
         userPulled=false;
     }
@@ -106,13 +107,14 @@ public class tab_turler extends Activity {
             for(int i=0; i<cinsler.length();i++)
             {
                 if(cinsSpin.getSelectedItem().toString().equals(cinsler.getJSONObject(i).getJSONObject("message").getString("AracCins")))
-                    temp=cinsler.getJSONObject(i).getJSONObject("message").getString("ID");
+                {temp=cinsler.getJSONObject(i).getJSONObject("message").getString("ID");
+                    return temp;}
             }}catch (Exception e){}
         return temp;
     }
 
     private void ListeDoldur() {
-        ListView listemiz = (ListView) findViewById(R.id.turListView);
+        final ListView listemiz = (ListView) findViewById(R.id.turListView);
         userPulled=false;
         try{
             turler=new JSONArray(new JSONtask().execute(Config.TLISTELE_URL).get());
@@ -123,10 +125,10 @@ public class tab_turler extends Activity {
                 JSONObject jsonChildNode = turler.getJSONObject(i);
 
                 String name = jsonChildNode.getJSONObject("message").getString("ID");
-                String number = ReturnCinsAdi(jsonChildNode.getJSONObject("message").getString("CinsID"));
+                String number = jsonChildNode.getJSONObject("message").getString("CinsID");
                 String number2 = jsonChildNode.getJSONObject("message").getString("TurAdi");
                 String outPut = name + "-" + number2;
-                if(cinsID.equals(number))
+                if(cinsID == number)
                 {
                     itemList.add(createListItem("Üyeler", outPut));
                 }
@@ -150,11 +152,8 @@ public class tab_turler extends Activity {
                 userPulled=true;
                 selectedIndex=position;
                 try {
-                    JSONObject jsonChildNode = turler.getJSONObject(position).getJSONObject("message");
                     EditText turAdi = (EditText) findViewById(R.id.turText);
-
-                    CinsSpinnerSec(jsonChildNode.getString("CinsID"));
-                    turAdi.setText(jsonChildNode.getString("TurAdi"));
+                    turAdi.setText(String.valueOf(listemiz.getItemAtPosition(position)));
 
                     valueChanged=false;
 
@@ -184,40 +183,6 @@ public class tab_turler extends Activity {
             cinsSpin.setAdapter(adapter);
 
         } catch (Exception e) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(tab_turler.this);
-            builder.setMessage(e.getMessage())
-                    .setNegativeButton("Tamam", null)
-                    .create()
-                    .show();
-        }
-    }
-
-    private void CinsSpinnerSec(String s) {
-        try{
-            if(s.isEmpty()) return;
-
-            Spinner cins = ((Spinner) findViewById(R.id.cinsSpin));
-
-            int arrayPos=0;
-            for (int i=0;i<cinsler.length();i++)
-            {
-                if(cinsler.getJSONObject(i).getJSONObject("message").getString("ID")==s)
-                {
-                    arrayPos=i;
-                    break;
-                }
-            }
-
-            for (int i=0;i<cins.getCount();i++)
-            {
-                if(cins.getItemAtPosition(i).toString()==
-                        cinsler.getJSONObject(arrayPos).getJSONObject("message").getString("AracCins"))
-                {
-                    cins.setSelection(i);
-                    return;
-                }
-            }
-        }catch (Exception e) {
             AlertDialog.Builder builder = new AlertDialog.Builder(tab_turler.this);
             builder.setMessage(e.getMessage())
                     .setNegativeButton("Tamam", null)

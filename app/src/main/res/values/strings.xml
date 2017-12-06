@@ -25,6 +25,8 @@
     <string name="profil_upper">PROFİL</string>
     <string name="sorgula">sorgula</string>
     <string name="konum">Konum</string>
+    <string name="foto_cek">Plakanın fotoğrafını çek</string>
+    <string name="cevap_dondur">Cevabı Döndür</string>
 
     <string name="home">Anasayfa</string>
     <string name="add_text">Hızlı Yazı</string>

@@ -38,6 +38,13 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Kullanıcı" />
+
+            <Button
+                android:id="@+id/btn_openalpr"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="alpr aç" />
         </LinearLayout>
 
         <TextView

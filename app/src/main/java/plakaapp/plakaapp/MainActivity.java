@@ -41,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
         final Button bRegister = (Button) findViewById(R.id.kayit_ol);
         final Button misafirgiris = (Button) findViewById(R.id.misafir_girisi);
         final Button sifremiunuttum = (Button) findViewById(R.id.sifremi_unuttum);
+        final Button alpr = (Button) findViewById(R.id.btn_openalpr);
 
         //debug mod admin ve kullanıcı girişi
             final Button admin_giris = (Button) findViewById(R.id.btn_admin_girisi);
@@ -192,6 +193,20 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);*/
             }
         });
+
+        alpr.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, openAlpr.class);
+                startActivity(intent);
+                /*Intent intent = new Intent(MainActivity.this, MisafirScreen.class);
+                startActivity(intent);*/
+            }
+        });
+
+
+
+
 
     }
 }

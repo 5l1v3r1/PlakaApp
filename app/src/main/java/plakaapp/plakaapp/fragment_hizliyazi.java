@@ -1,12 +1,24 @@
 package plakaapp.plakaapp;
 
+import android.Manifest;
+import android.app.Activity;
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Environment;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.text.InputFilter;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,39 +26,73 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.SimpleAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
+import com.squareup.picasso.Picasso;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.openalpr.OpenALPR;
+import org.openalpr.model.Results;
+import org.openalpr.model.ResultsError;
 
+import java.io.File;
 import java.net.URLEncoder;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 /**
  * Created by cumen on 23.11.2017.
  */
 
+
+
+
+
 public class fragment_hizliyazi extends Fragment {
     public fragment_hizliyazi() {
 
     }
+
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_hizliyazi, container, false);
 
         final Button yaziekle = (Button) view.findViewById(R.id.btn_yazigonder);
-
+        final Button alpr = (Button) view.findViewById(R.id.btn_alpr_git);
+        String foto_plaka = "boş";
 
         //YazarID yi çekiyoruz
         Intent intent = getActivity().getIntent();
         final String yazarID = intent.getStringExtra("ID");
         //YazarID yi çekiyoruz
+
+
+
+
+        //Fotoğraftan gelen plakayı çekiyoruz
+
+        //TODO: openAlpr den gelen plakayı çekeceğiz
+
+        //Fotoğraftan gelen plakayı çekiyoruz
+
+
+
+
+
 
         //Logoya yazı fontu eklendi
         TextView Logo = (TextView) view.findViewById(R.id.Logo);
@@ -63,8 +109,12 @@ public class fragment_hizliyazi extends Fragment {
         hizliyazi.setFilters(FilterArray_hizliyazi);
         //hizli yazıya sınır koymak
 
-        final EditText plaka = (EditText) view.findViewById(R.id.et_plakaNumarasi);
+
         Spinner konum_spnr = (Spinner) view.findViewById(R.id.spnr_konum);
+
+
+
+        final EditText plaka = (EditText) view.findViewById(R.id.et_plakaNumarasi);
 
         //plakaya sınır koymak
         int maxLength_plaka = 10;
@@ -171,9 +221,27 @@ public class fragment_hizliyazi extends Fragment {
             }
         });
 
+
+
+        //alpr penceresine yönlendiriyoruz
+        alpr.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(getActivity(), openAlpr.class);
+                startActivity(intent);
+
+            }
+        });
+        //alpr penceresine yönlendiriyoruz
+
+
         return view;
 
     }
+
+
+
 
     private String PlakaIDSorgula(String plaka) {
         try {

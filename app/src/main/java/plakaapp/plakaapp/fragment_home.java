@@ -38,7 +38,7 @@ import java.util.Map;
 
 public class fragment_home extends Fragment {
 
-    String K_ID;
+    String K_ID = "bos geldi";
     public JSONArray takipler,plakalar,yazilar,gozuken;
     public fragment_home() {
 

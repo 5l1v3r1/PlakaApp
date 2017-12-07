@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@drawable/background_gradient"
+    android:padding="5dp"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -21,16 +24,41 @@
             android:textSize="30sp"
             android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/tv_plaka"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingLeft="30dp"
-            android:text="35 ABC 23"
-            android:textColor="#003748"
-            android:textSize="15sp"
-            android:onClick="LabelClick"
-            android:clickable="true"/>
+            android:layout_height="50dp"
+            android:layout_marginLeft="10dp"
+            android:orientation="horizontal"
+            tools:ignore="RtlHardcoded">
+
+            <TextView
+                android:id="@+id/tv_plaka"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                android:background="@drawable/et_rounded_corner"
+                android:clickable="true"
+                android:gravity="center"
+                android:onClick="LabelClick"
+                android:layout_marginRight="10dp"
+                android:text="35 ABC 23"
+                android:textAlignment="center"
+                android:textColor="#003748"
+                android:textColorHighlight="@color/yazi"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                tools:ignore="HardcodedText,InefficientWeight,RtlHardcoded,RtlSymmetry" />
+
+            <CheckBox
+                android:id="@+id/checkBox"
+                android:layout_width="100dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="20dp"
+                android:layout_weight="1"
+                android:text="Takip"
+                tools:ignore="HardcodedText,RtlHardcoded" />
+        </LinearLayout>
+
     </LinearLayout>
 
     <LinearLayout
@@ -56,7 +84,8 @@
                 android:text="Plaka Yazıları"
                 android:textColor="#003748"
                 android:textSize="20dp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                tools:ignore="HardcodedText,RtlHardcoded,SpUsage" />
         </LinearLayout>
 
         <ListView

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
@@ -45,6 +46,12 @@ public class sub_yazilistele  extends Activity {
         K_ID=intent.getStringExtra("KisiID");
         //plaka en başta yazdırılıyor
         ((TextView) findViewById(R.id.tv_plaka)).setText(plaka);
+
+        //Logoya yazı fontu eklendi
+        TextView Logo = (TextView) findViewById(R.id.Logo);
+        Typeface typeface = Typeface.createFromAsset(this.getAssets(), "fonts/daysoneregular.ttf");
+        Logo.setTypeface(typeface);
+        //Logoya yazı fontu eklendi
 
         //takip menüsü tiklanilan itemin altinda tanımlaniyor
         takipPopup = new PopupMenu(sub_yazilistele.this, ((TextView) findViewById(R.id.tv_plaka)));

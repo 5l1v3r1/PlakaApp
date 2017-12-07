@@ -35,6 +35,7 @@ import java.util.Map;
 public class fragment_bildirim extends Fragment {
     public JSONArray takipler,plakalar,yazilar,gozuken;
     String K_ID, K_Ad;
+    View _view;
 
     public fragment_bildirim() {
 
@@ -59,6 +60,7 @@ public class fragment_bildirim extends Fragment {
         //temizle buttonunun işlevi için oluşturulan listener
         TemizleListener(view);
 
+        _view=view;
         return view;
     }
 
@@ -225,6 +227,14 @@ public class fragment_bildirim extends Fragment {
             }
         });
     }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        //geri dönüşte sayfa yenileme
+        ListeDoldur(_view);
+    }
+
 
     private boolean JsonErrorCheck(JSONObject temp) {
         try {

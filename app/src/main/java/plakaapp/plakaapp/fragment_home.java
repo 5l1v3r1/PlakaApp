@@ -31,6 +31,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static android.app.Activity.RESULT_OK;
+
 /**
  * Created by cumen on 23.11.2017.
  * Codded by berke on 26.11.2017.
@@ -40,6 +42,7 @@ public class fragment_home extends Fragment {
 
     String K_ID = "bos geldi";
     public JSONArray takipler,plakalar,yazilar,gozuken;
+    View _view;
     public fragment_home() {
 
 
@@ -63,6 +66,7 @@ public class fragment_home extends Fragment {
         ListeDoldur(view);
 
         //bu kodun hep sonda olması gerekli
+        _view=view;
         return view;
     }
 
@@ -165,6 +169,13 @@ public class fragment_home extends Fragment {
                 }
             }
         });
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        //geri dönüşte sayfa yenileme
+        ListeDoldur(_view);
     }
 
     private boolean JsonErrorCheck(JSONObject temp) {

@@ -131,7 +131,7 @@ public class fragment_home extends Fragment {
                 }
             }
 
-            ListAdapter adapter = new ListAdapter(getActivity(), listplakalar);
+            ListAdapter adapter = new ListAdapter(getActivity(), listplakalar, "plaka");
             listemiz.setAdapter(adapter);
 
         } catch (Exception e) {

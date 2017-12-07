@@ -156,15 +156,15 @@ public class sub_yazilistele  extends Activity {
                         Yazi=temp;
                     }
 
-                    //tüm yazı ek bilgileri ile birleştiriliyor
-                    Yazi+="\n\nKonum: "+KonumID+"\nYazar: "+YazarID+"\nTarih: "+Tarih+"\nRep: "+Rep;
+
+
 
                     //listview'de gösterilmek için diziye ekleniyor
-                    listplakalar.add(new Plakalar(Yazi));
+                    listplakalar.add(new Yazilar(YazarID,KonumID,Yazi,Rep,Tarih));
                 }
             }
 
-            ListAdapter adapter = new ListAdapter(sub_yazilistele.this, listplakalar);
+            ListAdapter adapter = new ListAdapter(sub_yazilistele.this, listplakalar, "yazi");
             listemiz.setAdapter(adapter);
 
         } catch (Exception e) {

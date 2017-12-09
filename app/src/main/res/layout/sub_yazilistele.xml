@@ -37,9 +37,7 @@
                 android:layout_height="50dp"
                 android:layout_weight="1"
                 android:background="@drawable/et_rounded_corner"
-                android:clickable="true"
                 android:gravity="center"
-                android:onClick="LabelClick"
                 android:layout_marginRight="10dp"
                 android:text="35 ABC 23"
                 android:textAlignment="center"
@@ -56,6 +54,8 @@
                 android:layout_marginLeft="20dp"
                 android:layout_weight="1"
                 android:text="Takip"
+                android:clickable="true"
+                android:onClick="TakipClick"
                 tools:ignore="HardcodedText,RtlHardcoded" />
         </LinearLayout>
 

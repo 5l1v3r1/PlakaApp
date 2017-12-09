@@ -8,4 +8,8 @@
         android:id="@+id/eksirep"
         android:title="Rep-"/>
 
+    <item
+        android:id="@+id/kullaniciGoruntule"
+        android:title="Kullanıcı Görüntüle"/>
+
 </menu>

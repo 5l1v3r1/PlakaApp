@@ -159,7 +159,7 @@ public class fragment_home extends Fragment {
                     intent.putExtra("Plaka",gozuken.getJSONObject(position).getString("Plaka"));
                     intent.putExtra("PlakaID",gozuken.getJSONObject(position).getString("ID"));
                     intent.putExtra("KisiID",K_ID);
-                    getActivity().startActivity(intent);
+                    getActivity().startActivityForResult(intent,1);
                 } catch (Exception e) {
                     AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                     builder.setMessage(e.getMessage())
@@ -175,7 +175,9 @@ public class fragment_home extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         //geri dönüşte sayfa yenileme
-        ListeDoldur(_view);
+        //ListeDoldur(_view);
+        getActivity().finish();
+        startActivity(getActivity().getIntent());
     }
 
     private boolean JsonErrorCheck(JSONObject temp) {

@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.CheckBox;
 import android.widget.ListView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
@@ -54,8 +55,9 @@ public class sub_yazilistele  extends Activity {
         //Logoya yazı fontu eklendi
 
         //takip menüsü tiklanilan itemin altinda tanımlaniyor
-        takipPopup = new PopupMenu(sub_yazilistele.this, ((TextView) findViewById(R.id.tv_plaka)));
-        takipPopup.getMenuInflater().inflate(R.menu.plakaislem, takipPopup.getMenu());
+        //takipPopup = new PopupMenu(sub_yazilistele.this, ((TextView) findViewById(R.id.tv_plaka)));
+        //takipPopup.getMenuInflater().inflate(R.menu.plakaislem, takipPopup.getMenu());
+
         //plaka yazılarının bulunduğu listview uygun formatla dolduruluyor
         ListeDoldur();
         //takip ediyor ise popup'ta checked edilsin
@@ -70,7 +72,8 @@ public class sub_yazilistele  extends Activity {
                 if(P_ID.equals(jsonChildNode.getJSONObject("message").getString("Plaka_ID"))
                         && K_ID.equals(jsonChildNode.getJSONObject("message").getString("Uye_ID")))
                 {
-                    takipPopup.getMenu().findItem(R.id.takip).setChecked(true);
+                    //takipPopup.getMenu().findItem(R.id.takip).setChecked(true);
+                    ((CheckBox)findViewById(R.id.checkBox)).setChecked(true);
                     return;
                 }
             }
@@ -80,29 +83,21 @@ public class sub_yazilistele  extends Activity {
     //plaka takip popup'u
     PopupMenu takipPopup;
     //plakaya basılınca menü çıkma listener'i
-    public void LabelClick(View v){
+    public void TakipClick(View v) {
         //item click eventi için listener oluşturuluyor
-        takipPopup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-            public boolean onMenuItemClick(MenuItem item) {
-                Log.d("kID",K_ID);
-                Log.d("pID",P_ID);
-                if (!item.isChecked()) {
-                    try {
-                        Log.d("q1",new JSONtask().execute(Config.Taekle_URL(K_ID,P_ID)).get());
-                        takipPopup.getMenu().findItem(R.id.takip).setChecked(false);
-                    } catch (Exception e){}
-                } else {
-                    try {
-                        Log.d("q2",new JSONtask().execute(Config.Tasil_URL(K_ID,P_ID)).get());
-                        takipPopup.getMenu().findItem(R.id.takip).setChecked(true);
-                    } catch (Exception e){}
-                }
-                return true;
+        if (((CheckBox) findViewById(R.id.checkBox)).isChecked()) {
+            try {
+                Log.d("TaEkle", new JSONtask().execute(Config.Taekle_URL(K_ID, P_ID)).get());
+                //((CheckBox) findViewById(R.id.checkBox)).setChecked(false);
+            } catch (Exception e) {
             }
-        });
-
-        takipPopup.show();//tıklanınca takip menüsü çıkıyor
-
+        } else {
+            try {
+                Log.d("TaSil",new JSONtask().execute(Config.Tasil_URL(K_ID, P_ID)).get());
+                //((CheckBox) findViewById(R.id.checkBox)).setChecked(true);
+            } catch (Exception e) {
+            }
+        }
     }
 
     private void ListeDoldur() {
@@ -156,9 +151,6 @@ public class sub_yazilistele  extends Activity {
                         Yazi=temp;
                     }
 
-
-
-
                     //listview'de gösterilmek için diziye ekleniyor
                     listplakalar.add(new Yazilar(YazarID,KonumID,Yazi,Rep,Tarih));
                 }
@@ -187,6 +179,19 @@ public class sub_yazilistele  extends Activity {
                     //item click eventi için listener oluşturuluyor
                     popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                         public boolean onMenuItemClick(MenuItem item) {
+                            //eğer tıklanılan eleman kullanıcı görüntüleme ise
+                            //...alttaki işlemlere gitmesini engelleyen ve işlemler yapan kod öbeği
+                            if(item.getItemId() == R.id.kullaniciGoruntule)
+                            {
+                                Log.d("Girdi","truu");
+                                //kullanıcı görüntüleme penceresine yönlendirmek
+                                Intent intent = new Intent(sub_yazilistele.this, sub_kullanicigoruntule.class);
+                                intent.putExtra("KisiID",K_ID);
+                                startActivity(intent);
+                                //alttaki kod öbeklerine gitmesini engellemek
+                                return true;
+                            }
+
                             try {
                                 //bu cihazdan bu yazı için rep artışı yapılıp yapılmadığı kontrol ediliyor
                                 SharedPreferences sharedPref = sub_yazilistele.this.getPreferences(Context.MODE_PRIVATE);

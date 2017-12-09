@@ -3,8 +3,10 @@ package plakaapp.plakaapp;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.support.v7.app.AlertDialog;
+import android.widget.EditText;
 import android.widget.Toast;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.regex.Matcher;
@@ -64,6 +66,42 @@ public class Validation {
         return matcher.matches();
 
 
+    }
+
+    public static boolean userLogin(final String UserID){
+        try{
+            JSONArray kisiler = new JSONArray(new JSONtask().execute(Config.KLISTELE_URL).get());
+            for (int i = 0; i < kisiler.length(); i++) {
+                JSONObject jsTemp = kisiler.getJSONObject(i).getJSONObject("message");
+                //döngüdeki kişi bizim istediğimiz kişi ise bilgileri çekiyor
+                if(jsTemp.getString("ID").equals(UserID))
+                {
+                    String sRep = jsTemp.getString("K_Rep");
+                    if(Integer.parseInt(sRep) <= -200)
+                        return false;
+                    else return true;
+                }
+            }
+        }catch (Exception e){}
+        return false;
+    }
+
+    public static boolean userWrite(final String UserID){
+        try{
+            JSONArray kisiler = new JSONArray(new JSONtask().execute(Config.KLISTELE_URL).get());
+            for (int i = 0; i < kisiler.length(); i++) {
+                JSONObject jsTemp = kisiler.getJSONObject(i).getJSONObject("message");
+                //döngüdeki kişi bizim istediğimiz kişi ise bilgileri çekiyor
+                if(jsTemp.getString("ID").equals(UserID))
+                {
+                    String sRep = jsTemp.getString("K_Rep");
+                    if(Integer.parseInt(sRep) <= -100)
+                        return false;
+                    else return true;
+                }
+            }
+        }catch (Exception e){}
+        return false;
     }
 
     public static String JsonErrorCheck(JSONObject temp) {

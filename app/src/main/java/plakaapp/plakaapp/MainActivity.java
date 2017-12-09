@@ -111,7 +111,15 @@ public class MainActivity extends AppCompatActivity {
                                             Intent intent = new Intent(MainActivity.this, HomeScreen.class);
                                             intent.putExtra("K_Adi", KulAdi);
                                             intent.putExtra("ID", id);
+                                            if(Validation.userLogin(id))
                                             MainActivity.this.startActivity(intent);
+                                            else {
+                                                AlertDialog.Builder bbb = new AlertDialog.Builder(MainActivity.this);
+                                                bbb.setMessage("Giriş yapmaya çalışan kullanıcının giriş izni yoktur.\nRep değeri sınırın altındadır.")
+                                                        .setNegativeButton("Tamam Anladım", null)
+                                                        .create()
+                                                        .show();
+                                            }
 
                                         } else if (admin.equals(String.valueOf("1"))) {                                    //Admin ise
                                             String KulAdi = jsonResponseMessage.getString("adi");//Admin adını adlık

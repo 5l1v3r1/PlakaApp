@@ -175,6 +175,17 @@ public class fragment_hizliyazi extends Fragment {
                                     .show();
                             plaka.setText("");
                         } else {
+                            //kullanıcının yazı yazma yetkisi yok ise engelleme
+                            if(!Validation.userWrite(yazarID))
+                            {
+                                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                                builder.setMessage("Sizin yazı yazma yetkiniz bulunmamaktadır.\nRep değeriniz sınırın altındadır.")
+                                        .setNegativeButton("Tamam Anladım", null)
+                                        .create()
+                                        .show();
+                                return;
+                            }
+
                             //Sisteme yazının eklenmesi
                             try{
                                 JSONObject temp = new JSONObject(new JSONtask().execute(

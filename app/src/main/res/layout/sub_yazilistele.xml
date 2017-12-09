@@ -45,6 +45,8 @@
                 android:textColorHighlight="@color/yazi"
                 android:textSize="20sp"
                 android:textStyle="bold"
+                android:clickable="true"
+                android:onClick="PlakaClick"
                 tools:ignore="HardcodedText,InefficientWeight,RtlHardcoded,RtlSymmetry" />
 
             <CheckBox

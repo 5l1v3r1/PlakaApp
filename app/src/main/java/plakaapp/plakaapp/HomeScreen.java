@@ -74,4 +74,19 @@ public class HomeScreen extends AppCompatActivity {
         });
     }
     //menu
+
+    public void SayfaAc(int sayfa)
+    {
+        fragment = new fragment_home();
+        switch (sayfa)
+        {
+            case 1: fragment=new fragment_home(); break;
+            case 2: fragment=new fragment_hizliyazi(); break;
+            case 3: fragment=new fragment_arama(); break;
+            case 4: fragment=new fragment_bildirim(); break;
+            case 5: fragment=new fragment_profil(); break;
+        }
+        final FragmentTransaction transactionb = fragmentManager.beginTransaction();
+        transactionb.replace(R.id.main_container, fragment).commit();
+    }
 }

@@ -54,9 +54,9 @@ public class sub_yazilistele  extends Activity {
         Logo.setTypeface(typeface);
         //Logoya yazı fontu eklendi
 
-        //takip menüsü tiklanilan itemin altinda tanımlaniyor
-        //takipPopup = new PopupMenu(sub_yazilistele.this, ((TextView) findViewById(R.id.tv_plaka)));
-        //takipPopup.getMenuInflater().inflate(R.menu.plakaislem, takipPopup.getMenu());
+        //plaka menüsü tiklanilan itemin altinda tanımlaniyor
+        takipPopup = new PopupMenu(sub_yazilistele.this, ((TextView) findViewById(R.id.tv_plaka)));
+        takipPopup.getMenuInflater().inflate(R.menu.plakaislem, takipPopup.getMenu());
 
         //plaka yazılarının bulunduğu listview uygun formatla dolduruluyor
         ListeDoldur();
@@ -82,9 +82,9 @@ public class sub_yazilistele  extends Activity {
 
     //plaka takip popup'u
     PopupMenu takipPopup;
-    //plakaya basılınca menü çıkma listener'i
+
     public void TakipClick(View v) {
-        //item click eventi için listener oluşturuluyor
+        //takip işaretli ise takip ettiriyor, değil ise takipten çıkartıyor
         if (((CheckBox) findViewById(R.id.checkBox)).isChecked()) {
             try {
                 Log.d("TaEkle", new JSONtask().execute(Config.Taekle_URL(K_ID, P_ID)).get());
@@ -98,6 +98,21 @@ public class sub_yazilistele  extends Activity {
             } catch (Exception e) {
             }
         }
+    }
+
+    public void PlakaClick(View v) {
+        //item click eventi için listener oluşturuluyor
+        takipPopup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            public boolean onMenuItemClick(MenuItem item) {
+                if (item.getItemId()==R.id.yaziyaz) {
+                    //TODO Yazı yazma penceresine yönlendirme
+                }
+                return true;
+            }
+        });
+
+        takipPopup.show();//tıklanınca takip menüsü çıkıyor
+
     }
 
     private void ListeDoldur() {

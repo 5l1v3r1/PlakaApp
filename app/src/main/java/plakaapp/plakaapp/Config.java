@@ -101,10 +101,14 @@ public class Config {
     public static String Tasil_URL(String UyeID,String PlakaID) {
         return (BASE_URL + "/Takipsil" + "/" + UyeID+ "/" + PlakaID).replaceAll("\\+", "%20");
     }
-
+    //////////////////////////////////////////////////////////////
     public static String PlakaSorgula_URL(String Plaka)
     {
         return BASE_URL+"/Psorgula"+"/"+Plaka.replaceAll("\\+","%20");
     }
+    //////////////////////////////////////////////////////////////
 
+    public static String SikayetSil(String SikayetID) {
+        return (BASE_URL + "/Sikayetsil" + "/" + SikayetID).replaceAll("\\+", "%20");
+    }
 }

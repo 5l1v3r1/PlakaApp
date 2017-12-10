@@ -63,6 +63,8 @@
             android:screenOrientation="portrait"></activity>
         <activity android:name=".sub_kullanicigoruntule"
             android:screenOrientation="portrait"></activity>
+        <activity android:name=".sub_yaziSikayet"
+            android:screenOrientation="portrait"></activity>
 
     </application>
 

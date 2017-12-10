@@ -227,7 +227,7 @@ public class MainActivity extends AppCompatActivity {
                 alpr.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent intent = new Intent(MainActivity.this, openAlpr.class);
+                        Intent intent = new Intent(MainActivity.this, sub_yaziSikayet.class);
                         startActivity(intent);
                     }
                 });

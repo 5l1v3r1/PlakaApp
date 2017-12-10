@@ -111,4 +111,7 @@ public class Config {
     public static String SikayetSil(String SikayetID) {
         return (BASE_URL + "/Sikayetsil" + "/" + SikayetID).replaceAll("\\+", "%20");
     }
+    public static String Sikayetban(String SikayetID, String Rep) {
+        return (BASE_URL + "/Sikayetban" + "/" + SikayetID+ "/" + Rep).replaceAll("\\+", "%20");
+    }
 }

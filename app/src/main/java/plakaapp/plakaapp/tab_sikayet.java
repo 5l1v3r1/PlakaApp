@@ -60,37 +60,9 @@ public class tab_sikayet extends Activity {
                             case DialogInterface.BUTTON_POSITIVE:
                                 //Yes button clicked
                                 try {
-                                    JSONArray uyeler = new JSONArray(new JSONtask().execute(Config.KLISTELE_URL).get());
-                                    JSONArray yazilar = new JSONArray(new JSONtask().execute(Config.YLISTELE_URL).get());
-
-                                    String yazarID = "0";
-                                    int index = 0;
-
-                                    for (int i = 0; i < yazilar.length(); i++) {
-                                        if (yazilar.getJSONObject(i).getJSONObject("message").getString("ID")
-                                                .equals(sikayetler.getJSONObject(sPosition).getJSONObject("message")
-                                                        .getString("YaziID"))) {
-                                            yazarID = yazilar.getJSONObject(i).getJSONObject("message").getString("YazarID");
-                                            break;
-                                        }
-                                    }
-                                    for (int i = 0; i < uyeler.length(); i++) {
-                                        if (uyeler.getJSONObject(i).getJSONObject("message").getString("ID")
-                                                .equals(yazarID)) {
-                                            index = i;
-                                            break;
-                                        }
-                                    }
-                                    JSONObject jsTemp=uyeler.getJSONObject(index).getJSONObject("message");
-                                    new JSONtask().execute(Config.Kguncelle_URL(jsTemp.getString("ID"),
-                                            jsTemp.getString("Admin"),
-                                            jsTemp.getString("K_Adi"),
-                                            "~~",
-                                            String.valueOf(-250),
-                                            jsTemp.getString("K_Mail"),
-                                            jsTemp.getString("K_Soru"),
-                                            jsTemp.getString("K_Cevap"))).get();
-
+                                    Log.d("ban", new JSONtask().execute(Config.Sikayetban(
+                                            sikayetler.getJSONObject(sPosition).getJSONObject("message").getString("ID"),"-250"
+                                    )).get());
                                     Toast.makeText(tab_sikayet.this, "Kullanıcı Banlandı", Toast.LENGTH_LONG).show();
                                     SikayetSil();
                                 } catch (Exception e) {
@@ -122,43 +94,16 @@ public class tab_sikayet extends Activity {
                             case DialogInterface.BUTTON_POSITIVE:
                                 //Yes button clicked
                                 try {
-                                    JSONArray uyeler = new JSONArray(new JSONtask().execute(Config.KLISTELE_URL).get());
-                                    JSONArray yazilar = new JSONArray(new JSONtask().execute(Config.YLISTELE_URL).get());
-
-                                    String yazarID = "0";
-                                    int index = 0;
-
-                                    for (int i = 0; i < yazilar.length(); i++) {
-                                        if (yazilar.getJSONObject(i).getJSONObject("message").getString("ID")
-                                                .equals(sikayetler.getJSONObject(sPosition).getJSONObject("message")
-                                                        .getString("YaziID"))) {
-                                            yazarID = yazilar.getJSONObject(i).getJSONObject("message").getString("YazarID");
-                                            break;
-                                        }
-                                    }
-                                    for (int i = 0; i < uyeler.length(); i++) {
-                                        if (uyeler.getJSONObject(i).getJSONObject("message").getString("ID")
-                                                .equals(yazarID)) {
-                                            index = i;
-                                            break;
-                                        }
-                                    }
-                                    JSONObject jsTemp=uyeler.getJSONObject(index).getJSONObject("message");
-                                    Log.d("EngelTest" , new JSONtask().execute(Config.Kguncelle_URL(jsTemp.getString("ID"),
-                                            jsTemp.getString("Admin"),
-                                            jsTemp.getString("K_Adi"),
-                                            "~~",
-                                            String.valueOf(-150),
-                                            jsTemp.getString("K_Mail"),
-                                            jsTemp.getString("K_Soru"),
-                                            jsTemp.getString("K_Cevap"))).get());
-
+                                   Log.d("engel", new JSONtask().execute(Config.Sikayetban(
+                                           sikayetler.getJSONObject(sPosition).getJSONObject("message").getString("ID"),"-150"
+                                   )).get());
                                     Toast.makeText(tab_sikayet.this, "Kullanıcı engellendi", Toast.LENGTH_LONG).show();
                                     SikayetSil();
                                 } catch (Exception e) {
                                     Log.d("EngelError",e.toString());
                                 }
 
+                                Log.d("deneme?","");
                                 break;
 
                             case DialogInterface.BUTTON_NEGATIVE:

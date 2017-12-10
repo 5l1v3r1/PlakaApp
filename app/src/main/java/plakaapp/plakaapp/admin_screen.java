@@ -67,6 +67,11 @@ public class admin_screen extends TabActivity{
         tab6.setContent(new Intent(admin_screen.this,tab_yazilar.class));
         tabh.addTab(tab6);
 
+        TabSpec tab7 = tabh.newTabSpec("tab menü şikayet");
+        tab7.setIndicator("Şikayetler");
+        tab7.setContent(new Intent(admin_screen.this,tab_sikayet.class));
+        tabh.addTab(tab7);
+
         //tabwidget in yazı rengini ayarladık(cumen)
         for (int i = 0; i < tabh.getTabWidget().getChildCount(); i++) {
             View v = tabh.getTabWidget().getChildAt(i);

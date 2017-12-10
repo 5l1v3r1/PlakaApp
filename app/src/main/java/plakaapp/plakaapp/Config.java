@@ -17,6 +17,7 @@ public class Config {
     public static final String YLISTELE_URL = BASE_URL + "/Ylistele";
     public static final String ILLISTELE_URL = BASE_URL + "/Ilistele";
     public static final String TaLISTELE_URL = BASE_URL + "/Takiplistele";
+    public static final String SiLISTELE_URL = BASE_URL + "/Sikayetlistele";
     //////////////////////////////////////////////////////////////
     public static String Kekle_URL(String K_Adi, String K_Parola, String K_Mail, String K_Soru, String K_Cevap) {
         return (BASE_URL + "/Kekle" + "/" + K_Adi + "/" + K_Parola + "/" + K_Mail + "/" + K_Soru + "/" + K_Cevap).replaceAll("\\+", "%20");

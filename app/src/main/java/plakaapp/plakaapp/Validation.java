@@ -104,6 +104,24 @@ public class Validation {
         return false;
     }
 
+    public static boolean userBonus(final String UserID){
+        try{
+            JSONArray kisiler = new JSONArray(new JSONtask().execute(Config.KLISTELE_URL).get());
+            for (int i = 0; i < kisiler.length(); i++) {
+                JSONObject jsTemp = kisiler.getJSONObject(i).getJSONObject("message");
+                //döngüdeki kişi bizim istediğimiz kişi ise bilgileri çekiyor
+                if(jsTemp.getString("ID").equals(UserID))
+                {
+                    String sRep = jsTemp.getString("K_Rep");
+                    if(Integer.parseInt(sRep) >= 100)
+                        return false;
+                    else return true;
+                }
+            }
+        }catch (Exception e){}
+        return false;
+    }
+
     public static String JsonErrorCheck(JSONObject temp) {
         try {
             //JSONObject js1 =temp.getJSONObject(0);

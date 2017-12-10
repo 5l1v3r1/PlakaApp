@@ -43,6 +43,7 @@ public class sub_yaziSikayet extends Activity {
         Logo.setTypeface(typeface);
         //Logoya yazı fontu eklendi
 
+        //yaziid çekiliyor
         Intent intent = sub_yaziSikayet.this.getIntent();
         yaziID = intent.getStringExtra("YaziID");
         yaziDoldur(yaziID);
@@ -107,12 +108,14 @@ public class sub_yaziSikayet extends Activity {
             iller = new JSONArray(new JSONtask().execute(Config.ILLISTELE_URL).get());
             String uye_adi = " ", konumadi = " ";
 
+
+
             //Seçilen yazi bulunuyor
             for (int i = 0; i < yazilar.length(); i++){
                 JSONObject jsonChildNode = yazilar.getJSONObject(i);
                 yazi_ID = jsonChildNode.getJSONObject("message").getString("ID");
 
-                if(yaziID == yazi_ID.toString()){
+                if(yaziID.equals(yazi_ID.toString())){
 
                     //Yazi bilgileri çekiliyor
                     String YazarID = jsonChildNode.getJSONObject("message").getString("YazarID");
@@ -134,7 +137,7 @@ public class sub_yaziSikayet extends Activity {
                     //KonumID sine göre Konum isminin çekilmesi
                     for (int j = 0; j < iller.length(); j ++){
                         String tahmini_konum_id = iller.getJSONObject(j).getJSONObject("message").getString("il_kodu");
-                        if(tahmini_konum_id.equals(YazarID)){
+                        if(tahmini_konum_id.equals(KonumID)){
                             konumadi = iller.getJSONObject(j).getJSONObject("message").getString("il_adi");
                             break;
                         }

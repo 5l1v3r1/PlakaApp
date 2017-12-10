@@ -49,9 +49,17 @@ public class fragment_arama extends Fragment {
         //Openalpr butonunun tanımlanması
         final ImageButton arama_alpr_btn = (ImageButton) view.findViewById(R.id.btn_arama_alpr);
 
-        //intent'ten kullanıcı ID'si çekmek
-        Intent intent = getActivity().getIntent();
-        K_ID = intent.getStringExtra("ID"); //kullanıcı idsi
+
+
+        Session session = new Session(getActivity());
+
+        if(session.loggedin()){ //Uygulama cihazda açıksa
+            K_ID = session.Sid();
+        }else{ // uygulama cihazda ilk defa açılıyorsa
+            //kullanıcı id yi çekiyoruz
+            Intent intent = getActivity().getIntent();
+            K_ID = intent.getStringExtra("ID");
+        }
 
         //ara buttonunun işlevlerinin oluşturulması
         AraButtonListener(view);

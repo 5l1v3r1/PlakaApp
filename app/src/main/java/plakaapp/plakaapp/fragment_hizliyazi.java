@@ -64,10 +64,10 @@ import static android.app.Activity.RESULT_OK;
 
 
 public class fragment_hizliyazi extends Fragment {
+    String yazarID = "bos";
     public fragment_hizliyazi() {
 
     }
-
 
     public View Alprview; // OpenAlpr den gelen plaka için tanımlanmış global View Objesi
     @Override
@@ -78,11 +78,16 @@ public class fragment_hizliyazi extends Fragment {
         final ImageButton alpr = (ImageButton) view.findViewById(R.id.btn_alpr_git);
         String foto_plaka = "boş";
 
-        //YazarID yi çekiyoruz
-        Intent intent = getActivity().getIntent();
-        final String yazarID = intent.getStringExtra("ID");
-        //YazarID yi çekiyoruz
+        Session session = new Session(getActivity());
 
+        if(session.loggedin()){ //Uygulama cihazda açıksa
+            yazarID = session.Sid();
+        }else{ // uygulama cihazda ilk defa açılıyorsa
+            //YazarID yi çekiyoruz
+            Intent intent = getActivity().getIntent();
+            yazarID = intent.getStringExtra("ID");
+            //YazarID yi çekiyoruz
+        }
 
         //Logoya yazı fontu eklendi
         TextView Logo = (TextView) view.findViewById(R.id.Logo);
@@ -239,8 +244,6 @@ public class fragment_hizliyazi extends Fragment {
 
     }
 
-
-
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -258,9 +261,6 @@ public class fragment_hizliyazi extends Fragment {
             }
         }
     }
-
-
-
 
     private String PlakaIDSorgula(String plaka) {
         try {

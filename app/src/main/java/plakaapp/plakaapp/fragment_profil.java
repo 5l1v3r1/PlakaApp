@@ -1,7 +1,9 @@
 package plakaapp.plakaapp;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
@@ -37,6 +39,7 @@ public class fragment_profil extends Fragment {
     String K_ID, K_Ad;
     public Boolean e1, e2 , e3 , e4 , e5;
     public JSONArray uyeler, sorular;
+    private Session session;
 
     public fragment_profil() {
 
@@ -63,6 +66,39 @@ public class fragment_profil extends Fragment {
         CreateButtonListener(view);
         //tüm verilere hiç dokunulmadı verisi giriliyor
         e1 = e2 = e3 = e4 = e5 = false;
+
+        session = new Session(getActivity());
+
+        //Çıkış yap Butonu tanımlanıyor
+        final Button cikisyap = (Button) view.findViewById(R.id.et_cikisyap);
+
+        //Çıkış yap click uygulanıyor
+        cikisyap.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v) {
+
+
+                DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        switch (which){
+                            case DialogInterface.BUTTON_POSITIVE:
+                                session.setLoggedin(false, "bos", "bos");
+                                Intent intent = new Intent(getActivity().getApplicationContext(), MainActivity.class);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                startActivity(intent);
+                                break;
+
+                            case DialogInterface.BUTTON_NEGATIVE:
+                                break;
+                        }
+                    }
+                };
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                builder.setMessage("Emin misiniz?").setPositiveButton("Evet", dialogClickListener)
+                        .setNegativeButton("Hayır", dialogClickListener).show();
+            }
+        });
 
         return view;
     }

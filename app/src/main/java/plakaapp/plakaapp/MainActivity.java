@@ -25,11 +25,16 @@ import java.util.regex.Matcher;
 
 public class MainActivity extends AppCompatActivity {
 
+    private Session session;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_screen_activity);
+
+        //----
+        session = new Session(this);
+        //----
 
         if(!internetErisimi()){//internet erisimi yoksa yapılacak işlemler
             AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this).create();
@@ -80,6 +85,11 @@ public class MainActivity extends AppCompatActivity {
                 });
                 //debug mod admin ve kullanıcı girişi
 
+            if(session.loggedin()){
+                startActivity(new Intent(MainActivity.this, HomeScreen.class));
+                finish();
+            }
+
                 bLogin.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -108,6 +118,11 @@ public class MainActivity extends AppCompatActivity {
                                         if (admin.equals(String.valueOf("0"))) {//Kullanıcı ise (admin değilse)
                                             String KulAdi = jsonResponseMessage.getString("adi"); //Kullanıcı adını aldık
                                             String id = jsonResponseMessage.getString("id"); //id sini aldık
+
+                                            //Session işlemi
+                                                session.setLoggedin(true,KulAdi,id);
+                                            //Session işlemi
+
                                             Intent intent = new Intent(MainActivity.this, HomeScreen.class);
                                             intent.putExtra("K_Adi", KulAdi);
                                             intent.putExtra("ID", id);

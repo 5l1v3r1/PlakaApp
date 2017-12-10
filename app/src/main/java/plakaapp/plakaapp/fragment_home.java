@@ -173,11 +173,14 @@ public class fragment_home extends Fragment {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Log.d("dd","sss");
         super.onActivityResult(requestCode, resultCode, data);
         //geri dönüşte sayfa yenileme
-        //ListeDoldur(_view);
-        getActivity().finish();
-        startActivity(getActivity().getIntent());
+        if (requestCode == 1) {
+            //getActivity().finish();
+            //startActivity(getActivity().getIntent());
+            ListeDoldur(_view);
+        }
     }
 
     private boolean JsonErrorCheck(JSONObject temp) {

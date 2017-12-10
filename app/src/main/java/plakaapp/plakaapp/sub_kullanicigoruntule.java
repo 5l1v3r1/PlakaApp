@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.PopupMenu;
 import android.widget.TextView;
@@ -39,7 +41,12 @@ public class sub_kullanicigoruntule extends Activity {
     }
 
     private void GeriTusuListener() {
-        finish();
+        Button btn = (Button) findViewById(R.id.et_geri);
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }});
     }
 
     private void KullaniciBilgiCek() {

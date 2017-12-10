@@ -62,6 +62,7 @@ public class sub_yazilistele  extends Activity {
         ListeDoldur();
         //takip ediyor ise popup'ta checked edilsin
         TakipKontrol();
+        setResult(Activity.RESULT_OK,new Intent());
     }
 
     private void TakipKontrol() {
@@ -89,12 +90,14 @@ public class sub_yazilistele  extends Activity {
             try {
                 Log.d("TaEkle", new JSONtask().execute(Config.Taekle_URL(K_ID, P_ID)).get());
                 //((CheckBox) findViewById(R.id.checkBox)).setChecked(false);
+                setResult(Activity.RESULT_OK,new Intent());
             } catch (Exception e) {
             }
         } else {
             try {
                 Log.d("TaSil",new JSONtask().execute(Config.Tasil_URL(K_ID, P_ID)).get());
                 //((CheckBox) findViewById(R.id.checkBox)).setChecked(true);
+                setResult(Activity.RESULT_OK,new Intent());
             } catch (Exception e) {
             }
         }
@@ -198,10 +201,25 @@ public class sub_yazilistele  extends Activity {
                             //...alttaki işlemlere gitmesini engelleyen ve işlemler yapan kod öbeği
                             if(item.getItemId() == R.id.kullaniciGoruntule)
                             {
-                                Log.d("Girdi","truu");
+                                //yazının üzerindeki ID hesaplanıyor
+                                String Y_ID="0";
+                                int index=0;
+                                try {
+                                    String yaziID=String.valueOf(gozuken.get(position));
+                                    for (int i = 0; i < yazilar.length(); i++) {
+                                        if (yazilar.getJSONObject(i).getJSONObject("message").getString("ID").equals(yaziID)) {
+                                            index = i;
+                                            break;
+                                        }
+                                    }
+
+                                    JSONObject jsTemp = yazilar.getJSONObject(index).getJSONObject("message");
+                                    Y_ID = jsTemp.getString("YazarID");
+                                }catch (Exception e){}
+
                                 //kullanıcı görüntüleme penceresine yönlendirmek
                                 Intent intent = new Intent(sub_yazilistele.this, sub_kullanicigoruntule.class);
-                                intent.putExtra("KisiID",K_ID);
+                                intent.putExtra("KisiID",Y_ID);
                                 startActivity(intent);
                                 //alttaki kod öbeklerine gitmesini engellemek
                                 return true;

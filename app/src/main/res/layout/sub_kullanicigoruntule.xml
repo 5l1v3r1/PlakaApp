@@ -99,7 +99,6 @@
             android:drawablePadding="10dp"
             android:ems="10"
             android:hint="Rep"
-            android:inputType="textPassword"
             android:paddingLeft="20dp"
             tools:ignore="RtlHardcoded,RtlSymmetry,TextFields" />
 
@@ -109,7 +108,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/btn_rounded_corner"
-            android:onClick="checkLogin"
             android:text="Geri"
             android:textColor="#ffffff" />
 

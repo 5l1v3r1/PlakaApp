@@ -16,4 +16,8 @@
         android:id="@+id/yazisil"
         android:title="Yazımı Sil"/>
 
+    <item
+        android:id="@+id/sikayet"
+        android:title="Şikayet Et"/>
+
 </menu>

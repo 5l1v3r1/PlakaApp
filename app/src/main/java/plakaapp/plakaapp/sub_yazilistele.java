@@ -1,6 +1,7 @@
 package plakaapp.plakaapp;
 
 import android.app.Activity;
+import android.app.FragmentManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -109,7 +110,8 @@ public class sub_yazilistele  extends Activity {
         takipPopup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
             public boolean onMenuItemClick(MenuItem item) {
                 if (item.getItemId()==R.id.yaziyaz) {
-                    //TODO Yazı yazma penceresine yönlendirme
+                    //todo hızlı yazı yazma penceresine gönderme
+                    finish();
                 }
                 return true;
             }
@@ -209,6 +211,8 @@ public class sub_yazilistele  extends Activity {
                         popup.getMenu().findItem(R.id.eksirep).setVisible(false);
                         //ve kendisini görüntüleyememesi
                         popup.getMenu().findItem(R.id.kullaniciGoruntule).setVisible(false);
+                        //ve kendi yazısını şikayet edememesi
+                        popup.getMenu().findItem(R.id.sikayet).setVisible(false);
                     }
 
                     //item click eventi için listener oluşturuluyor
@@ -218,10 +222,23 @@ public class sub_yazilistele  extends Activity {
                             //...alttaki işlemlere gitmesini engelleyen ve işlemler yapan kod öbeği
                             if(item.getItemId() == R.id.kullaniciGoruntule)
                             {
-                                //kullanıcı görüntüleme penceresine yönlendirmek
+                                //şikayet etme penceresine yönlendirmek
                                 Intent intent = new Intent(sub_yazilistele.this, sub_kullanicigoruntule.class);
                                 intent.putExtra("KisiID",YaziIDDondur(position));
                                 startActivity(intent);
+                                //alttaki kod öbeklerine gitmesini engellemek
+                                return true;
+                            }
+
+                            if(item.getItemId() == R.id.sikayet) {
+                                try {
+                                    //kullanıcı görüntüleme penceresine yönlendirmek
+                                    Intent intent = new Intent(sub_yazilistele.this, sub_yaziSikayet.class);
+                                    intent.putExtra("YaziID", String.valueOf(gozuken.get(position)));
+                                    startActivity(intent);
+                                } catch (Exception e) {
+                                }
+
                                 //alttaki kod öbeklerine gitmesini engellemek
                                 return true;
                             }

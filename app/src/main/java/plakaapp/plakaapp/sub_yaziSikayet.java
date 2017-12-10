@@ -43,7 +43,8 @@ public class sub_yaziSikayet extends Activity {
         Logo.setTypeface(typeface);
         //Logoya yazı fontu eklendi
 
-        yaziID = "6"; //Todo: buraya 7 yerine activityden gelen yaziid olacak
+        Intent intent = sub_yaziSikayet.this.getIntent();
+        yaziID = intent.getStringExtra("YaziID");
         yaziDoldur(yaziID);
 
         //Buton tanımlanıyor

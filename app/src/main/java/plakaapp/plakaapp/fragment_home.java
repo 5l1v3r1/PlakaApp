@@ -41,6 +41,7 @@ import static android.app.Activity.RESULT_OK;
 public class fragment_home extends Fragment {
 
     String K_ID = "bos geldi";
+    String kuladi = "bos geldi";
     public JSONArray takipler,plakalar,yazilar,gozuken;
     View _view;
     public fragment_home() {
@@ -51,9 +52,18 @@ public class fragment_home extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view =  inflater.inflate(R.layout.fragment_home, container, false);
 
-        Intent intent = getActivity().getIntent();
-        String kuladi = intent.getStringExtra("K_Adi");//kullanıcı adı
-        K_ID = intent.getStringExtra("ID"); //kullanıcı idsi
+        Session session = new Session(getActivity());
+
+        if(session.loggedin()){ //Uygulama cihazda açıksa
+            K_ID = session.Sid();
+            kuladi = session.SKadi();
+        }else{ // uygulama cihazda ilk defa açılıyorsa
+            Intent intent = getActivity().getIntent();
+            kuladi = intent.getStringExtra("K_Adi");//kullanıcı adı
+            K_ID = intent.getStringExtra("ID"); //kullanıcı idsi
+        }
+
+
         final TextView hosgeldiniz = (TextView) view.findViewById(R.id.tv_hosgeldiniz);
         hosgeldiniz.setText("Hoşgeldiniz \"" + kuladi+"\"");
 

@@ -45,9 +45,20 @@ public class fragment_bildirim extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view =  inflater.inflate(R.layout.fragment_bildirim, container, false);
 
-        Intent intent = getActivity().getIntent();
-        K_Ad = intent.getStringExtra("K_Adi");//kullanıcı adı
-        K_ID = intent.getStringExtra("ID"); //kullanıcı idsi
+
+
+
+        Session session = new Session(getActivity());
+
+        if(session.loggedin()){ //Uygulama cihazda açıksa
+            K_ID = session.Sid();
+            K_Ad = session.SKadi();
+        }else{ // uygulama cihazda ilk defa açılıyorsa
+            Intent intent = getActivity().getIntent();
+            K_Ad = intent.getStringExtra("K_Adi");//kullanıcı adı
+            K_ID = intent.getStringExtra("ID"); //kullanıcı idsi
+        }
+
 
         //Logoya yazı fontu eklendi
         TextView Logo = (TextView) view.findViewById(R.id.Logo);

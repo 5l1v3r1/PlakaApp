@@ -202,6 +202,11 @@ public class sub_yazilistele  extends Activity {
                     {
                         popup.getMenu().findItem(R.id.yazisil).setVisible(false);
                     }
+                    else
+                    {//yazının sahibi ise rep verememesi
+                        popup.getMenu().findItem(R.id.artirep).setVisible(false);
+                        popup.getMenu().findItem(R.id.eksirep).setVisible(false);
+                    }
 
                     //item click eventi için listener oluşturuluyor
                     popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {

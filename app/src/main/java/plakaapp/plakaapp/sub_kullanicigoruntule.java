@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 /**
  * Created by Simulakra on 09.12.2017.
@@ -57,9 +58,9 @@ public class sub_kullanicigoruntule extends Activity {
                 //döngüdeki kişi bizim istediğimiz kişi ise bilgileri çekiyor
                 if(jsTemp.getString("ID").equals(K_ID))
                 {
-                    ((EditText) findViewById(R.id.et_profil_kuladi)).setText(jsTemp.getString("K_Adi"));
-                    ((EditText) findViewById(R.id.et_profil_email)).setText(jsTemp.getString("K_Mail"));
-                    ((EditText) findViewById(R.id.et_profil_parola)).setText(jsTemp.getString("K_Rep"));
+                    ((TextView) findViewById(R.id.et_profil_kuladi)).setText(jsTemp.getString("K_Adi"));
+                    ((TextView) findViewById(R.id.et_profil_email)).setText(jsTemp.getString("K_Mail"));
+                    ((TextView) findViewById(R.id.et_profil_parola)).setText(jsTemp.getString("K_Rep"));
                     return;
                 }
             }

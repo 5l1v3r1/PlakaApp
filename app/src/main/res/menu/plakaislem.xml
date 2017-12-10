@@ -3,6 +3,5 @@
 
     <item
         android:id="@+id/yaziyaz"
-        android:title="Yazı Yaz"
-        android:checkable="true"/>
+        android:title="Yazı Yaz"/>
 </menu>

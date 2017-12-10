@@ -2,6 +2,7 @@ package plakaapp.plakaapp;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
@@ -191,8 +192,16 @@ public class sub_yazilistele  extends Activity {
             public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
                 try {
                     //yazi işlem menüsü tiklanilan itemin altinda tanımlaniyor
-                    PopupMenu popup = new PopupMenu(sub_yazilistele.this, listemiz.getChildAt(position));
+                    PopupMenu popup = new PopupMenu(sub_yazilistele.this , listemiz);
                     popup.getMenuInflater().inflate(R.menu.yaziislem, popup.getMenu());
+
+                    //yazının sahibi giriş yapan kişi olmayanlar için
+                    //"yazımı sil" seçeneğinin gözükmemesi
+                    String YaziID=YaziIDDondur(position);
+                    if(!K_ID.equals(YaziID))
+                    {
+                        popup.getMenu().findItem(R.id.yazisil).setVisible(false);
+                    }
 
                     //item click eventi için listener oluşturuluyor
                     popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
@@ -201,26 +210,55 @@ public class sub_yazilistele  extends Activity {
                             //...alttaki işlemlere gitmesini engelleyen ve işlemler yapan kod öbeği
                             if(item.getItemId() == R.id.kullaniciGoruntule)
                             {
-                                //yazının üzerindeki ID hesaplanıyor
-                                String Y_ID="0";
-                                int index=0;
-                                try {
-                                    String yaziID=String.valueOf(gozuken.get(position));
-                                    for (int i = 0; i < yazilar.length(); i++) {
-                                        if (yazilar.getJSONObject(i).getJSONObject("message").getString("ID").equals(yaziID)) {
-                                            index = i;
-                                            break;
-                                        }
-                                    }
-
-                                    JSONObject jsTemp = yazilar.getJSONObject(index).getJSONObject("message");
-                                    Y_ID = jsTemp.getString("YazarID");
-                                }catch (Exception e){}
-
                                 //kullanıcı görüntüleme penceresine yönlendirmek
                                 Intent intent = new Intent(sub_yazilistele.this, sub_kullanicigoruntule.class);
-                                intent.putExtra("KisiID",Y_ID);
+                                intent.putExtra("KisiID",YaziIDDondur(position));
                                 startActivity(intent);
+                                //alttaki kod öbeklerine gitmesini engellemek
+                                return true;
+                            }
+
+                            if(item.getItemId() == R.id.yazisil)
+                            {
+                                DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        switch (which){
+                                            case DialogInterface.BUTTON_POSITIVE:
+                                                //Yes button clicked
+                                                try {
+                                                    //yazının dizi üzerindeki index'i hesaplanıyor
+                                                    int index = 0;
+                                                    for (int i = 0; i < yazilar.length(); i++) {
+                                                        if (yazilar.getJSONObject(i).getJSONObject("message").getString("ID").equals(String.valueOf(gozuken.get(position)))) {
+                                                            index = i;
+                                                            break;
+                                                        }
+                                                    }
+
+                                                    //yazılar dizisinden tüm bilgiler çekiliyor
+                                                    //update api'si tüm bilgileri istediği için hepsi yollanıyor
+                                                    //rep değeri switch koşullandırması ile 1 artıyor veya eksiliyor
+                                                    JSONObject jsTemp = yazilar.getJSONObject(index).getJSONObject("message");
+                                                    new JSONtask().execute(Config.Ysil_URL(jsTemp.getString("ID"))).get();
+                                                    Toast.makeText(sub_yazilistele.this, "Yazınız Silindi", Toast.LENGTH_LONG).show();
+
+                                                    ListeDoldur();
+                                                }catch (Exception e){}
+
+                                                break;
+
+                                            case DialogInterface.BUTTON_NEGATIVE:
+                                                //No button clicked
+                                                break;
+                                        }
+                                    }
+                                };
+
+                                AlertDialog.Builder builder = new AlertDialog.Builder(sub_yazilistele.this);
+                                builder.setMessage("Yazınızı silmek istediğinize emin misiniz?")
+                                        .setPositiveButton("Evet", dialogClickListener)
+                                        .setNegativeButton("Hayır", dialogClickListener).show();
                                 //alttaki kod öbeklerine gitmesini engellemek
                                 return true;
                             }
@@ -324,6 +362,25 @@ public class sub_yazilistele  extends Activity {
                 }
             }
         });
+    }
+
+    private String YaziIDDondur(int position) {
+        //Yazı üzerindeki yazar ID'sini döndürüyor
+        String Y_ID="0";
+        int index=0;
+        try {
+            String yaziID=String.valueOf(gozuken.get(position));
+            for (int i = 0; i < yazilar.length(); i++) {
+                if (yazilar.getJSONObject(i).getJSONObject("message").getString("ID").equals(yaziID)) {
+                    index = i;
+                    break;
+                }
+            }
+
+            JSONObject jsTemp = yazilar.getJSONObject(index).getJSONObject("message");
+            Y_ID = jsTemp.getString("YazarID");
+        }catch (Exception e){}
+        return Y_ID;
     }
 
     private void YazarRepDegistir(String YazarID, boolean artis)

@@ -203,9 +203,12 @@ public class sub_yazilistele  extends Activity {
                         popup.getMenu().findItem(R.id.yazisil).setVisible(false);
                     }
                     else
-                    {//yazının sahibi ise rep verememesi
+                    {
+                        //yazının sahibi ise rep verememesi
                         popup.getMenu().findItem(R.id.artirep).setVisible(false);
                         popup.getMenu().findItem(R.id.eksirep).setVisible(false);
+                        //ve kendisini görüntüleyememesi
+                        popup.getMenu().findItem(R.id.kullaniciGoruntule).setVisible(false);
                     }
 
                     //item click eventi için listener oluşturuluyor
@@ -404,11 +407,18 @@ public class sub_yazilistele  extends Activity {
 
         //üyenin rep değerini gelen değere göre arttırmak veya azaltmak
         JSONObject jsTemp=uyeler.getJSONObject(index).getJSONObject("message");
+
+        int repdeger=Integer.parseInt(jsTemp.getString("K_Rep"))+(artis?1:-1);
+
+        //üye bonus rep değerine sahip ise
+            if(Validation.userBonus(YazarID))
+                repdeger*=2;
+
         new JSONtask().execute(Config.Kguncelle_URL(jsTemp.getString("ID"),
                 jsTemp.getString("Admin"),
                 jsTemp.getString("K_Adi"),
                 "~~",
-                String.valueOf(Integer.parseInt(jsTemp.getString("K_Rep"))+(artis?1:-1)),
+                String.valueOf(repdeger),
                 jsTemp.getString("K_Mail"),
                 jsTemp.getString("K_Soru"),
                 jsTemp.getString("K_Cevap"))).get();

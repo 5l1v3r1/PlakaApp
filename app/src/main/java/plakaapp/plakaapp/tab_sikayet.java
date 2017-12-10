@@ -162,10 +162,11 @@ public class tab_sikayet extends Activity {
 
     private void SikayetDoldur() {
         final ListView listemiz = (ListView) findViewById(R.id.s_listview);
+        List<Map<String, String>> itemList = new ArrayList<Map<String, String>>();
         try{
             sikayetler=new JSONArray(new JSONtask().execute(Config.SiLISTELE_URL).get());
 
-            List<Map<String, String>> itemList = new ArrayList<Map<String, String>>();
+
             for (int i = 0; i < sikayetler.length(); i++) {
                 JSONObject jsTemp = sikayetler.getJSONObject(i).getJSONObject("message");
 
@@ -180,11 +181,8 @@ public class tab_sikayet extends Activity {
             listemiz.setAdapter(simpleAdapter);
 
         }catch (Exception e){
-            AlertDialog.Builder builder = new AlertDialog.Builder(tab_sikayet.this);
-            builder.setMessage(e.getMessage())
-                    .setNegativeButton("Tamam", null)
-                    .create()
-                    .show();
+            SimpleAdapter simpleAdapter = new SimpleAdapter(tab_sikayet.this, itemList, android.R.layout.simple_list_item_1, new String[]{"Üyeler"}, new int[]{android.R.id.text1});
+            listemiz.setAdapter(simpleAdapter);
         }
         ((TextView)findViewById(R.id.s_yazi)).setText("");
         sPulled=false;

@@ -127,7 +127,7 @@ public class tab_turler extends Activity {
                 String name = jsonChildNode.getJSONObject("message").getString("ID");
                 String number = jsonChildNode.getJSONObject("message").getString("CinsID");
                 String number2 = jsonChildNode.getJSONObject("message").getString("TurAdi");
-                String outPut = name + "-" + number2;
+                String outPut =  number2;
                 if(cinsID == number)
                 {
                     itemList.add(createListItem("Üyeler", outPut));
@@ -153,7 +153,7 @@ public class tab_turler extends Activity {
                 selectedIndex=position;
                 try {
                     EditText turAdi = (EditText) findViewById(R.id.turText);
-                    turAdi.setText(String.valueOf(listemiz.getItemAtPosition(position)));
+                    turAdi.setText(listemiz.getItemAtPosition(position).toString().substring(8,listemiz.getItemAtPosition(position).toString().length()-1));
 
                     valueChanged=false;
 

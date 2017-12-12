@@ -150,6 +150,7 @@ public class fragment_bildirim extends Fragment {
             takipler = new JSONArray(new JSONtask().execute(Config.TaLISTELE_URL).get());
             plakalar = new JSONArray(new JSONtask().execute(Config.PLISTELE_URL).get());
             yazilar = new JSONArray(new JSONtask().execute(Config.YLISTELE_URL).get());
+            gozuken=new JSONArray();
 
             //listenin içeriği olacak map haritası oluşturuluyor
             List<Map<String, String>> itemList = new ArrayList<Map<String, String>>();
@@ -183,19 +184,21 @@ public class fragment_bildirim extends Fragment {
 
                 //eğer kullanıcı ID'si giriş yapan kullanıcı ise listeleniyor
                 if(K_ID.equals(number)) {
-                    JSONObject temp=new JSONObject();
+                    JSONObject temp = new JSONObject();
                     for (int j = 0; j < plakalar.length(); j++) {
                         if (plakalar.getJSONObject(j).getJSONObject("message").getString("ID") == name) {
-                            String a="{\"ID\":\""+name+"\",";
+                            String a = "{\"ID\":\"" + name + "\",";
                             name = plakalar.getJSONObject(j).getJSONObject("message").getString("Plaka");
-                            a+="\"Plaka\":\""+name+"\"}";
-                            temp=new JSONObject(a);
+                            a += "\"Plaka\":\"" + name + "\"}";
+                            temp = new JSONObject(a);
                         }
                     }
-                    gozuken.put(temp);
-                    String outPut = name+" plakasına yeni yazı eklendi.";
-                    itemList.add(createListItem("Üyeler", outPut));
-            }
+                    if (temp != null) {
+                        gozuken.put(temp);
+                        String outPut = name + " plakasına yeni yazı eklendi.";
+                        itemList.add(createListItem("Üyeler", outPut));
+                    }
+                }
             }
             SimpleAdapter simpleAdapter = new SimpleAdapter(getActivity(), itemList, android.R.layout.simple_list_item_1, new String[]{"Üyeler"}, new int[]{android.R.id.text1});
             listemiz.setAdapter(simpleAdapter);
@@ -203,7 +206,7 @@ public class fragment_bildirim extends Fragment {
         } catch (Exception e) {
             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
             builder.setMessage(e.getMessage())
-                    .setNegativeButton("Tamam", null)
+                    .setNegativeButton("Tamam1", null)
                     .create()
                     .show();
         }

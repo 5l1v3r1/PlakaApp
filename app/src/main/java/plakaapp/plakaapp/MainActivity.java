@@ -86,7 +86,10 @@ public class MainActivity extends AppCompatActivity {
                 //debug mod admin ve kullanıcı girişi
 
             if(session.loggedin()){
-                startActivity(new Intent(MainActivity.this, HomeScreen.class));
+                Intent baslat=new Intent(MainActivity.this, HomeScreen.class);
+                baslat.putExtra("ID", session.Sid());
+                baslat.putExtra("K_Adi", session.SKadi());
+                startActivity(baslat);
                 finish();
             }
 

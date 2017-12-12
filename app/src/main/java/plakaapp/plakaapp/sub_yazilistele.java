@@ -1,7 +1,9 @@
 package plakaapp.plakaapp;
 
 import android.app.Activity;
+import android.app.Fragment;
 import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -35,7 +37,7 @@ import java.util.concurrent.ExecutionException;
  */
 
 public class sub_yazilistele  extends Activity {
-    String P_ID,K_ID;
+    String P_ID,K_ID,plaka;
     JSONArray yazilar,uyeler,iller,gozuken;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +46,7 @@ public class sub_yazilistele  extends Activity {
 
         //intent'ten plaka ve plakanın ID'si çekiliyor
         Intent intent = sub_yazilistele.this.getIntent();
-        String plaka = intent.getStringExtra("Plaka");
+        plaka = intent.getStringExtra("Plaka");
         P_ID=intent.getStringExtra("PlakaID");
         K_ID=intent.getStringExtra("KisiID");
         //plaka en başta yazdırılıyor
@@ -103,22 +105,6 @@ public class sub_yazilistele  extends Activity {
             } catch (Exception e) {
             }
         }
-    }
-
-    public void PlakaClick(View v) {
-        //item click eventi için listener oluşturuluyor
-        takipPopup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-            public boolean onMenuItemClick(MenuItem item) {
-                if (item.getItemId()==R.id.yaziyaz) {
-                    //todo hızlı yazı yazma penceresine gönderme
-                    finish();
-                }
-                return true;
-            }
-        });
-
-        takipPopup.show();//tıklanınca takip menüsü çıkıyor
-
     }
 
     private void ListeDoldur() {

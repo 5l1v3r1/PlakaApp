@@ -43,7 +43,7 @@
             android:textSize="20sp"
             android:textStyle="bold" />
 
-        <EditText
+        <TextView
             android:id="@+id/et_profil_kuladi"
             android:layout_width="match_parent"
             android:layout_height="50dp"
@@ -52,24 +52,26 @@
             android:drawableLeft="@drawable/ic_person_outline_black_24dp"
             android:background="@drawable/et_rounded_corner"
             android:inputType="textPersonName"
+            android:gravity="center_vertical"
             android:paddingLeft="20dp"
             android:layout_marginBottom="5dp"
             android:hint="@string/user_name"
-            tools:ignore="RtlHardcoded,RtlSymmetry,TextFields" />
+            tools:ignore="RtlHardcoded,RtlSymmetry,TextFields,TextViewEdits" />
 
-        <EditText
+        <TextView
             android:id="@+id/et_profil_email"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:ems="10"
             android:drawablePadding="10dp"
+            android:gravity="center_vertical"
             android:drawableLeft="@drawable/ic_mail_outline_black_24dp"
             android:background="@drawable/et_rounded_corner"
             android:inputType="textEmailAddress"
             android:paddingLeft="20dp"
             android:layout_marginBottom="5dp"
             android:hint="@string/e_mail"
-            tools:ignore="RtlHardcoded,RtlSymmetry,TextFields" />
+            tools:ignore="RtlHardcoded,RtlSymmetry,TextFields,TextViewEdits" />
 
         <EditText
             android:id="@+id/et_profil_parola"

@@ -18,6 +18,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONArray;
@@ -134,8 +135,8 @@ public class fragment_profil extends Fragment {
                                     }
                                     //değişken alınan kontroller tanımlanıyor
                                     JSONObject jsonChildNode = uyeler.getJSONObject(index).getJSONObject("message");
-                                    EditText k_adi = (EditText) vvv.findViewById(R.id.et_profil_kuladi);
-                                    EditText sifre = (EditText) vvv.findViewById(R.id.et_profil_email);
+                                    TextView k_adi = (TextView) vvv.findViewById(R.id.et_profil_kuladi);
+                                    TextView sifre = (TextView) vvv.findViewById(R.id.et_profil_email);
                                     EditText eposta = (EditText) vvv.findViewById(R.id.et_profil_parola);
                                     EditText rep = (EditText) vvv.findViewById(R.id.et_profil_gcevap);
 
@@ -239,7 +240,7 @@ public class fragment_profil extends Fragment {
 
     private void CreateControlListener(View view) {
         //değişen her bir veri için ayrı bir boolean değeri true oluyor
-        ((EditText) view.findViewById(R.id.et_profil_kuladi)).addTextChangedListener(new TextWatcher() {
+        ((TextView) view.findViewById(R.id.et_profil_kuladi)).addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -255,7 +256,7 @@ public class fragment_profil extends Fragment {
                 e1 = true;
             }
         });
-        ((EditText) view.findViewById(R.id.et_profil_email)).addTextChangedListener(new TextWatcher() {
+        ((TextView) view.findViewById(R.id.et_profil_email)).addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -326,8 +327,8 @@ public class fragment_profil extends Fragment {
 
                 //üyelerin bilgilerini uygun alanlara gir
                 if(jsonSoru.getString("ID").equals(K_ID)) {
-                    ((EditText) view.findViewById(R.id.et_profil_kuladi)).setText(jsonSoru.getString("K_Adi"));
-                    ((EditText) view.findViewById(R.id.et_profil_email)).setText(jsonSoru.getString("K_Mail"));
+                    ((TextView) view.findViewById(R.id.et_profil_kuladi)).setText(jsonSoru.getString("K_Adi"));
+                    ((TextView) view.findViewById(R.id.et_profil_email)).setText(jsonSoru.getString("K_Mail"));
                     ((EditText) view.findViewById(R.id.et_profil_parola)).setText("");
                     ((EditText) view.findViewById(R.id.et_profil_gcevap)).setText(jsonSoru.getString("K_Cevap"));
                     SpinnerPush(jsonSoru.getString("K_Soru"), view);
